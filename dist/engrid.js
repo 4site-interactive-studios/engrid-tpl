@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Thursday, March 19, 2026 @ 13:48:31 ET
+ *  Date: Tuesday, March 24, 2026 @ 16:44:12 ET
  *  By: nick
  *  ENGrid styles: v0.24.0
  *  ENGrid scripts: v0.24.4
@@ -23651,6 +23651,20 @@ const options = {
   SkipToMainContentLink: true,
   SrcDefer: true,
   ProgressBar: true,
+  TidyContact: {
+    cid: '00000000-0000-0000-0000-000000000000',
+    record_field: 'supporter.NOT_TAGGED_9',
+    date_field: 'supporter.NOT_TAGGED_10',
+    status_field: 'supporter.NOT_TAGGED_11',
+    address_enable: true,
+    phone_enable: true,
+    phone_flags: true,
+    phone_country_from_ip: true,
+    phone_preferred_countries: ['US', 'CA'],
+    phone_record_field: 'supporter.NOT_TAGGED_12',
+    phone_date_field: 'supporter.NOT_TAGGED_13',
+    phone_status_field: 'supporter.NOT_TAGGED_14'
+  },
   Debug: App.getUrlParameter("debug") == "true" ? true : false,
   onLoad: () => customScript(App),
   onResize: () => console.log("Starter Theme Window Resized")
