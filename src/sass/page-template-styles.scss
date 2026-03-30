@@ -1,9 +1,9 @@
 // The most broadly used CSS Custom Properties for quick theming.
 // Uncomment to use and reference engrid-scrips SASS files for more CSS Custom Properties.
 // All CSS Custom Properties should be scoped to the theme using CSS Data Attributes.
-[data-engrid-theme="tpl"] {
+[data-engrid-theme="engrid-tpl"] {
   // TYPOGRAPHY DEFAULT
-  // --default_font-family: var(--native-fonts__sans-serif);
+  --default_font-family: "PT Sans", var(--native-fonts__sans-serif);
   // --default_color: initial;
   // --default_font-size: var(--root_font-size);
   // --default_font-weight: initial;
@@ -60,14 +60,14 @@
   // --button_font-size: var(--root_font-size);
   // --button_font-weight: initial;
   // --button_line-height: initial;
-  // --button_background-color: #535b61;
+  --button_background-color: #006837;
   // --button_border-width: 1px;
   // --button_border-color: var(--color_black);
   // --button_border-radius: 6px;
 
   // TYPOGRAPHY BUTTON:HOVER
   // --button_color_hover: var(--button_color);
-  // --button_background-color_hover: var(--color_black);
+  --button_background-color_hover: #f7931e;
   // --button_border-color_hover: var(--button_background-color_hover);
 
   // TYPOGRAPHY BUTTON:SELECTED
@@ -84,7 +84,7 @@
 }
 
 /* Add your custom theme styles here */
-[data-engrid-theme="tpl"] {
+[data-engrid-theme="engrid-tpl"] {
   @mixin until-mobile-l {
     // STYLES
   }

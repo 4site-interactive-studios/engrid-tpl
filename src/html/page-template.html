@@ -1,138 +1,183 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-	<meta content="width=device-width, initial-scale=1" name="viewport">
-	<link href="https://bd6ca9cefa6fb6e0adf1-c2f9aa1adb9f60a775f60074e4c86031.ssl.cf5.rackcdn.com/20002/TPLfavicon.ico?v=1773942184000" rel="shortcut icon">
+    <!-- Start Google Tag Manager Data Layer Initialization Script -->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+    </script>
+    <!-- End Google Tag Manager Data Layer Initialization Script -->
+
+    <!-- Start Google Optimize Script (With anti-flicker snippet) -->
+    <!-- IMPORTANT: You must initialize the dataLayer above the anti-flicker snippet or the performance of your site will be negatively impacted. Don't override the data layer later in the page. -->
+    <style>.async-hide { opacity: 0 !important} </style>
+    <script>(function(a,s,y,n,c,h,i,d,e){s.className+=' '+y;h.start=1*new Date;
+    h.end=i=function(){s.className=s.className.replace(RegExp(' ?'+y),'')};
+    (a[n]=a[n]||[]).hide=h;setTimeout(function(){i();h.end=null},c);h.timeout=c;
+    })(window,document.documentElement,'async-hide','dataLayer',4000,
+    {'GTM-T5THRD':true});</script>
+    <script src="https://www.googleoptimize.com/optimize.js?id=GTM-T5THRD"></script>
+    <!-- End Google Optimize Script (With anti-flicker snippet) -->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="apple-touch-icon" sizes="180x180" href="https://www.website.org/apple-touch-icon.png"> -->
+    <!-- <link rel="icon" type="image/png" href="https://www.website.org/favicon-32x32.png" sizes="32x32"> -->
+    <!-- <link rel="icon" type="image/png" href="https://www.website.org/favicon-16x16.png" sizes="16x16"> -->
+    <!-- <link rel="mask-icon" href="https://www.website.org/safari-pinned-tab.svg" color="#000000"> -->
+	  <link href="https://bd6ca9cefa6fb6e0adf1-c2f9aa1adb9f60a775f60074e4c86031.ssl.cf5.rackcdn.com/20002/TPLfavicon.ico" rel="shortcut icon">
+    <title>${page~title} | Trust for Public Land - Connecting Everyone to the Outdoors</title>
+    <meta name="title" content="${page~title} | Trust for Public Land - Connecting Everyone to the Outdoors">
     <meta name="theme-color" content="#285b33" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
-    
-	<!-- Disable when not in use -->
-    <!-- Start Google Optimize with page hiding snippet -->
-	<!-- 
-	<style>
-	.async-hide { opacity: 0 !important} 
-	</style>
-	
-	<script>
-	   (function(a,s,y,n,c,h,i,d,e){s.className+=' '+y;
-	   h.end=i=function(){s.className=s.className.replace(RegExp(' ?'+y),'')};
-	   (a[n]=a[n]||[]).hide=h;setTimeout(function(){i();h.end=null},c);
-	   })(window,document.documentElement,'async-hide','dataLayer',4000,{'GTM-TBD':true});
-	</script>
-	-->
-    <!-- End Google Optimize with page hiding snippet -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-	<!-- Start Google Tag Manager Data Layer Initialization Script -->
-    <!--
-	<script>
-	 dataLayer = [];
-	</script>
-    -->
-	<!-- End Google Tag Manager Data Layer Initialization Script -->
-    
-    <!-- Social Sharing Meta Tags Used by Facebook-->
-    <title>${page~title} | Trust for Public Land - Connecting Everyone to the Outdoors</title>
-    <meta property="og:type" content="website">
-    <meta property="fb:app_id" content="533635700097336"><!--Optional -->
+    <!-- Social Network Account meta tags -->
+    <meta property="twitter:account_id" content="22045438">
+    <meta property="fb:app_id" content="533635700097336">
 
-    <!-- Social Sharing Meta Tags Used by Twitter-->
-    <meta property="twitter:account_id" content="22045438"><!-- Optional -->
-    <meta name="twitter:site" content="@TPL_org"><!-- @username of website -->
-    <meta name="twitter:creator" content="@TPL_org"><!-- @username of content creator -->
+    <!-- Default, Twitter Large Card, and Facebook meta tags -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content="https://bd6ca9cefa6fb6e0adf1-c2f9aa1adb9f60a775f60074e4c86031.ssl.cf5.rackcdn.com/20002/og-image.jpg?v=1773961549000">
-    <meta name="twitter:title" content="${page~title}">
-    <meta name="twitter:description" content="TPL creates parks and protects public land so that everyone will have access to the benefits and joys of the outdoors.">
+    <meta name="twitter:site" content="@TPL_org">
+    <meta name="twitter:creator" content="@TPL_org">
+    <meta name="twitter:title" content="${page~title} | Trust for Public Land - Connecting Everyone to the Outdoors">
+    <meta name="twitter:image" content="https://bd6ca9cefa6fb6e0adf1-c2f9aa1adb9f60a775f60074e4c86031.ssl.cf5.rackcdn.com/20002/og-image.jpg">
+    <meta name="twitter:description"
+        content="TPL creates parks and protects public land so that everyone will have access to the benefits and joys of the outdoors.">
+    <meta property="og:type" content="website">
 
-    <!-- Immeditately get color on the page and hide the contents until engrid.css is rendered by the browser -->
-	<style>
+    <!-- Immeditately get color on the page and hide the contents until main.css is rendered by the browser -->
+    <style>
         body {
-            background-color: #f6f8fa;
+            background-color: #BFBFBF;
             opacity: 0;
         }
 
         body[data-engrid-embedded] {
             background-color: transparent !important;
         }
+
+        .responsive-image,
+        .responsive-image img {
+            width: 100%;
+            height: auto;
+        }
     </style>
 
-    <!-- Placed here so that downloading begins before Engaging Network's CSS and JS files -->
-	<link rel="preload" href="https://bd6ca9cefa6fb6e0adf1-c2f9aa1adb9f60a775f60074e4c86031.ssl.cf5.rackcdn.com/20002/engrid.min.css" as="style">
-    <link rel="preload" href="https://bd6ca9cefa6fb6e0adf1-c2f9aa1adb9f60a775f60074e4c86031.ssl.cf5.rackcdn.com/20002/TPLlogo.png?v=1772489294000" as="image">
+    <!-- Preconnect and Preload Render Critical CSS, JS, Images, and Fonts -->
+    <link rel="preconnect" href="//bd6ca9cefa6fb6e0adf1-c2f9aa1adb9f60a775f60074e4c86031.ssl.cf5.rackcdn.com">
+    <link rel="preconnect" href="//e-activist.com">
+    <link rel="preconnect" href="//www.googletagmanager.com">
+    <link rel="preconnect" href="//www.google-analytics.com">
+    <link rel="preconnect" href="//fonts.gstatic.com">
+    <link rel="preload" href="https://bd6ca9cefa6fb6e0adf1-c2f9aa1adb9f60a775f60074e4c86031.ssl.cf5.rackcdn.com/20002/engrid.min.css"
+        as="style">
+    <link rel="preload" href="https://bd6ca9cefa6fb6e0adf1-c2f9aa1adb9f60a775f60074e4c86031.ssl.cf5.rackcdn.com/20002/engrid.min.js" as="script">
+    <link rel="preload" href="https://bd6ca9cefa6fb6e0adf1-c2f9aa1adb9f60a775f60074e4c86031.ssl.cf5.rackcdn.com/20002/TPLlogo.png" as="image">
 
 </head>
-<body data-engrid-theme="engrid-tpl" data-engrid-layout="centerleft1col" data-engrid-add-input-placeholders  data-replace-banner-with-background="if-banner-empty-or-background-video">
-	<noscript>With Javascript disabled this page may not function as expected.</noscript>
+
+<body data-engrid-layout="centerleft1col" data-engrid-theme="engrid-tpl" data-engrid-add-input-placeholders data-replace-banner-with-background="if-banner-empty-or-background-video">
+    <noscript>With Javascript disabled this page may not function as expected.</noscript>
 
     <!-- Quickly check to see if the page is in an iFrame and if so set the corresponding Custom Attribute so it can also set the background-color. Must be after <body> otherwise there will be a flash of color -->
     <script>
-    if (window.self !== window.top) {
-        document.getElementsByTagName("BODY")[0].setAttribute("data-engrid-embedded", "");
-    }
-    </script> 
+        if (window.self !== window.top) {
+            document.body.setAttribute("data-engrid-embedded", "");
+        };
+    </script>
 
-    <!-- Load ENGrid's CSS here so that it always comes after Engaging Networks CSS which gets injected into <head> -->
-    <link href="https://bd6ca9cefa6fb6e0adf1-c2f9aa1adb9f60a775f60074e4c86031.ssl.cf5.rackcdn.com/20002/engrid.min.css" rel="stylesheet" type="text/css">
-
-    <!-- Start preloading the Header Font, Body Font, and Label Fonts while the CSS files are still being downloaded -->
-    <link rel="preload" href="https://bd6ca9cefa6fb6e0adf1-c2f9aa1adb9f60a775f60074e4c86031.ssl.cf5.rackcdn.com/20002/font.woff2" as="font" type="font/woff2" crossorigin> 
-
-	<div id="engrid">
-	<!-- Start EN Page Builder -->
-
-
-
-
-
-
-
-
-
-
-    <!-- End EN Page Builder -->
-    </div>
-
-    <!-- Placed here so it does not render block the page.-->
-    <script src="https://bd6ca9cefa6fb6e0adf1-c2f9aa1adb9f60a775f60074e4c86031.ssl.cf5.rackcdn.com/20002/engrid.min.js" data-repo-owner="4site-interactive-studios" data-repo-name="engrid-tpl"></script>
-
-    <!-- Start Render Critical Javascript (comes after the DOM has finished loading) -->
     <script>
-        window.addEventListener('DOMContentLoaded', (event) => {
-            // 4Site's simplified image lazy loader
-            var srcDefer = document.querySelectorAll("img[data-src]");
-            for (var i = 0; i < srcDefer.length; i++) {
-                let dataSrc = srcDefer[i].getAttribute("data-src");
-                if (dataSrc) {
-                    srcDefer[i].setAttribute("decoding", "async"); // Gets image processing off the main working thread
-                    srcDefer[i].setAttribute("loading", "lazy"); // Lets the browser determine when the asset should be downloaded
-                    srcDefer[i].setAttribute("src", dataSrc); // Sets the src which will cause the browser to retrieve the asset
-                    srcDefer[i].setAttribute("data-engrid-data-src-processed", "true"); // Sets an attribute to mark that it has been processed by ENGrid
-                    srcDefer[i].removeAttribute("data-src"); // Removes the data-source
-                }
+        (new URLSearchParams(document.location.search)).forEach((value, key) => {
+            if (key.startsWith("data-engrid-")) {
+                document.body.setAttribute(key, value);
             }
         });
-    </script>    
-    <!-- End Render Critical Javascript (comes after the DOM has finished loading) -->	 
+    </script>
 
-    <!-- Google Tag Manager --> 
-    <!-- <script>
-    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-        })(window,document,'script','dataLayer','GTM-TBD');
-    </script> -->
-    <!-- End Google Tag Manager -->
+    <!-- Function to set ENgrid data attributes on the body if not set in URL -->
+    <script>
+        function setEnGridBodyDataAttribute(attributeName, attributeValue) {
+            const body = document.querySelector("body");
+            const urlParams = new URLSearchParams(window.location.search);
 
-    <!-- Additional Social Sharing Meta Tags Used by Facebook-->
-    <!-- EN adds these as blank tags just before <body>, so we need to redefine them here to create page template level defaults them -->
-    <link rel="image_src" href="https://bd6ca9cefa6fb6e0adf1-c2f9aa1adb9f60a775f60074e4c86031.ssl.cf5.rackcdn.com/20002/og-image.jpg?v=1773961549000"/>
-    <meta name="title" content="${page~title}">
-    <meta name="description" content="TPL creates parks and protects public land so that everyone will have access to the benefits and joys of the outdoors.">
-    
-    <!-- Start Temporary CSS -->
+            if (!urlParams.has("data-engrid-" + attributeName)) {
+                body.setAttribute("data-engrid-" + attributeName, attributeValue);
+            }
+        }
+    </script>
 
-    <!-- END Temporary CSS -->
+    <!-- Load ENgrid's CSS here so that it always comes after Engaging Networks CSS which gets injected into <head> -->
+    <link href="https://bd6ca9cefa6fb6e0adf1-c2f9aa1adb9f60a775f60074e4c86031.ssl.cf5.rackcdn.com/20002/engrid.min.css" rel="stylesheet"
+        type="text/css">
+
+    <link rel="preload" href="https://fonts.gstatic.com/s/ptsans/v18/jizaRExUiTo99u79D0KExcOPIDU.woff2" as="font"
+        type="font/woff2" crossorigin> <!-- Content Normal -->
+    <link rel="preload" href="https://fonts.gstatic.com/s/ptsans/v18/jizfRExUiTo99u79B_mh0O6tLR8a8zI.woff2" as="font"
+        type="font/woff2" crossorigin> <!-- Content Strong -->
+
+    <div id="engrid">
+        <!-- Start EN Page Builder -->
+
+
+
+
+        <!-- End EN Page Builder -->
+</div>
+
+<!-- Additional Default meta tags: Placed at the bottom so any previously defined meta tags in the page take precedence -->
+<meta property="og:title" content="${page~title} | Trust for Public Land - Connecting Everyone to the Outdoors">
+<meta property="og:site_name" content="Trust for Public Land">
+<meta property="og:description"
+    content="TPL creates parks and protects public land so that everyone will have access to the benefits and joys of the outdoors.">
+<meta property="description"
+    content="TPL creates parks and protects public land so that everyone will have access to the benefits and joys of the outdoors.">
+
+<!-- If using a two column layout without content in the body-top OR body-main section, automatically change to a one column layout -->
+<script>
+    const checkForTwoColumnLayout = document.querySelector('body[data-engrid-layout="centercenter2col"]');
+    const checkForBodyTopContent = document.querySelector('.body-top > *');
+    const checkForBodyMainContent = document.querySelector('.body-main > *');
+    if (checkForTwoColumnLayout && (!checkForBodyTopContent || !checkForBodyMainContent)) {
+        document.querySelector("body").setAttribute("data-engrid-layout", "centercenter1col");
+    }
+</script>
+
+<!-- Placed here so it does not render block the page. loader.min.js conditially loads engrid.js and if necessary replaces engrid.css-->
+<script src="https://bd6ca9cefa6fb6e0adf1-c2f9aa1adb9f60a775f60074e4c86031.ssl.cf5.rackcdn.com/20002/engrid.min.js" data-repo-name="engrid-tpl"></script>
+
+<!-- Start Render Critical Javascript -->
+<script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+        // 4Site's simplified image lazy loader
+        var srcDefer = document.querySelectorAll("img[data-src]");
+        for (var i = 0; i < srcDefer.length; i++) {
+            let dataSrc = srcDefer[i].getAttribute("data-src");
+            if (dataSrc) {
+                srcDefer[i].setAttribute("decoding", "async"); // Gets image processing off the main working thread
+                srcDefer[i].setAttribute("loading", "lazy"); // Lets the browser determine when the asset should be downloaded
+                srcDefer[i].setAttribute("src", dataSrc); // Sets the src which will cause the browser to retrieve the asset
+                srcDefer[i].setAttribute("data-engrid-data-src-processed", "true"); // Sets an attribute to mark that it has been processed by ENgrid
+                srcDefer[i].removeAttribute("data-src"); // Removes the data-source
+            }
+        }
+    });
+</script>
+<!-- End Render Critical Javascript -->
+
+<!-- Start Google Tag Manager Script -->
+<script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-T5THRD');</script>
+<!-- End Start Google Tag Manager Script -->
+
 </body>
+
 </html>
