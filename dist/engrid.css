@@ -19,7 +19,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Wednesday, April 1, 2026 @ 12:00:14 ET
+ *  Date: Wednesday, April 1, 2026 @ 12:55:09 ET
  *  By: nick
  *  ENGrid styles: v0.24.0
  *  ENGrid scripts: v0.24.5
@@ -7952,6 +7952,20 @@ body[data-engrid-debug]:before{
   --recurring-frequency__button_count:2;
   --donation-amount__button_count:2;
   --give-by-select__button_count:2;
+}
+[data-engrid-theme=engrid-tpl] .body-headerOutside{
+  padding:20px 12px;
+}
+[data-engrid-theme=engrid-tpl] .body-headerOutside .main_logo{
+  height:100px;
+}
+[data-engrid-theme=engrid-tpl] .content-footer{
+  background-color:var(--color_earth);
+  color:var(--color_white);
+  font-size:12px;
+  line-height:1.4;
+  margin-top:20px;
+  padding:20px;
 }
 [data-engrid-theme=engrid-tpl] .radio-to-buttons_donationAmt .en__field--donationAmt .en__field__item.en__field__item--other{
   position:relative;

@@ -108,6 +108,23 @@
   --donation-amount__button_count: 2;
   --give-by-select__button_count: 2;
 
+  .body-headerOutside {
+    padding: 20px 12px;
+
+    .main_logo {
+      height: 100px;
+    }
+  }
+
+  .content-footer {
+    margin-top: 20px;
+    padding: 20px;
+    color: var(--color_white);
+    background-color: var(--color_earth);
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
   .radio-to-buttons_donationAmt .en__field--donationAmt {
     .en__field__item.en__field__item--other {
       position: relative;
