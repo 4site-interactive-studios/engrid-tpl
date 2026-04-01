@@ -19,7 +19,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Monday, March 30, 2026 @ 15:46:55 ET
+ *  Date: Wednesday, April 1, 2026 @ 12:00:14 ET
  *  By: nick
  *  ENGrid styles: v0.24.0
  *  ENGrid scripts: v0.24.5
@@ -7903,9 +7903,101 @@ body[data-engrid-debug]:before{
   unicode-range:u+00??, u+0131, u+0152-0153, u+02bb-02bc, u+02c6, u+02da, u+02dc, u+0304, u+0308, u+0329, u+2000-206f, u+20ac, u+2122, u+2191, u+2193, u+2212, u+2215, u+feff, u+fffd;
 }
 [data-engrid-theme=engrid-tpl]{
+  --color_earth:#362229;
+  --color_black:#434343;
+  --color_evergreen:#006837;
+  --color_fern:#39b54a;
+  --color_grass:#8cc63f;
+  --color_moss:#cee4c5;
+  --color_sun:#f7931e;
+  --color_sky:#5dd8d8;
+  --color_snow:#f5faf1;
+  --engrid__body_background-color:var(--color_snow);
+  --engrid__body_padding:0 25px;
   --default_font-family:"PT Sans", var(--native-fonts__sans-serif);
-  --button_background-color:#006837;
-  --button_background-color_hover:#f7931e;
+  --default_color:var(--color_black);
+  --default_font-size:1.1rem;
+  --default_line-height:1.5em;
+  --h1_color:var(--color_earth);
+  --h1_letter-spacing:-0.01em;
+  --h1_font-size:32px;
+  --h1_font-weight:300;
+  --h2_color:var(--color_earth);
+  --h2_font-size:29px;
+  --h2_line-height:1.1em;
+  --p_color:var(--color_black);
+  --p_line-height:1.5em;
+  --a_color:var(--color_evergreen);
+  --label_font-size:16px;
+  --label_color:var(--color_black);
+  --input_font-size:18px;
+  --input_background-color:var(--color_white);
+  --input_border-width:1px;
+  --input_border-color:#b5b1a9;
+  --input_border-radius:3px;
+  --input_box-shadow:#00000026 0px 1px 3px 0px inset;
+  --button_color:var(--color_earth);
+  --button_font-size:25px;
+  --button_background-color:#0000;
+  --button_border-width:1px;
+  --button_border-color:var(--color_earth);
+  --button_border-radius:5px;
+  --button_background-color_hover:#5dd8d84d;
+  --button_border-color_hover:var(--button_border-color);
+  --button_background-color_checked:var(--color_sky);
+  --recurring-frequency__button_background-color_checked:var(--color_sky);
+  --donation-amount__button_background-color_checked:var(--color_sky);
+  --button_border-color_checked:var(--button_border-color);
+  --give-monthly-donation-amount-appended-label:"/month";
+  --recurring-frequency__button_count:2;
+  --donation-amount__button_count:2;
+  --give-by-select__button_count:2;
+}
+[data-engrid-theme=engrid-tpl] .radio-to-buttons_donationAmt .en__field--donationAmt .en__field__item.en__field__item--other{
+  position:relative;
+}
+[data-engrid-theme=engrid-tpl] .radio-to-buttons_donationAmt .en__field--donationAmt .en__field__item--other:before{
+  content:"$";
+  font-size:var(--donation-amount__button_font-size);
+  left:30px;
+  line-height:0;
+  position:absolute;
+  top:48%;
+  width:11px;
+}
+[data-engrid-theme=engrid-tpl] .radio-to-buttons_donationAmt .en__field--donationAmt .en__field__item--other input{
+  background-color:var(--color_snow);
+  border:var(--button_border-width) solid var(--button_border-color);
+  box-shadow:none;
+  font-size:var(--donation-amount__button_font-size);
+  padding:12px 58px 12px 39px;
+}
+[data-engrid-theme=engrid-tpl] .en__field--giveBySelect .en__field__label--item{
+  min-height:65px;
+}
+[data-engrid-theme=engrid-tpl] .en__field--giveBySelect .en__field__label--item img{
+  height:30px;
+  object-fit:contain;
+  width:100%;
+}
+[data-engrid-theme=engrid-tpl] .en__submit button{
+  background-color:var(--color_evergreen);
+  border:unset;
+  border-radius:4px;
+  color:var(--color_white);
+  font-size:28px;
+  font-weight:700;
+  line-height:auto;
+  margin:1.5em auto;
+  max-width:500px;
+  min-height:60px;
+  padding:.6em 2em;
+  text-transform:uppercase;
+  transition:all .3s;
+  word-spacing:.22em;
+}
+[data-engrid-theme=engrid-tpl] .en__submit button:hover{
+  background-color:var(--color_sun);
 }
 body{
   opacity:1;

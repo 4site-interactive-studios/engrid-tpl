@@ -16,7 +16,7 @@ const options: Options = {
   SrcDefer: true,
   ProgressBar: true,
   TidyContact: {
-    cid: '00000000-0000-0000-0000-000000000000',
+    cid: '79d1b649-c5b5-4185-913b-250ca26127d3',
     record_field: 'supporter.NOT_TAGGED_9',
     date_field: 'supporter.NOT_TAGGED_10',
     status_field: 'supporter.NOT_TAGGED_11',
