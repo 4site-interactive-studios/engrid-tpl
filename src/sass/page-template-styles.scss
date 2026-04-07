@@ -1,1 +1,5 @@
 @import 'themes/tpl';
+
+[data-engrid-subtheme="multistep"] {
+  @import 'themes/multistep';
+}
