@@ -1,7 +1,7 @@
 // The most broadly used CSS Custom Properties for quick theming.
 // Uncomment to use and reference engrid-scrips SASS files for more CSS Custom Properties.
 // All CSS Custom Properties should be scoped to the theme using CSS Data Attributes.
-[data-engrid-theme="engrid-tpl"] {
+[data-engrid-theme="tpl"] {
   --color_earth: #362229;
   --color_black: #434343;
   --color_evergreen: #006837;
@@ -182,7 +182,7 @@
 }
 
 /* Add your custom theme styles here */
-[data-engrid-theme="engrid-tpl"] {
+[data-engrid-theme="tpl"] {
   @mixin until-mobile-l {
     // STYLES
   }

@@ -94,7 +94,7 @@
         type="font/woff2" crossorigin> <!-- Content Strong -->
 </head>
 
-<body data-engrid-layout="centerleft1col" data-engrid-theme="engrid-tpl" data-engrid-add-input-placeholders
+<body data-engrid-layout="centercenter1col" data-engrid-theme="tpl" data-engrid-add-input-placeholders
     data-engrid-subtheme="multistep" data-conditonally-hide-show-digital-wallet-elements data-highlight-required-fields>
     <noscript>With Javascript disabled this page may not function as expected.</noscript>
 
@@ -156,10 +156,6 @@
         }
     </script>
 
-    <!-- Placed here so it does not render block the page. loader.min.js conditially loads engrid.js and if necessary replaces engrid.css-->
-    <script src="https://bd6ca9cefa6fb6e0adf1-c2f9aa1adb9f60a775f60074e4c86031.ssl.cf5.rackcdn.com/20002/engrid.min.js"
-        data-repo-name="engrid-tpl"></script>
-
     <!-- Start Render Critical Javascript -->
     <script>
         window.addEventListener('DOMContentLoaded', (event) => {
@@ -178,6 +174,151 @@
         });
     </script>
     <!-- End Render Critical Javascript -->
+
+    <!-- START: ENgrid Multistep Thank You Page / PayPal workaround Code -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            if (
+                pageJson &&
+                pageJson.pageNumber !== undefined &&
+                pageJson.pageNumber !== null &&
+                pageJson.pageCount !== undefined &&
+                pageJson.pageCount !== null &&
+                pageJson.pageNumber == pageJson.pageCount
+            ) {
+                /* Cookie helpers: set/get/delete with cross-domain-friendly attributes.
+                    Note: true cross-site cookie sharing depends on browser policies
+                    and whether third-party cookies are allowed. We set SameSite=None
+                    and Secure and try to set a reasonable root domain (e.g. .example.com).
+                */
+                function getRootDomain() {
+                    try {
+                        var host = location.hostname;
+                        var parts = host.split(".");
+                        if (parts.length > 2) {
+                            return "." + parts.slice(-2).join(".");
+                        }
+                        return host;
+                    } catch (e) {
+                        return undefined;
+                    }
+                }
+
+                function setCookie(name, value, minutes) {
+                    var expires = "";
+                    if (minutes) {
+                        var date = new Date();
+                        date.setTime(date.getTime() + minutes * 60 * 1000);
+                        expires = "; expires=" + date.toUTCString();
+                    }
+                    var domain = getRootDomain();
+                    var cookie =
+                        name +
+                        "=" +
+                        encodeURIComponent(value) +
+                        expires +
+                        "; path=/; SameSite=None; Secure";
+                    if (domain) cookie += "; domain=" + domain;
+                    document.cookie = cookie;
+                }
+
+                function getCookie(name) {
+                    var match = document.cookie.match(
+                        new RegExp("(^| )" + name + "=([^;]+)")
+                    );
+                    return match ? decodeURIComponent(match[2]) : null;
+                }
+
+                function deleteCookie(name) {
+                    setCookie(name, "", -1);
+                }
+
+                if (window.self === window.top) {
+                    const receiptDataIdEl = document.querySelector(".receipt-data-id");
+                    const receiptDataAmountEl = document.querySelector(
+                        ".receipt-data-amount"
+                    );
+
+                    if (receiptDataIdEl && receiptDataIdEl.textContent !== "") {
+                        setCookie("receipt_data_id", receiptDataIdEl.textContent, 5);
+                    }
+
+                    if (receiptDataAmountEl && receiptDataAmountEl.textContent !== "") {
+                        setCookie("receipt_data_amount", receiptDataAmountEl.textContent, 5);
+                    }
+
+                    // Close the top window after storing data for retrieval by the iframe.
+                    window.close();
+                } else {
+                    const receiptDataIdLocal = getCookie("receipt_data_id");
+                    const receiptDataAmountLocal = getCookie("receipt_data_amount");
+
+                    const receiptDataIdEl = document.querySelector(".receipt-data-id");
+                    const receiptDataAmountEl = document.querySelectorAll(
+                        ".receipt-data-amount"
+                    );
+
+                    if (receiptDataIdLocal && receiptDataIdEl) {
+                        receiptDataIdEl.textContent = receiptDataIdLocal;
+                        deleteCookie("receipt_data_id");
+                    }
+
+                    if (receiptDataAmountLocal && receiptDataAmountEl) {
+                        receiptDataAmountEl.forEach((el) => {
+                            el.textContent = receiptDataAmountLocal;
+                        });
+                        deleteCookie("receipt_data_amount");
+                    }
+                }
+            }
+        });
+    </script>
+    <!-- END: ENgrid Multistep Thank You Page / PayPal workaround Code -->
+
+
+    <!-- START: Multistep Script -->
+    <script>
+        function sendMessage(key, value) {
+            const message = { key: key, value: value };
+            if (window.self !== window.top) window.parent.postMessage(message, "*");
+        }
+        if (pageJson.pageNumber === pageJson.pageCount) {
+            document.querySelector("body").dataset.thankYou = "true";
+            sendMessage("status", "loaded");
+            sendMessage("status", "celebrate");
+            sendMessage("class", "thank-you");
+        }
+    </script>
+    <!-- END: Multistep Script -->
+
+    <!-- START: ENgrid Multistep Self-Loading Code -->
+    <script>
+        const loadScript = (url, callback) => {
+            const script = document.createElement("script");
+            script.src = url;
+            script.onload = () => {
+                if (typeof callback === "function") {
+                    callback();
+                }
+            };
+            script.onerror = () => console.error(`Failed to load script: ${url}`);
+            document.head.appendChild(script);
+        };
+
+        if (window.self === window.top && "DonationLightboxOptions" in window) {
+            document.cookie =
+                "HideDonationLightbox=;path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT";
+            loadScript(
+                "https://bd6ca9cefa6fb6e0adf1-c2f9aa1adb9f60a775f60074e4c86031.ssl.cf5.rackcdn.com/20002/donation-lightbox-parent.js?v=1775770798000", () => {
+                    window.setTimeout(() => {
+                        document.body.style.opacity = "1";
+                    }, 300);
+                });
+        } else {
+            loadScript("https://bd6ca9cefa6fb6e0adf1-c2f9aa1adb9f60a775f60074e4c86031.ssl.cf5.rackcdn.com/20002/engrid.min.js");
+        }
+    </script>
+    <!-- END: ENgrid Multistep Self-Loading Code -->
 
     <!-- Start Google Tag Manager Script -->
     <script>(function (w, d, s, l, i) {

@@ -14,37 +14,43 @@ export default class DonationLightboxForm {
       return;
     this.amount = DonationAmount;
     this.frequency = DonationFrequency;
+    this.app = App;
     this.ipCountry = "";
     this.isDonation = ["donation", "premiumgift"].includes(
       window.pageJson.pageType
     );
+    this.upsellSection = null;
+    this.upsellSectionId = null;
     console.log("DonationLightboxForm: constructor");
 
-    // Adjust Email Tooltip
-    const emailTooltip = document.querySelector(".email-tooltip");
-    console.log(tippy, emailTooltip);
-    if (emailTooltip && tippy) {
-      const emailTooltipContent = emailTooltip.innerHTML;
-      // Replace the emailTooltip content with an i icon
-      emailTooltip.innerHTML = `
+    // Adjust Field Tooltip
+    const fieldTooltip = document.querySelectorAll(".en__field__notice");
+    if (fieldTooltip && tippy) {
+      fieldTooltip.forEach((tooltip) => {
+        const fieldTooltipContent = tooltip.innerHTML;
+        // Replace the tooltip content with an i icon
+        tooltip.innerHTML = `
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" style="width: 20px; height: 20px;">
         <path fill-rule="evenodd" d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0Zm-7-4a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM9 9a.75.75 0 0 0 0 1.5h.253a.25.25 0 0 1 .244.304l-.459 2.066A1.75 1.75 0 0 0 10.747 15H11a.75.75 0 0 0 0-1.5h-.253a.25.25 0 0 1-.244-.304l.459-2.066A1.75 1.75 0 0 0 9.253 9H9Z" clip-rule="evenodd" />
       </svg>
     `;
-      // Move the tooltip block to the email field
-      const emailField = document.querySelector(".en__field--emailAddress");
-      if (emailField) {
-        emailField.appendChild(emailTooltip);
-      }
-      // Add the emailTooltip content to the tippy instance
-      tippy(emailTooltip, {
-        content: emailTooltipContent,
-        allowHTML: true,
-        arrow: true,
-        arrowType: "default",
-        placement: "top",
-        trigger: "click mouseenter focus",
-        interactive: true,
+        // Move the tooltip block to the email field
+        const parentField = tooltip
+          .closest(".en__field")
+          .querySelector(".en__field__element");
+        if (parentField) {
+          parentField.appendChild(tooltip);
+        }
+        // Add the tooltip content to the tippy instance
+        tippy(tooltip, {
+          content: fieldTooltipContent,
+          allowHTML: true,
+          arrow: true,
+          arrowType: "default",
+          placement: "top",
+          trigger: "click mouseenter focus",
+          interactive: true,
+        });
       });
     }
 
@@ -52,7 +58,7 @@ export default class DonationLightboxForm {
     this.sections = document.querySelectorAll(
       "form.en__component > .en__component"
     );
-    this.setCurrentSection(0);
+    this.currentSectionId = 0;
     // Check if we're on the Thank You page
     if (pageJson.pageNumber === pageJson.pageCount) {
       this.sendMessage("status", "loaded");
@@ -103,6 +109,31 @@ export default class DonationLightboxForm {
           .catch((error) => {
             console.error("PageData Error:", error);
           });
+      }
+      const bequestContainer = document.querySelector(".bequest-container");
+      const bequestBtn = document.querySelector(".bequest-btn");
+      if (bequestContainer && bequestBtn) {
+        bequestBtn.addEventListener("click", (e) => {
+          e.preventDefault();
+          const overlay = document.querySelector(".engrid-modal__overlay");
+          if (overlay) {
+            overlay.classList.toggle("hide");
+            if (!overlay.classList.contains("hide")) {
+              // Listen for the close event from iframe
+              window.addEventListener(
+                "message",
+                function (event) {
+                  if (event.data === "iframeSubmitted") {
+                    overlay.classList.add("hide");
+                    bequestContainer.classList.add("hide");
+                    bequestBtn.classList.add("hide");
+                  }
+                },
+                false
+              );
+            }
+          }
+        });
       }
       return false;
     }
@@ -167,17 +198,6 @@ export default class DonationLightboxForm {
             }
           }
         }, 100);
-      } else {
-        App.watchForError(() => {
-          const errorMessage = document.querySelector(".en__error");
-          const errorMessageText =
-            errorMessage && errorMessage.textContent.split(". ").length > 1
-              ? errorMessage.textContent.split(". ")[1]
-              : errorMessage.textContent;
-          if (errorMessageText) {
-            this.sendMessage("error", errorMessageText);
-          }
-        });
       }
       document
         .querySelectorAll("form.en__component input.en__field__input")
@@ -195,13 +215,15 @@ export default class DonationLightboxForm {
                 (nextSectionId > currentSectionId + 1 &&
                   !this.isVisible(this.sections[currentSectionId + 1]));
 
-              if (focusIsOnNextSection && this.validateForm(currentSectionId)) {
-                // Only scroll if the current section doesn't have radio elements
-                const radioElement =
-                  this.sections[currentSectionId].querySelector(
-                    ".en__field--radio"
-                  );
-                if (!radioElement) this.scrollToElement(e);
+              // if (focusIsOnNextSection && this.validateForm(currentSectionId)) {
+              if (focusIsOnNextSection) {
+                // // Only scroll if the current section doesn't have radio elements
+                // const radioElement =
+                //   this.sections[currentSectionId].querySelector(
+                //     ".en__field--radio"
+                //   );
+                // if (!radioElement) this.scrollToElement(e);
+                return;
               }
             }, 50);
             // If the field is the credit card number, remove the error class from the parent
@@ -257,6 +279,7 @@ export default class DonationLightboxForm {
 
     this.addEvents();
     this.changeSubmitButton();
+    this.hideAnnualFrequency();
     this.sendMessage("status", "loaded");
     // Check if theres a color value in the url
     const urlParams = new URLSearchParams(window.location.search);
@@ -285,6 +308,9 @@ export default class DonationLightboxForm {
             this.scrollToElement(
               document.querySelector(".en__field--ccnumber")
             );
+          } else if (error.innerHTML.toLowerCase().indexOf("captcha") > -1) {
+            console.error("Captcha Error");
+            this.scrollToElement(document.querySelector(".en__captcha"));
           } else {
             this.sendMessage("error", error.textContent);
           }
@@ -301,6 +327,18 @@ export default class DonationLightboxForm {
         }
       }
     });
+    // Custom class and label for the Stripe Digital Wallets Payment Method
+    const digitalWallets = document.querySelector(
+      ".give-by-select .stripedigitalwallet"
+    );
+    if (digitalWallets) {
+      const digitalWalletsLabel = digitalWallets.querySelector("span");
+      if (digitalWalletsLabel) {
+        const isApplePay = window.hasOwnProperty("ApplePaySession");
+        digitalWalletsLabel.innerHTML = isApplePay ? "APPLE PAY" : "GOOGLE PAY";
+        digitalWallets.classList.add(isApplePay ? "apple-pay" : "google-pay");
+      }
+    }
   }
   // Send iframe message to parent
   sendMessage(key, value) {
@@ -326,6 +364,19 @@ export default class DonationLightboxForm {
     console.log("DonationLightboxForm: buildSectionNavigation");
     this.sections.forEach((section, key) => {
       section.dataset.sectionId = key;
+      const isUpsellSection = section.querySelector(".upsell-buttons");
+      if (isUpsellSection) {
+        this.upsellSection = section;
+        this.upsellSectionId = key;
+        section.dataset.upsellSection = true;
+        // Force the Upsell Section to hide if the frequency is recurring
+        const isRecurring =
+          this.app.getFieldValue("transaction.recurrfreq") !== "ONETIME";
+        if (isRecurring) {
+          section.style.display = "none";
+        }
+        this.replaceUpsellMergeTags();
+      }
       const sectionNavigation = document.createElement("div");
       sectionNavigation.classList.add("section-navigation");
       const sectionCount = document.createElement("div");
@@ -335,7 +386,7 @@ export default class DonationLightboxForm {
         if (key == 0) {
           sectionNavigation.innerHTML = `
         <button class="section-navigation__next" data-section-id="${key}">
-          <span>Donate Today</span>
+          <span>Continue</span>
           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 14 14">
               <path fill="currentColor" d="M7.687 13.313c-.38.38-.995.38-1.374 0-.38-.38-.38-.996 0-1.375L10 8.25H1.1c-.608 0-1.1-.493-1.1-1.1 0-.608.492-1.1 1.1-1.1h9.2L6.313 2.062c-.38-.38-.38-.995 0-1.375s.995-.38 1.374 0L14 7l-6.313 6.313z"/>
           </svg>
@@ -354,6 +405,15 @@ export default class DonationLightboxForm {
           <span>Give Now</span>
         </button>
       `;
+        } else if (key == this.upsellSectionId) {
+          // Add only the back button to the upsell section
+          sectionNavigation.innerHTML = `
+        <button class="section-navigation__previous" aria-label="Back" data-section-id="${key}">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16">
+              <path fill="currentColor" d="M7.214.786c.434-.434 1.138-.434 1.572 0 .433.434.433 1.137 0 1.571L4.57 6.572h10.172c.694 0 1.257.563 1.257 1.257s-.563 1.257-1.257 1.257H4.229l4.557 4.557c.433.434.433 1.137 0 1.571-.434.434-1.138.434-1.572 0L0 8 7.214.786z"/>
+          </svg>
+        </button>
+        `;
         } else {
           sectionNavigation.innerHTML = `
         <button class="section-navigation__previous" aria-label="Back" data-section-id="${key}">
@@ -397,25 +457,8 @@ export default class DonationLightboxForm {
         .querySelector(".section-navigation__next")
         ?.addEventListener("click", (e) => {
           e.preventDefault();
-          const ccnumberBlock = document.querySelector(".en__field--ccnumber");
-          const ccnumberSection = this.getSectionId(ccnumberBlock);
-          if (ccnumberSection == key) {
-            // Set payment type to credit card if we're on the credit card section
-            const paymentType = document.querySelector(
-              "#en__field_transaction_paymenttype"
-            );
-            paymentType.value = "card";
-            paymentType.dispatchEvent(new Event("change"));
-            // Uncheck other payment options
-            document
-              .querySelectorAll(".en__field--giveBySelect input[type='radio']")
-              .forEach((el) => {
-                el.checked = false;
-              });
-            this.showHideDynamicSection(true);
-          }
           if (this.validateForm(key)) {
-            this.scrollToNextSection();
+            this.scrollToSection(key + 1, key);
           }
         });
 
@@ -432,8 +475,7 @@ export default class DonationLightboxForm {
                 JSON.stringify({
                   name: document.querySelector("#en__field_supporter_firstName")
                     .value,
-                  amount:
-                    EngagingNetworks.require._defined.enjs.getDonationTotal(),
+                  amount: this.getDonationTotal(),
                   frequency: this.frequency.getInstance().frequency,
                 })
               );
@@ -441,7 +483,7 @@ export default class DonationLightboxForm {
               const paymentType = document.querySelector(
                 "#en__field_transaction_paymenttype"
               ).value;
-              if (paymentType != "paypal") {
+              if (paymentType.toLowerCase() != "paypal") {
                 this.sendMessage("status", "loading");
               } else {
                 // If Paypal, submit the form on a new tab
@@ -487,9 +529,7 @@ export default class DonationLightboxForm {
       // Create a back link for digital wallets
       const backLink = document.createElement("a");
       backLink.classList.add("back-link");
-      backLink.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16">
-              <path fill="currentColor" d="M7.214.786c.434-.434 1.138-.434 1.572 0 .433.434.433 1.137 0 1.571L4.57 6.572h10.172c.694 0 1.257.563 1.257 1.257s-.563 1.257-1.257 1.257H4.229l4.557 4.557c.433.434.433 1.137 0 1.571-.434.434-1.138.434-1.572 0L0 8 7.214.786z"></path>
-          </svg>`;
+      backLink.innerHTML = `back`;
       backLink.href = "#";
       backLink.addEventListener("click", (e) => {
         e.preventDefault();
@@ -534,9 +574,15 @@ export default class DonationLightboxForm {
       return;
     }
 
+    // If scrolling to the first section, remove upsold attribute and reset upsell section
+    if (sectionId == 0 && this.upsellSection) {
+      this.upsellSection.removeAttribute("data-upsold");
+      this.refreshUpsellSection();
+    }
+
     if (this.sections[sectionId]) {
       console.log(section);
-      this.setCurrentSection(sectionId);
+      this.currentSectionId = sectionId;
       console.log("Changed current section ID to", sectionId);
       this.sections[sectionId].scrollIntoView({
         behavior: "smooth",
@@ -545,23 +591,13 @@ export default class DonationLightboxForm {
       });
     }
   }
-  scrollToNextSection() {
-    console.log(
-      "DonationLightboxForm: scrollToNextSection",
-      this.currentSectionId + 1
-    );
-    this.scrollToSection(this.currentSectionId + 1, this.currentSectionId);
-  }
-  setCurrentSection(sectionId) {
-    this.currentSectionId = parseInt(sectionId);
-  }
   // Scroll to an element's section
   scrollToElement(element) {
     if (element) {
       const sectionId = this.getSectionId(element);
       if (sectionId) {
         const oldSectionId = this.currentSectionId;
-        this.setCurrentSection(sectionId);
+        this.currentSectionId = sectionId;
         console.log("Changed current section ID to", sectionId);
         this.scrollToSection(sectionId, oldSectionId);
       }
@@ -604,7 +640,7 @@ export default class DonationLightboxForm {
         }
       }
       // Validate Amount
-      const amount = EngagingNetworks.require._defined.enjs.getDonationTotal();
+      const amount = this.getDonationTotal();
       const amountBlock = form.querySelector(".en__field--donationAmt");
       const amountSection = this.getSectionId(amountBlock);
       if (sectionId === false || sectionId == amountSection) {
@@ -626,10 +662,11 @@ export default class DonationLightboxForm {
             }
             return false;
           }
-          if (amount > 30000) {
+          const maxAmount = window.EngridOptions?.MaxAmount ?? 30000;
+          if (amount > maxAmount) {
             this.sendMessage(
               "error",
-              "Amount must be less than $30,000 - Contact us for assistance"
+              `Amount must be less than $${maxAmount.toLocaleString()} - Contact us for assistance`
             );
             if (amountBlock) {
               amountBlock.classList.add("has-error");
@@ -780,6 +817,19 @@ export default class DonationLightboxForm {
           }
         }
       }
+    }
+
+    // Validate Recaptcha
+    const recaptchaResponse = form.querySelector("#g-recaptcha-response");
+    const recapchaSection = this.getSectionId(recaptchaResponse);
+    if (
+      recaptchaResponse &&
+      recaptchaResponse.value === "" &&
+      (sectionId === false || sectionId == recapchaSection)
+    ) {
+      this.scrollToElement(recaptchaResponse);
+      this.sendMessage("error", "Please complete the reCAPTCHA");
+      return false;
     }
 
     // Validate Everything else
@@ -941,18 +991,21 @@ export default class DonationLightboxForm {
   }
   changeSubmitButton() {
     const submit = document.querySelector(".section-navigation__submit");
-    const amount = this.checkNested(
-      window.EngagingNetworks,
-      "require",
-      "_defined",
-      "enjs",
-      "getDonationTotal"
-    )
-      ? "$" + window.EngagingNetworks.require._defined.enjs.getDonationTotal()
-      : null;
+    let amount = "$" + this.app.formatNumber(this.getDonationTotal());
+    // If amount ends with .00, remove it
+    if (amount && amount.endsWith(".00")) {
+      amount = amount.slice(0, -3);
+    }
     let frequency = this.frequency.getInstance().frequency;
     let label = submit ? submit.dataset.label : "";
-    frequency = frequency === "onetime" ? "" : "<small>/mo</small>";
+    frequency =
+      frequency === "onetime"
+        ? ""
+        : frequency === "monthly"
+        ? "<small>/mo</small>"
+        : frequency === "annual"
+        ? "<small>/yr</small>"
+        : "";
 
     if (amount) {
       label = label.replace("$AMOUNT", amount);
@@ -976,7 +1029,10 @@ export default class DonationLightboxForm {
         if (paymentType) {
           paymentType.value = btn.className.substr(15);
           // Go to the next section
-          this.scrollToNextSection();
+          this.scrollToSection(
+            parseInt(btn.closest("[data-section-id]").dataset.sectionId) + 1,
+            this.currentSectionId
+          );
         }
       });
     });
@@ -1050,6 +1106,9 @@ export default class DonationLightboxForm {
     this.frequency
       .getInstance()
       .onFrequencyChange.subscribe(() => this.changeSubmitButton());
+    this.frequency.getInstance().onFrequencyChange.subscribe(() => {
+      this.showHideDynamicSection(false);
+    });
     this.amount
       .getInstance()
       .onAmountChange.subscribe(() => this.changeSubmitButton());
@@ -1071,8 +1130,53 @@ export default class DonationLightboxForm {
           }
           console.log(`Payment type changed to: ${item.value.toLowerCase()}`);
           window.setTimeout(() => {
-            this.scrollToNextSection();
+            this.scrollToElement(item.closest(".en__component"));
           }, 100);
+        });
+      });
+    }
+    const recaptchaContainer = document.querySelector(".en__captcha");
+    if (recaptchaContainer) {
+      if (typeof window._grecaptchaExpireCallback === "function") {
+        // Add our own callback to the recaptcha
+        const oldCallback = window._grecaptchaExpireCallback;
+        window._grecaptchaExpireCallback = () => {
+          oldCallback();
+          window.setTimeout(() => {
+            this.scrollToElement(recaptchaContainer.closest(".en__component"));
+            this.sendMessage("error", "reCAPTCHA expired");
+          }, 400);
+        };
+      }
+    }
+    if (this.upsellSection) {
+      this.frequency
+        .getInstance()
+        .onFrequencyChange.subscribe(() => this.refreshUpsellSection());
+      this.amount
+        .getInstance()
+        .onAmountChange.subscribe(() => this.refreshUpsellSection());
+      const upsellButtons = this.upsellSection.querySelectorAll(
+        ".upsell-buttons button"
+      );
+      upsellButtons.forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          e.preventDefault();
+          const upsellFrequency = btn.dataset.freq || "onetime";
+          const upsellAmount =
+            parseFloat(btn.dataset.amount) || this.getDonationTotal();
+          if (upsellAmount === 0) {
+            return;
+          }
+          if (upsellFrequency === "onetime") {
+            this.upsellSection.dataset.upsold = "false";
+          } else {
+            this.upsellSection.dataset.upsold = "true";
+          }
+          this.amount.getInstance().setAmount(upsellAmount);
+          this.frequency.getInstance().setFrequency(upsellFrequency);
+          this.scrollToElement(document.querySelector(".give-by-select"));
+          // this.changeSubmitButton();
         });
       });
     }
@@ -1102,7 +1206,7 @@ export default class DonationLightboxForm {
         const card = document.querySelector(
           "[name='transaction.giveBySelect'][value='card']"
         );
-        if (card) {
+        if (card && !card.checked) {
           card.checked = true;
           const event = new Event("change");
           card.dispatchEvent(event);
@@ -1151,7 +1255,10 @@ export default class DonationLightboxForm {
 
     // First, handle sections without giveBySelect- elements
     this.sections.forEach((section, sectionId) => {
-      if (!sectionsWithGiveBySelect.has(sectionId)) {
+      if (
+        !sectionsWithGiveBySelect.has(sectionId) &&
+        sectionId !== this.upsellSectionId
+      ) {
         section.style.display = "block";
         console.log(`Showing section ${sectionId} (no giveBySelect elements)`);
       }
@@ -1193,5 +1300,170 @@ export default class DonationLightboxForm {
       );
     });
     this.updateSectionCount();
+  }
+  getDonationTotal() {
+    return this.checkNested(
+      window.EngagingNetworks,
+      "require",
+      "_defined",
+      "enjs",
+      "getDonationTotal"
+    )
+      ? window.EngagingNetworks.require._defined.enjs.getDonationTotal()
+      : 0;
+  }
+  getDonationFee() {
+    return this.checkNested(
+      window.EngagingNetworks,
+      "require",
+      "_defined",
+      "enjs",
+      "getDonationFee"
+    )
+      ? window.EngagingNetworks.require._defined.enjs.getDonationFee()
+      : 0;
+  }
+  // Return the Suggested Upsell Amount
+  getUpsellAmount(freq = "monthly") {
+    const amount = this.getDonationTotal() - this.getDonationFee();
+    let upsellAmount = 0;
+    if (
+      "EngridMultistepUpsell" in window &&
+      freq in window.EngridMultistepUpsell
+    ) {
+      const amountRange = window.EngridMultistepUpsell[freq];
+      for (let i = 0; i < amountRange.length; i++) {
+        let val = amountRange[i];
+        if (upsellAmount == 0 && amount <= val.max) {
+          upsellAmount = val.suggestion;
+          if (upsellAmount === 0) return 0;
+          if (typeof upsellAmount !== "number") {
+            const suggestionMath = upsellAmount.replace(
+              "amount",
+              amount.toFixed(2)
+            );
+            upsellAmount = parseFloat(
+              Function('"use strict";return (' + suggestionMath + ")")()
+            );
+          }
+          break;
+        }
+      }
+    }
+    return upsellAmount;
+  }
+  replaceUpsellMergeTags() {
+    if (this.upsellSection === null) return;
+    const upsellSectionContent = this.upsellSection.querySelector(
+      ".en__component--column"
+    );
+    if (!upsellSectionContent) return;
+    let content = upsellSectionContent.innerHTML;
+    content = content.replace(
+      /{old-amount}/g,
+      "<span class='upsell_amount'></span>"
+    );
+    content = content.replace(
+      /{new-amount-monthly}/g,
+      "<span class='upsell_suggestion_monthly'></span>"
+    );
+    content = content.replace(
+      /{new-amount-annual}/g,
+      "<span class='upsell_suggestion_annual'></span>"
+    );
+    upsellSectionContent.innerHTML = content;
+  }
+  refreshUpsellSection() {
+    if (this.upsellSection === null || this.upsellSection.dataset.upsold)
+      return;
+    // Update merge tags
+    const amount = this.getDonationTotal() - this.getDonationFee();
+    const upsellAmountMonthly = this.getUpsellAmount("monthly");
+    const upsellAmountAnnual = this.getUpsellAmount("annual");
+
+    if (upsellAmountMonthly === 0 && upsellAmountAnnual === 0) {
+      // If both upsell amounts are 0, hide the upsell section
+      this.upsellSection.style.display = "none";
+      this.updateSectionCount();
+      return;
+    }
+
+    const oldAmounts = this.upsellSection.querySelectorAll(".upsell_amount");
+    const newAmountsMonthly = this.upsellSection.querySelectorAll(
+      ".upsell_suggestion_monthly"
+    );
+    const newAmountsAnnual = this.upsellSection.querySelectorAll(
+      ".upsell_suggestion_annual"
+    );
+    const monthlyBtn = this.upsellSection.querySelector(
+      ".upsell-buttons button[data-freq='monthly']"
+    );
+    const annualBtn = this.upsellSection.querySelector(
+      ".upsell-buttons button[data-freq='annual']"
+    );
+    const onetimeBtn = this.upsellSection.querySelector(
+      ".upsell-buttons button[data-freq='onetime']"
+    );
+    if (monthlyBtn) {
+      monthlyBtn.dataset.amount = upsellAmountMonthly;
+    }
+    if (annualBtn) {
+      annualBtn.dataset.amount = upsellAmountAnnual;
+    }
+    if (onetimeBtn) {
+      onetimeBtn.dataset.amount = amount;
+    }
+    if (oldAmounts) {
+      let upsellOnetimeAmount = "$" + this.app.formatNumber(amount);
+      if (upsellOnetimeAmount.endsWith(".00")) {
+        upsellOnetimeAmount = upsellOnetimeAmount.slice(0, -3);
+      }
+      oldAmounts.forEach((oldAmount) => {
+        oldAmount.innerHTML = upsellOnetimeAmount;
+      });
+    }
+    if (newAmountsMonthly) {
+      let upsellMonthlyAmount =
+        "$" + this.app.formatNumber(upsellAmountMonthly);
+      if (upsellMonthlyAmount.endsWith(".00")) {
+        upsellMonthlyAmount = upsellMonthlyAmount.slice(0, -3);
+      }
+      newAmountsMonthly.forEach((newAmount) => {
+        newAmount.innerHTML = upsellMonthlyAmount;
+      });
+    }
+    if (newAmountsAnnual) {
+      let upsellAnnualAmount = "$" + this.app.formatNumber(upsellAmountAnnual);
+      if (upsellAnnualAmount.endsWith(".00")) {
+        upsellAnnualAmount = upsellAnnualAmount.slice(0, -3);
+      }
+      newAmountsAnnual.forEach((newAmount) => {
+        newAmount.innerHTML = upsellAnnualAmount;
+      });
+    }
+    // If frequency is anything other than onetime, hide the upsell section
+    window.setTimeout(() => {
+      const frequency = this.frequency.getInstance().frequency;
+      if (this.upsellSection && !this.upsellSection.dataset.upsold) {
+        if (frequency === "onetime") {
+          this.upsellSection.style.display = "block";
+        } else {
+          this.upsellSection.style.display = "none";
+        }
+      }
+      this.updateSectionCount();
+    }, 600);
+    // Update visibility
+  }
+  hideAnnualFrequency() {
+    const annualFreqField = document.querySelector(
+      "[name='transaction.recurrfreq'][value='ANNUAL']"
+    );
+    if (annualFreqField) {
+      const annualFrequency = annualFreqField.closest(".en__field__item");
+      if (annualFrequency) {
+        annualFrequency.classList.add("hide");
+      }
+    }
   }
 }
