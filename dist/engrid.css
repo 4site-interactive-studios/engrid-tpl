@@ -19,7 +19,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Monday, June 8, 2026 @ 16:18:11 ET
+ *  Date: Tuesday, June 9, 2026 @ 15:08:01 ET
  *  By: nick
  *  ENGrid styles: v0.25.6
  *  ENGrid scripts: v0.25.6
@@ -8010,7 +8010,11 @@ body[data-engrid-debug]:before{
   --color_sky:#5dd8d8;
   --color_snow:#f5faf1;
   --color_white:#fff;
+  --color_tertiary-evergreen:#1a1a1a;
+  --color_semantic-red:#700310;
+  --color_semantic-required:#dc0404;
   --sm:8px;
+  --md:16px;
   --lg:24px;
   --xl:32px;
   --3xl:64px;
@@ -8044,30 +8048,54 @@ body[data-engrid-debug]:before{
   --a_font-size:var(--default_font-size);
   --a_color:var(--color_evergreen);
   --a_line-height:var(--default_line-height);
-  --label_font-size:16px;
+  --label_font-family:var(--p_font-family);
   --label_color:var(--color_black);
-  --input_font-size:18px;
+  --label_font-weight:700;
+  --input_font-family:var(--p_font-family);
+  --input_font-size:22px;
   --input_background-color:var(--color_white);
-  --input_border-width:1px;
-  --input_border-color:#b5b1a9;
-  --input_border-radius:3px;
-  --input_box-shadow:#00000026 0px 1px 3px 0px inset;
+  --input_border-width:2px;
+  --input_border-color:#5c5d5f;
+  --input_border-radius:8px;
+  --input_placeholder-color:#b7afb2;
+  --input_box-shadow:unset;
+  --input_padding:16.5px 20px;
+  --radio_font-size:20px;
+  --checkbox_width:24px;
+  --checkbox_height:24px;
+  --checkbox_border-radius:4px;
   --button_color:var(--color_earth);
+  --button_border-color:var(--color_evergreen);
+  --button_border-width:2px;
   --button_font-size:25px;
   --button_background-color:#0000;
-  --button_border-width:1px;
-  --button_border-color:var(--color_earth);
+  --button_font-weight:700;
   --button_border-radius:5px;
-  --button_background-color_hover:#5dd8d84d;
-  --button_border-color_hover:var(--button_border-color);
-  --button_background-color_checked:var(--color_sky);
-  --recurring-frequency__button_background-color_checked:var(--color_sky);
-  --donation-amount__button_background-color_checked:var(--color_sky);
-  --button_border-color_checked:var(--button_border-color);
-  --give-monthly-donation-amount-appended-label:"/month";
+  --button_background-color_hover:#cce1d7;
+  --button_border-color_hover:var(--color_evergreen);
+  --button_background-color_checked:var(--color_evergreen);
+  --button_border-color_checked:var(--color_evergreen);
+  --button_color_checked:var(--color_white);
+  --donation-amount__button_border-radius:100px;
+  --donation-amount__button_background-color_checked:var(--button_background-color_checked);
+  --donation-amount__button_color_checked:var(--button_color_checked);
+  --recurring-frequency__button_border-radius:100px;
+  --recurring-frequency__button_background-color:#0000;
+  --recurring-frequency__button_background-color_checked:#0000;
+  --recurring-frequency__button_background-color_hover:#e4e1db;
+  --recurring-frequency__button_border-color_hover:#0000;
+  --recurring-frequency__button_border-color:#0000;
+  --recurring-frequency__button_border-width:0px;
+  --submit__button_font-size:36px;
+  --submit__button_border-width:0px;
+  --submit__button_background-color:var(--color_evergreen);
+  --submit__button_color:var(--color_white);
+  --submit__button_background-color_hover:var(--color_sun);
+  --submit__button_color_hover:var(--color_evergreen);
+  --give-monthly-donation-amount-appended-label:"/mo";
   --recurring-frequency__button_count:2;
-  --donation-amount__button_count:2;
-  --give-by-select__button_count:2;
+  --donation-amount__button_count:3;
+  --give-by-select__button_count:1;
 }
 [data-engrid-theme=tpl] .body-headerOutside p{
   margin:0;
@@ -8097,10 +8125,96 @@ body[data-engrid-debug]:before{
 }
 [data-engrid-theme=tpl] .label-styled{
   color:var(--label_color);
+  font-family:var(--label_font-family);
   font-size:var(--label_font-size);
+  font-weight:var(--label_font-weight);
   margin-bottom:var(--sm);
 }
+[data-engrid-theme=tpl] .enWidget.enWidget--progressBar{
+  margin-bottom:calc(var(--xl) + 20px);
+  margin-top:var(--lg);
+  padding:0;
+}
+[data-engrid-theme=tpl] .enWidget.enWidget--progressBar .enWidget__copy--above{
+  align-items:center;
+  display:flex;
+  flex-direction:row;
+  font-family:var(--default_font-family);
+  font-size:24px;
+  font-style:normal;
+  font-weight:700;
+  letter-spacing:1px;
+  line-height:26px;
+  margin-bottom:22px;
+}
+[data-engrid-theme=tpl] .enWidget.enWidget--progressBar .enWidget__copy--above div:first-child{
+  color:var(--color_earth);
+  margin-right:28px;
+}
+[data-engrid-theme=tpl] .enWidget.enWidget--progressBar .enWidget__copy--above div:nth-child(2){
+  color:var(--color_evergreen);
+  margin-right:12px;
+}
+[data-engrid-theme=tpl] .enWidget.enWidget--progressBar .enWidget__copy--above div:nth-child(3){
+  border-left:1px solid #cdcdcd;
+  color:var(--color_semantic-red);
+  padding-left:12px;
+}
+[data-engrid-theme=tpl] .enWidget.enWidget--progressBar .enWidget__copy--above h5{
+  color:var(--color_tertiary-evergreen);
+  font-size:14px;
+  font-style:normal;
+  font-weight:700;
+  letter-spacing:1px;
+  line-height:26px;
+}
+[data-engrid-theme=tpl] .enWidget.enWidget--progressBar .enWidget__display{
+  position:relative;
+}
+[data-engrid-theme=tpl] .enWidget.enWidget--progressBar .enWidget__display:before{
+  background:url("data:image/svg+xml;charset=utf-8,%3Csvg width='603' height='20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M351.644.6v18.789M301.5.6v18.789M251.355.6v18.789M201.209.6v18.789M151.064.6v18.789M100.918.6v18.789M50.773.6v18.789M.627.6v18.789M401.791.6v18.789M451.937.6v18.789M502.082.6v18.789M552.228.6v18.789M602.373.6v18.789M361.674.5v9.889M411.82.5v9.889M461.967.5v9.889M512.111.5v9.889M562.256.5v9.889M311.529.5v9.889M261.383.5v9.889M211.238.5v9.889M161.092.5v9.889M110.947.5v9.889M60.803.5v9.889M10.656.5v9.889M371.703.5v9.889M421.849.5v9.889M471.996.5v9.889M522.14.5v9.889M572.285.5v9.889M321.558.5v9.889M271.412.5v9.889M221.267.5v9.889M171.121.5v9.889M120.976.5v9.889M70.83.5v9.889M20.685.5v9.889M381.732.5v9.889M431.879.5v9.889M482.023.5v9.889M532.17.5v9.889M582.314.5v9.889M331.588.5v9.889M281.441.5v9.889M231.297.5v9.889M181.15.5v9.889M131.006.5v9.889M80.86.5v9.889M30.715.5v9.889M391.762.5v9.889M441.908.5v9.889M492.053.5v9.889M542.199.5v9.889M592.344.5v9.889M341.617.5v9.889M291.471.5v9.889M241.324.5v9.889M191.18.5v9.889M141.035.5v9.889M90.889.5v9.889M40.744.5v9.889' stroke='%235c5d5f' stroke-linecap='square'/%3E%3C/svg%3E") no-repeat;
+  background-position:50%;
+  background-size:contain;
+  content:"";
+  height:20px;
+  left:50%;
+  position:absolute;
+  top:28px;
+  transform:translateX(-50%);
+  width:97%;
+  z-index:-1;
+}
+[data-engrid-theme=tpl] .enWidget.enWidget--progressBar .enWidget__fill,[data-engrid-theme=tpl] .enWidget.enWidget--progressBar .enWidget__progress{
+  border-radius:100px;
+}
+[data-engrid-theme=tpl] .form-heading h2{
+  font-size:36px;
+  font-style:normal;
+  font-weight:500;
+  line-height:45px;
+  margin-bottom:var(--md);
+  margin-top:var(--lg);
+}
+[data-engrid-theme=tpl] .en__component--formblock .en__field .en__field__helpText,[data-engrid-theme=tpl] .en__component--formblock .en__field .en__field__label:not(.en__field__label--item):not([for*=svquestion]),[data-engrid-theme=tpl] .en__component--svblock .en__field .en__field__helpText,[data-engrid-theme=tpl] .en__component--svblock .en__field .en__field__label:not(.en__field__label--item):not([for*=svquestion]),[data-engrid-theme=tpl] .en__registrants__registrantDetails .en__field .en__field__helpText,[data-engrid-theme=tpl] .en__registrants__registrantDetails .en__field .en__field__label:not(.en__field__label--item):not([for*=svquestion]){
+  justify-content:unset;
+}
+[data-engrid-theme=tpl] span.asterisk{
+  color:var(--color_semantic-required);
+}
+[data-engrid-theme=tpl] select.en__field__input:not(.en__field__input--vgs){
+  appearance:none;
+  background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none'%3E%3Cpath d='m13.354 6.354-5 5a.5.5 0 0 1-.707 0l-5-5a.5.5 0 1 1 .707-.708L8 10.293l4.646-4.647a.5.5 0 0 1 .708.708Z' fill='%23333'/%3E%3C/svg%3E");
+  background-position:100%;
+  background-repeat:no-repeat;
+  background-size:26px;
+  padding:var(--input_padding);
+}
+[data-engrid-theme=tpl] .sms-disclaimer p{
+  margin-bottom:8px;
+  margin-top:-8px;
+}
 [data-engrid-theme=tpl] .link-list ul{
+  margin:0;
   padding:0;
 }
 [data-engrid-theme=tpl] .link-list ul a{
@@ -8127,6 +8241,28 @@ body[data-engrid-debug]:before{
   top:50%;
   transform:translateY(-50%);
   width:26px;
+}
+[data-engrid-theme=tpl] .en__submit{
+  --button_border-width:0px;
+  line-height:45px;
+  transition:background-color .3s ease,color .3s ease;
+}
+[data-engrid-theme=tpl] .en__submit button{
+  margin-top:var(--md);
+}
+[data-engrid-theme=tpl] .en__submit .live-variable-amount,[data-engrid-theme=tpl] .en__submit .live-variable-currency{
+  font-size:var(--submit__button_font-size);
+  font-weight:700;
+  line-height:45px;
+}
+[data-engrid-theme=tpl] .en__submit .live-variable-frequency{
+  font-size:28px;
+  font-style:italic;
+  font-weight:400;
+  letter-spacing:.28px;
+  line-height:41px;
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
 [data-engrid-theme=tpl] .content-footer{
   --default_font-size:12px;
@@ -8215,20 +8351,7 @@ body[data-engrid-debug]:before{
   width:100%;
 }
 [data-engrid-theme=tpl] .en__submit button{
-  background-color:var(--color_evergreen);
-  border:unset;
-  border-radius:4px;
-  color:var(--color_white);
-  font-size:28px;
-  font-weight:700;
-  line-height:auto;
-  margin:1.5em auto;
-  max-width:500px;
-  min-height:60px;
-  padding:.6em 2em;
-  text-transform:uppercase;
-  transition:all .3s;
-  word-spacing:.22em;
+  border-radius:100px;
 }
 [data-engrid-theme=tpl] .en__submit button:hover{
   background-color:var(--color_sun);
@@ -8238,10 +8361,13 @@ body[data-engrid-debug]:before{
     --engrid__body-headerOutside_padding:24px 22px var(--lg) 22px;
     --engrid__body-title_padding:20px 22px 0 22px;
     --engrid__body-top_padding:4px 22px 20px 22px;
+    --engrid__body-main_padding:0 22px;
     --engrid__body-bottom_padding:20px 22px 40px 22px;
     --engrid__content-footer_padding:40px 22px;
     --h1_font-size:32px;
     --h1_line-height:36px;
+    --recurring-frequency__button_count:2;
+    --donation-amount__button_count:2;
   }
   [data-engrid-theme=tpl][data-engrid-layout] .body-headerOutside p{
     text-align:center;
