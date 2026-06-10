@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Tuesday, June 9, 2026 @ 15:08:01 ET
+ *  Date: Tuesday, June 9, 2026 @ 15:08:51 ET
  *  By: nick
  *  ENGrid styles: v0.25.6
  *  ENGrid scripts: v0.25.6
@@ -25668,6 +25668,7 @@ const AppVersion = "0.25.6";
 
 
 ;// ./src/scripts/main.js
+
 const customScript = function (App) {
   console.log("ENGrid client scripts are executing");
   // Add your client scripts here
@@ -25721,6 +25722,23 @@ const customScript = function (App) {
       subtree: true
     });
   });
+  if (engrid_ENGrid.getPageType() === "DONATION" && !engrid_ENGrid.isThankYouPage()) {
+    // Find the input for transaction.donationAmt where value is "other"
+    const donationAmountInput = document.querySelector('input[name="transaction.donationAmt"][value="other"]');
+    const donationAmountOtherInput = document.querySelector('input[name="transaction.donationAmt.other"]');
+    if (donationAmountInput && donationAmountInput.parentNode && donationAmountOtherInput) {
+      donationAmountInput.parentNode.style.display = "block";
+      const labelEl = donationAmountInput.parentNode.querySelector("label");
+      if (labelEl) {
+        labelEl.textContent = "[$]    Other";
+      }
+      donationAmountOtherInput.setAttribute("placeholder", "Custom Amount");
+      donationAmountOtherInput.parentElement?.classList.add("engrid_other-fullwidth");
+      donationAmountInput.addEventListener("click", () => {
+        donationAmountOtherInput.focus();
+      });
+    }
+  }
   App.setBodyData("client-js-loading", "finished");
 };
 // EXTERNAL MODULE: ./node_modules/smoothscroll-polyfill/dist/smoothscroll.js
@@ -26877,9 +26895,118 @@ class DonationLightboxForm {
     }
   }
 }
+;// ./node_modules/@babel/runtime/helpers/esm/typeof.js
+function _typeof(o) {
+  "@babel/helpers - typeof";
+
+  return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
+    return typeof o;
+  } : function (o) {
+    return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+  }, _typeof(o);
+}
+
+;// ./node_modules/@babel/runtime/helpers/esm/toPrimitive.js
+
+function toPrimitive(t, r) {
+  if ("object" != _typeof(t) || !t) return t;
+  var e = t[Symbol.toPrimitive];
+  if (void 0 !== e) {
+    var i = e.call(t, r || "default");
+    if ("object" != _typeof(i)) return i;
+    throw new TypeError("@@toPrimitive must return a primitive value.");
+  }
+  return ("string" === r ? String : Number)(t);
+}
+
+;// ./node_modules/@babel/runtime/helpers/esm/toPropertyKey.js
+
+
+function toPropertyKey(t) {
+  var i = toPrimitive(t, "string");
+  return "symbol" == _typeof(i) ? i : i + "";
+}
+
+;// ./node_modules/@babel/runtime/helpers/esm/defineProperty.js
+
+function _defineProperty(e, r, t) {
+  return (r = toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
+    value: t,
+    enumerable: !0,
+    configurable: !0,
+    writable: !0
+  }) : e[r] = t, e;
+}
+
+;// ./src/scripts/suggested-amount.ts
+
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+
+const DEFAULT_SUGGESTED = {
+  "monthly": [19, 35],
+  "onetime": [60, 35]
+};
+class SuggestedAmount {
+  constructor(config) {
+    _defineProperty(this, "logger", new logger_EngridLogger("TPL SuggestedAmount", "green", "white", "✨"));
+    _defineProperty(this, "_frequency", DonationFrequency.getInstance());
+    if (this.shouldRun()) {
+      let workingConfig = _objectSpread(_objectSpread({}, DEFAULT_SUGGESTED), config);
+      // Load config from URL param, then window variable, then constructor, then default
+      const urlConfig = new URLSearchParams(window.location.search).get("suggestedAmounts");
+      if (urlConfig) {
+        try {
+          workingConfig = JSON.parse(urlConfig);
+          this.logger.log("Loaded suggested amounts from URL parameter", workingConfig);
+        } catch (e) {
+          this.logger.error("Failed to parse suggested amounts from URL parameter, using default", e);
+        }
+      } else if (window.EngridSuggestedAmounts) {
+        workingConfig = _objectSpread(_objectSpread({}, workingConfig), window.EngridSuggestedAmounts);
+      }
+      this.logger.log("Using suggested amounts configuration", workingConfig);
+      this._frequency.onFrequencyChange.subscribe(() => this.applySuggestedAmounts(workingConfig));
+      this.applySuggestedAmounts(workingConfig, true);
+    }
+  }
+  removeSuggestedAmounts() {
+    const amountLabels = document.querySelectorAll(".engrid__suggested-amount");
+    amountLabels.forEach(label => label.classList.remove("engrid__suggested-amount"));
+  }
+  applySuggestedAmounts(config, firstRun = false) {
+    this.removeSuggestedAmounts();
+    const suggestedValues = config[this._frequency.frequency];
+    if (!suggestedValues || suggestedValues.length === 0) {
+      this.logger.warn(`No suggested amounts configured for frequency "${this._frequency.frequency}"`);
+      return;
+    }
+    const amountOptions = document.querySelectorAll("input[name='transaction.donationAmt']");
+    let matchedValue = false;
+    for (const input of amountOptions) {
+      const value = parseFloat(input.value);
+      if (suggestedValues.indexOf(value) !== -1 && !matchedValue) {
+        this.logger.log(`Marking $${value} as a suggested amount for frequency "${this._frequency.frequency}"`);
+        input.classList.add("engrid__suggested-amount");
+        matchedValue = true;
+        if (firstRun) {
+          this.logger.log(`Selecting $${value} as the default amount on page load for frequency "${this._frequency.frequency}"`);
+          input.checked = true;
+        }
+      }
+    }
+    if (!matchedValue) {
+      this.logger.warn(`None of the suggested amounts [${suggestedValues.join(", ")}] match any options for frequency "${this._frequency.frequency}"`);
+    }
+  }
+  shouldRun() {
+    return engrid_ENGrid.getPageType() === "DONATION" && engrid_ENGrid.isThankYouPage() === false && document.querySelector(".en__field--donationAmt") !== null;
+  }
+}
 ;// ./src/index.ts
  // Uses ENGrid via NPM
 // import { Options, App } from "../../engrid-scripts/packages/common"; // Uses ENGrid via Visual Studio Workspace
+
 
 
 
@@ -26921,6 +27048,7 @@ const options = {
   onLoad: () => {
     window.DonationLightboxForm = DonationLightboxForm;
     new DonationLightboxForm(DonationAmount, DonationFrequency, App);
+    new SuggestedAmount();
     customScript(App);
   },
   onResize: () => console.log("Starter Theme Window Resized")
