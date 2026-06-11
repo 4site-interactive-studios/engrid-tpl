@@ -19,7 +19,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Thursday, June 11, 2026 @ 15:24:22 ET
+ *  Date: Thursday, June 11, 2026 @ 16:58:54 ET
  *  By: nick
  *  ENGrid styles: v0.25.6
  *  ENGrid scripts: v0.25.6
@@ -8070,7 +8070,7 @@ body[data-engrid-debug]:before{
   --button_font-size:25px;
   --button_background-color:var(--color_white);
   --button_font-weight:700;
-  --button_border-radius:5px;
+  --button_border-radius:8px;
   --button_background-color_hover:#cce1d7;
   --button_border-color_hover:var(--color_evergreen);
   --button_background-color_checked:var(--color_evergreen);
@@ -8385,6 +8385,68 @@ body[data-engrid-debug]:before{
   text-transform:uppercase;
   top:-12px;
   transform:translateX(-50%);
+}
+[data-engrid-theme=tpl] .give-by-select-wrapper .en__field__label{
+  display:flex;
+  gap:25px;
+}
+[data-engrid-theme=tpl] .give-by-select-wrapper .ach .en__field__label{
+  gap:8px;
+}
+[data-engrid-theme=tpl] .give-by-select-wrapper .paypal{
+  background:url(https://bd6ca9cefa6fb6e0adf1-c2f9aa1adb9f60a775f60074e4c86031.ssl.cf5.rackcdn.com/20002/paypal.svg?v=1781207227000) 50%/contain no-repeat;
+  height:33px;
+  margin-left:-15px;
+  width:129px;
+}
+[data-engrid-theme=tpl] .give-by-select-wrapper .venmo{
+  background:url(https://bd6ca9cefa6fb6e0adf1-c2f9aa1adb9f60a775f60074e4c86031.ssl.cf5.rackcdn.com/20002/venmo.svg?v=1781207228000) 50%/contain no-repeat;
+  height:21px;
+  margin-bottom:-8px;
+  width:112px;
+}
+[data-engrid-theme=tpl] .give-by-select-wrapper .gpay{
+  background:url(https://bd6ca9cefa6fb6e0adf1-c2f9aa1adb9f60a775f60074e4c86031.ssl.cf5.rackcdn.com/20002/gpay.svg?v=1781207660000) 50%/contain no-repeat;
+  height:33px;
+  width:83px;
+}
+[data-engrid-theme=tpl] .give-by-select-wrapper .applepay{
+  background:url(https://bd6ca9cefa6fb6e0adf1-c2f9aa1adb9f60a775f60074e4c86031.ssl.cf5.rackcdn.com/20002/applepay.svg?v=1781207229000) 50%/contain no-repeat;
+  height:33px;
+  width:78px;
+}
+[data-engrid-theme=tpl] .give-by-select-wrapper .bank{
+  background:url(https://bd6ca9cefa6fb6e0adf1-c2f9aa1adb9f60a775f60074e4c86031.ssl.cf5.rackcdn.com/20002/bank.svg?v=1781207224000) 50%/contain no-repeat;
+  height:26px;
+  width:27px;
+}
+[data-engrid-theme=tpl] .give-by-select-wrapper .dafpay{
+  background:url(https://bd6ca9cefa6fb6e0adf1-c2f9aa1adb9f60a775f60074e4c86031.ssl.cf5.rackcdn.com/20002/daf.png?v=1781207223000) 50%/contain no-repeat;
+  height:34px;
+  width:101px;
+}
+[data-engrid-theme=tpl] .give-by-select-wrapper .cards{
+  background:url(https://bd6ca9cefa6fb6e0adf1-c2f9aa1adb9f60a775f60074e4c86031.ssl.cf5.rackcdn.com/20002/cards.svg?v=1781207225000) 50%/contain no-repeat;
+  height:33px;
+  width:259px;
+}
+[data-engrid-theme=tpl] .give-by-select-wrapper input:checked+label .paypal{
+  background:url(https://bd6ca9cefa6fb6e0adf1-c2f9aa1adb9f60a775f60074e4c86031.ssl.cf5.rackcdn.com/20002/paypal-active.svg?v=1781207222000) 50%/contain no-repeat;
+}
+[data-engrid-theme=tpl] .give-by-select-wrapper input:checked+label .venmo{
+  background:url(https://bd6ca9cefa6fb6e0adf1-c2f9aa1adb9f60a775f60074e4c86031.ssl.cf5.rackcdn.com/20002/venmo-active.svg?v=1781207223000) 50%/contain no-repeat;
+}
+[data-engrid-theme=tpl] .give-by-select-wrapper input:checked+label .gpay{
+  background:url(https://bd6ca9cefa6fb6e0adf1-c2f9aa1adb9f60a775f60074e4c86031.ssl.cf5.rackcdn.com/20002/gpay-active.svg?v=1781207661000) 50%/contain no-repeat;
+}
+[data-engrid-theme=tpl] .give-by-select-wrapper input:checked+label .applepay,[data-engrid-theme=tpl] .give-by-select-wrapper input:checked+label .bank{
+  filter:invert(100%) brightness(200%);
+}
+[data-engrid-theme=tpl] .give-by-select-wrapper input:checked+label .dafpay{
+  background:url(https://bd6ca9cefa6fb6e0adf1-c2f9aa1adb9f60a775f60074e4c86031.ssl.cf5.rackcdn.com/20002/daf-active.png?v=1781207215000) 50%/contain no-repeat;
+}
+[data-engrid-theme=tpl] .give-by-select-wrapper input:checked+label .cards{
+  background:url(https://bd6ca9cefa6fb6e0adf1-c2f9aa1adb9f60a775f60074e4c86031.ssl.cf5.rackcdn.com/20002/cards-active.svg?v=1781207219000) 50%/contain no-repeat;
 }
 [data-engrid-theme=tpl] .sms-disclaimer p{
   margin-bottom:8px;

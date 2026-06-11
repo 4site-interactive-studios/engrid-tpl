@@ -115,7 +115,7 @@
   --button_font-weight: 700;
   // --button_line-height: initial;
   // --button_background-color: initial;;
-  --button_border-radius: 5px;
+  --button_border-radius: 8px;
 
   --button_background-color_hover: #CCE1D7;
   --button_border-color_hover: var(--color_evergreen);
@@ -497,6 +497,91 @@
       }
     }
 
+  }
+
+  .give-by-select-wrapper {
+    .en__field__label {
+      display: flex;
+      gap: 25px;
+    }
+
+    .ach {
+      .en__field__label {
+        gap: 8px;
+      }
+    }
+
+    .paypal {
+      background: url("https://bd6ca9cefa6fb6e0adf1-c2f9aa1adb9f60a775f60074e4c86031.ssl.cf5.rackcdn.com/20002/paypal.svg?v=1781207227000") center / contain no-repeat;
+      width: 129px;
+      height: 33px;
+      margin-left: -15px;
+    }
+
+    .venmo {
+      background: url("https://bd6ca9cefa6fb6e0adf1-c2f9aa1adb9f60a775f60074e4c86031.ssl.cf5.rackcdn.com/20002/venmo.svg?v=1781207228000") center / contain no-repeat;
+      width: 112px;
+      height: 21px;
+      margin-bottom: -8px;
+    }
+
+    .gpay {
+      background: url("https://bd6ca9cefa6fb6e0adf1-c2f9aa1adb9f60a775f60074e4c86031.ssl.cf5.rackcdn.com/20002/gpay.svg?v=1781207660000") center / contain no-repeat;
+      width: 83px;
+      height: 33px;
+    }
+
+    .applepay {
+      background: url("https://bd6ca9cefa6fb6e0adf1-c2f9aa1adb9f60a775f60074e4c86031.ssl.cf5.rackcdn.com/20002/applepay.svg?v=1781207229000") center / contain no-repeat;
+      width: 78px;
+      height: 33px;
+    }
+
+    .bank {
+      background: url("https://bd6ca9cefa6fb6e0adf1-c2f9aa1adb9f60a775f60074e4c86031.ssl.cf5.rackcdn.com/20002/bank.svg?v=1781207224000") center / contain no-repeat;
+      width: 27px;
+      height: 26px;
+    }
+
+    .dafpay {
+      background: url("https://bd6ca9cefa6fb6e0adf1-c2f9aa1adb9f60a775f60074e4c86031.ssl.cf5.rackcdn.com/20002/daf.png?v=1781207223000") center / contain no-repeat;
+      width: 101px;
+      height: 34px;
+    }
+
+    .cards {
+      background: url("https://bd6ca9cefa6fb6e0adf1-c2f9aa1adb9f60a775f60074e4c86031.ssl.cf5.rackcdn.com/20002/cards.svg?v=1781207225000") center / contain no-repeat;
+      width: 259px;
+      height: 33px;
+    }
+
+    input:checked+label {
+      .paypal {
+        background: url("https://bd6ca9cefa6fb6e0adf1-c2f9aa1adb9f60a775f60074e4c86031.ssl.cf5.rackcdn.com/20002/paypal-active.svg?v=1781207222000") center / contain no-repeat;
+      }
+
+      .venmo {
+        background: url("https://bd6ca9cefa6fb6e0adf1-c2f9aa1adb9f60a775f60074e4c86031.ssl.cf5.rackcdn.com/20002/venmo-active.svg?v=1781207223000") center / contain no-repeat;
+      }
+
+      .gpay {
+        background: url("https://bd6ca9cefa6fb6e0adf1-c2f9aa1adb9f60a775f60074e4c86031.ssl.cf5.rackcdn.com/20002/gpay-active.svg?v=1781207661000") center / contain no-repeat;
+      }
+
+      .applepay,
+      .bank {
+        filter: invert(100%) brightness(200%);
+      }
+
+      .dafpay {
+        background: url("https://bd6ca9cefa6fb6e0adf1-c2f9aa1adb9f60a775f60074e4c86031.ssl.cf5.rackcdn.com/20002/daf-active.png?v=1781207215000") center / contain no-repeat;
+      }
+
+      .cards {
+        background: url("https://bd6ca9cefa6fb6e0adf1-c2f9aa1adb9f60a775f60074e4c86031.ssl.cf5.rackcdn.com/20002/cards-active.svg?v=1781207219000") center / contain no-repeat;
+      }
+
+    }
   }
 
   .sms-disclaimer p {
