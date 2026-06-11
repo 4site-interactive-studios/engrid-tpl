@@ -4,6 +4,7 @@ import { Options, App, DonationAmount, DonationFrequency, RememberMe } from "@4s
 import "./sass/main.scss";
 import { customScript } from "./scripts/main";
 import DonationLightboxForm from "./scripts/donation-lightbox-form";
+import SuggestedAmount from "./scripts/suggested-amount";
 
 const options: Options = {
   applePay: false,
@@ -53,6 +54,7 @@ const options: Options = {
   onLoad: () => {
     (<any>window).DonationLightboxForm = DonationLightboxForm;
     new DonationLightboxForm(DonationAmount, DonationFrequency, App);
+    new SuggestedAmount();
     customScript(App);
   },
   onResize: () => console.log("Starter Theme Window Resized"),

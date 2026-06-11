@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Tuesday, June 9, 2026 @ 15:08:51 ET
+ *  Date: Thursday, June 11, 2026 @ 13:27:30 ET
  *  By: nick
  *  ENGrid styles: v0.25.6
  *  ENGrid scripts: v0.25.6
@@ -25723,19 +25723,45 @@ const customScript = function (App) {
     });
   });
   if (engrid_ENGrid.getPageType() === "DONATION" && !engrid_ENGrid.isThankYouPage()) {
-    // Find the input for transaction.donationAmt where value is "other"
-    const donationAmountInput = document.querySelector('input[name="transaction.donationAmt"][value="other"]');
-    const donationAmountOtherInput = document.querySelector('input[name="transaction.donationAmt.other"]');
-    if (donationAmountInput && donationAmountInput.parentNode && donationAmountOtherInput) {
-      donationAmountInput.parentNode.style.display = "block";
-      const labelEl = donationAmountInput.parentNode.querySelector("label");
-      if (labelEl) {
-        labelEl.textContent = "[$]    Other";
+    const setupDonationAmountOther = () => {
+      console.log("Setting up donation amount other field");
+      const donationAmountInput = document.querySelector('input[name="transaction.donationAmt"][value="other"]');
+      const donationAmountOtherInput = document.querySelector('input[name="transaction.donationAmt.other"]');
+      console.log("Donation amount input:", donationAmountInput);
+      console.log("Donation amount other input:", donationAmountOtherInput);
+      console.log("Donation amount input parent:", donationAmountInput?.parentNode);
+      if (donationAmountInput && donationAmountInput.parentNode && donationAmountOtherInput) {
+        donationAmountInput.parentNode.style.display = "block";
+        const labelEl = donationAmountInput.parentNode.querySelector("label");
+        if (labelEl) {
+          labelEl.textContent = "[$]\u2009\u2009\u2009\u2009Other";
+        }
+        donationAmountOtherInput.setAttribute("placeholder", "Custom Amount");
+        donationAmountOtherInput.parentElement?.classList.add("engrid_other-fullwidth");
+        donationAmountInput.addEventListener("click", () => {
+          donationAmountOtherInput.focus();
+        });
       }
-      donationAmountOtherInput.setAttribute("placeholder", "Custom Amount");
-      donationAmountOtherInput.parentElement?.classList.add("engrid_other-fullwidth");
-      donationAmountInput.addEventListener("click", () => {
-        donationAmountOtherInput.focus();
+    };
+    const radioArea = document.querySelector(".radio-to-buttons_donationAmt div.en__field__element.en__field__element--radio");
+    if (radioArea) {
+      setupDonationAmountOther();
+      const donationAmountObserver = new MutationObserver(mutations => {
+        const wasAdded = mutations.some(mutation => {
+          return [...mutation.addedNodes].some(node => {
+            if (node.nodeType === Node.ELEMENT_NODE) {
+              return node.matches?.('input[name="transaction.donationAmt"][value="other"]') || node.querySelector?.('input[name="transaction.donationAmt"][value="other"]');
+            }
+            return false;
+          });
+        });
+        if (wasAdded) {
+          setupDonationAmountOther();
+        }
+      });
+      donationAmountObserver.observe(radioArea, {
+        childList: true,
+        subtree: true
       });
     }
   }
