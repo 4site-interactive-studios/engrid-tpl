@@ -151,6 +151,8 @@
   --donation-amount__button_count: 3;
   --give-by-select__button_count: 1;
 
+  --arrow-bg-url: url("https://bd6ca9cefa6fb6e0adf1-c2f9aa1adb9f60a775f60074e4c86031.ssl.cf5.rackcdn.com/20002/arrow-reveal.svg?v=1781202765000");
+
   .body-headerOutside {
     p {
       margin: 0;
@@ -365,19 +367,29 @@
       font-style: normal;
       font-weight: 700;
       line-height: 32px;
-      padding: 0px 77px 0 0;
+      padding: 0px 66px 0 0;
       margin: 0 auto;
       display: inline-block;
       position: relative;
 
       &::after {
+        transition: width 0.3s ease;
         position: absolute;
         right: 0;
         top: 0;
         content: "";
-        width: 77px;
-        height: 32px;
-        background: url("data:image/svg+xml,%3Csvg%20width%3D%2277%22%20height%3D%2233%22%20viewBox%3D%220%200%2077%2033%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cmask%20id%3D%22a%22%20style%3D%22mask-type%3Aalpha%22%20maskUnits%3D%22userSpaceOnUse%22%20x%3D%220%22%20y%3D%220%22%20width%3D%2277%22%20height%3D%2233%22%3E%3Cpath%20d%3D%22M.607%2027.464a43.54%2043.54%200%200%200%2019.407%205.246q2.131.108%204.262-.016l.91-.038.094-.004c1.632-.147%203.32-.303%204.957-.603a30%2030%200%200%200%202.55-.482l.846-.194c.546-.122%201.092-.244%201.66-.388l2.417-.699c.558-.166%201.111-.36%201.674-.52l.771-.261a67.5%2067.5%200%200%200%209.252-4.148%2072.3%2072.3%200%200%200%2017.806-13.743l-.181%201.368a73%2073%200%200%200-.444%204.975%2043%2043%200%200%200%20.013%205.121%201.16%201.16%200%200%200%20.907%201.041%201.185%201.185%200%200%200%201.276-.549%2042%2042%200%200%200%202.28-4.606%2069%2069%200%200%200%201.816-4.658%2098%2098%200%200%200%202.755-9.47l.789-3.422a1.16%201.16%200%200%200-.78-1.357%201.2%201.2%200%200%200-.567-.04l-3.46.565c-1.708.283-3.372.588-4.949.928a84%2084%200%200%200-4.904%201.188%2089%2089%200%200%200-4.88%201.507%2045%2045%200%200%200-4.845%201.993%201.18%201.18%200%200%200-.526.513%201.163%201.163%200%200%200%20.88%201.69c1.742.228%203.497.352%205.255.372a72%2072%200%200%200%205.09-.127%2058%2058%200%200%200%201.704-.106%20146%20146%200%200%201-9.92%206.41c-2.888%201.676-5.554%203.141-8.216%204.409a91%2091%200%200%201-8.535%203.56%2068%2068%200%200%201-8.81%202.532c-.97.235-1.943.399-2.983.573-.49.079-.957.136-1.469.248l-1.456.172c-1.05.129-2.045.248-3.1.295-5.513.444-11.41.006-18.553-1.408a1.2%201.2%200%200%200-1.342.752%201.16%201.16%200%200%200%20.55%201.38%22%20fill%3D%22%23f7931e%22%2F%3E%3C%2Fmask%3E%3Cg%20mask%3D%22url(%23a)%22%3E%3Ccircle%20cx%3D%2238.5%22%20cy%3D%2216.5%22%20r%3D%2246.5%22%20fill%3D%22%23f48120%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") no-repeat;
+        width: 56px;
+        height: 24px;
+        background: var(--arrow-bg-url) no-repeat;
+        background-size: contain;
+      }
+    }
+
+    body:not(#en__pagebuilder):not([data-engrid-debug])[data-engrid-transaction-recurring=y][data-engrid-transaction-recurring-frequency=monthly] .recurring-frequency-monthly-hide {
+      &::after {
+        content: "";
+        background: url("");
+        width: 0px;
       }
     }
 
@@ -388,6 +400,11 @@
       font-weight: 700;
       margin: 0;
       min-height: 32px;
+    }
+
+    .animate-appear {
+      z-index: -1;
+      animation: bounceInDown 0.5s ease;
     }
   }
 
@@ -761,4 +778,41 @@
       @include simplified-header;
     }
   }
+}
+
+@keyframes bounceInDown {
+
+  from,
+  60%,
+  75%,
+  90%,
+  to {
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -100px, 0) scaleY(3);
+  }
+
+  60% {
+    opacity: 1;
+    transform: translate3d(0, 15px, 0) scaleY(0.9);
+  }
+
+  75% {
+    transform: translate3d(0, -10px, 0) scaleY(0.95);
+  }
+
+  90% {
+    transform: translate3d(0, 5px, 0) scaleY(0.985);
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.bounceInDown {
+  animation-name: bounceInDown;
 }

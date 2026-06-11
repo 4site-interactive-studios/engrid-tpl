@@ -1,4 +1,4 @@
-import { ENGrid } from "@4site/engrid-scripts";
+import { ENGrid, DonationFrequency } from "@4site/engrid-scripts";
 
 export const customScript = function (App) {
   console.log("ENGrid client scripts are executing");
@@ -140,6 +140,28 @@ export const customScript = function (App) {
       });
     }
   }
+
+  let firstRun = true;
+  DonationFrequency.getInstance().onFrequencyChange.subscribe((frequency) => {
+    if (firstRun) {
+      firstRun = false;
+      return;
+    }
+    const arrowRightDiv = document.querySelector(".arrow-right");
+    if (arrowRightDiv) {
+      if (frequency !== "monthly") {
+        arrowRightDiv.classList.add("animate-appear");
+        // set a new random string as the background image url for the ::after of this div to force it to update and show the animation again
+        const randomString = Math.random().toString(36).substring(2, 15);
+        arrowRightDiv.style.setProperty(
+          "--arrow-bg-url",
+          `url("https://bd6ca9cefa6fb6e0adf1-c2f9aa1adb9f60a775f60074e4c86031.ssl.cf5.rackcdn.com/20002/arrow-reveal.svg?v=${randomString}")`
+        );
+      } else {
+        arrowRightDiv.classList.remove("animate-appear");
+      }
+    }
+  });
 
   App.setBodyData("client-js-loading", "finished");
 };
