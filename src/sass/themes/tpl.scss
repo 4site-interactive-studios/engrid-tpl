@@ -56,6 +56,8 @@
   --h2_font-size: 29px;
   --h2_line-height: 1.1em;
 
+  --h3_font-weight: 500;
+
   // TYPOGRAPHY P
   --p_font-family: "PT Sans", var(--native-fonts__sans-serif);
   --p_color: var(--color_black);
@@ -805,6 +807,45 @@
   .en__submit button:hover {
     background-color: var(--color_sun);
   }
+
+  .confetti-container {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    overflow: hidden;
+
+    > div {
+      position: absolute;
+      top: var(--start-y);
+      left: var(--x);
+      background-color: var(--piece-color);
+      animation: confetti-fall var(--duration) linear var(--delay) forwards;
+      will-change: transform;
+    }
+
+    .confetti-1 {
+      -webkit-mask: url("data:image/svg+xml,%3Csvg%20width%3D%2222%22%20height%3D%2230%22%20viewBox%3D%220%200%2022%2030%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M0%208.032c5.675%207.386%208.332%2012.157%2011.26%2021.105%204.402-1.365%207.921-3.304%2010.504-6.738-1.38-6.193-4.737-13.31-10.128-22.4C8.066%205.758%205.315%208.118%200%208.033%22%20fill%3D%22%23362229%22%2F%3E%3C%2Fsvg%3E") no-repeat center / contain;
+      mask: url("data:image/svg+xml,%3Csvg%20width%3D%2222%22%20height%3D%2230%22%20viewBox%3D%220%200%2022%2030%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M0%208.032c5.675%207.386%208.332%2012.157%2011.26%2021.105%204.402-1.365%207.921-3.304%2010.504-6.738-1.38-6.193-4.737-13.31-10.128-22.4C8.066%205.758%205.315%208.118%200%208.033%22%20fill%3D%22%23362229%22%2F%3E%3C%2Fsvg%3E") no-repeat center / contain;
+      width: 22px;
+      height: 30px;
+    }
+
+    .confetti-2 {
+      -webkit-mask: url("data:image/svg+xml,%3Csvg%20width%3D%2240%22%20height%3D%2220%22%20viewBox%3D%220%200%2040%2020%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M.01%201.928C-.18%208.667%202.755%2012.6%207.364%2018.372c7.147.304%2012.52%201.304%2018.452.703C27.97%2011.71%2031.04%207.281%2039.203%202.117%2023.765-.928%2014.76-.416.01%201.928%22%20fill%3D%22%23362229%22%2F%3E%3C%2Fsvg%3E") no-repeat center / contain;
+      mask: url("data:image/svg+xml,%3Csvg%20width%3D%2240%22%20height%3D%2220%22%20viewBox%3D%220%200%2040%2020%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M.01%201.928C-.18%208.667%202.755%2012.6%207.364%2018.372c7.147.304%2012.52%201.304%2018.452.703C27.97%2011.71%2031.04%207.281%2039.203%202.117%2023.765-.928%2014.76-.416.01%201.928%22%20fill%3D%22%23362229%22%2F%3E%3C%2Fsvg%3E") no-repeat center / contain;
+      width: 40px;
+      height: 20px;
+    }
+
+    .confetti-3 {
+      -webkit-mask: url("data:image/svg+xml,%3Csvg%20width%3D%2229%22%20height%3D%2219%22%20viewBox%3D%220%200%2029%2019%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M5.68%2018.645c8.328-4.171%2013.516-5.875%2022.857-7.055-.505-4.58-1.742-8.403-4.624-11.59C17.57.18%209.947%202.127-.001%205.698c4.977%204.597%206.772%207.745%205.681%2012.947%22%20fill%3D%22%23362229%22%2F%3E%3C%2Fsvg%3E") no-repeat center / contain;
+      mask: url("data:image/svg+xml,%3Csvg%20width%3D%2229%22%20height%3D%2219%22%20viewBox%3D%220%200%2029%2019%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M5.68%2018.645c8.328-4.171%2013.516-5.875%2022.857-7.055-.505-4.58-1.742-8.403-4.624-11.59C17.57.18%209.947%202.127-.001%205.698c4.977%204.597%206.772%207.745%205.681%2012.947%22%20fill%3D%22%23362229%22%2F%3E%3C%2Fsvg%3E") no-repeat center / contain;
+      width: 29px;
+      height: 19px;
+    }
+  }
+
 }
 
 /* Add your custom theme styles here */
@@ -937,6 +978,16 @@
     @media screen and (max-width: $centerright1col_content-column_min-width) {
       @include simplified-header;
     }
+  }
+}
+
+@keyframes confetti-fall {
+  from {
+    transform: translateY(0) rotate(var(--rotation-start)) scale(var(--scale));
+  }
+
+  to {
+    transform: translateY(calc(100vh + 200px)) rotate(var(--rotation-end)) scale(var(--scale));
   }
 }
 

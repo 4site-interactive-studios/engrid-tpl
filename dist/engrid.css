@@ -19,7 +19,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Monday, June 15, 2026 @ 14:02:37 ET
+ *  Date: Monday, June 15, 2026 @ 16:41:40 ET
  *  By: nick
  *  ENGrid styles: v0.25.6
  *  ENGrid scripts: v0.25.6
@@ -8043,6 +8043,7 @@ body[data-engrid-debug]:before{
   --h2_color:var(--color_earth);
   --h2_font-size:29px;
   --h2_line-height:1.1em;
+  --h3_font-weight:500;
   --p_font-family:"PT Sans", var(--native-fonts__sans-serif);
   --p_color:var(--color_black);
   --p_font-size:18px;
@@ -8634,6 +8635,36 @@ body[data-engrid-theme=tpl]:not(#en__pagebuilder) .click-to-expand:not(.expanded
 [data-engrid-theme=tpl] .en__submit button:hover{
   background-color:var(--color_sun);
 }
+[data-engrid-theme=tpl] .confetti-container{
+  inset:0;
+  overflow:hidden;
+  pointer-events:none;
+  position:fixed;
+  z-index:9999;
+}
+[data-engrid-theme=tpl] .confetti-container>div{
+  animation:confetti-fall var(--duration) linear var(--delay) forwards;
+  background-color:var(--piece-color);
+  left:var(--x);
+  position:absolute;
+  top:var(--start-y);
+  will-change:transform;
+}
+[data-engrid-theme=tpl] .confetti-container .confetti-1{
+  height:30px;
+  mask:url("data:image/svg+xml;charset=utf-8,%3Csvg width='22' height='30' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M0 8.032c5.675 7.386 8.332 12.157 11.26 21.105 4.402-1.365 7.921-3.304 10.504-6.738-1.38-6.193-4.737-13.31-10.128-22.4C8.066 5.758 5.315 8.118 0 8.033' fill='%23362229'/%3E%3C/svg%3E") no-repeat center/contain;
+  width:22px;
+}
+[data-engrid-theme=tpl] .confetti-container .confetti-2{
+  height:20px;
+  mask:url("data:image/svg+xml;charset=utf-8,%3Csvg width='40' height='20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M.01 1.928C-.18 8.667 2.755 12.6 7.364 18.372c7.147.304 12.52 1.304 18.452.703C27.97 11.71 31.04 7.281 39.203 2.117 23.765-.928 14.76-.416.01 1.928' fill='%23362229'/%3E%3C/svg%3E") no-repeat center/contain;
+  width:40px;
+}
+[data-engrid-theme=tpl] .confetti-container .confetti-3{
+  height:19px;
+  mask:url("data:image/svg+xml;charset=utf-8,%3Csvg width='29' height='19' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M5.68 18.645c8.328-4.171 13.516-5.875 22.857-7.055-.505-4.58-1.742-8.403-4.624-11.59C17.57.18 9.947 2.127-.001 5.698c4.977 4.597 6.772 7.745 5.681 12.947' fill='%23362229'/%3E%3C/svg%3E") no-repeat center/contain;
+  width:29px;
+}
 @media (max-width:767.99px){
   [data-engrid-theme=tpl][data-engrid-layout]{
     --engrid__body-headerOutside_padding:24px 22px var(--lg) 22px;
@@ -8702,6 +8733,14 @@ body[data-engrid-theme=tpl]:not(#en__pagebuilder) .click-to-expand:not(.expanded
   }
   [data-engrid-theme=tpl][data-engrid-layout]:not(#en__pagebuilder) .hideif-mobile,[data-engrid-theme=tpl][data-engrid-layout]:not(#en__pagebuilder) .page-backgroundImage img.background-desktop{
     display:none;
+  }
+}
+@keyframes confetti-fall{
+  0%{
+    transform:translateY(0) rotate(var(--rotation-start)) scale(var(--scale));
+  }
+  to{
+    transform:translateY(calc(100vh + 200px)) rotate(var(--rotation-end)) scale(var(--scale));
   }
 }
 @keyframes bounceInDown{
