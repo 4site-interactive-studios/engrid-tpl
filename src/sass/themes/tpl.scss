@@ -33,6 +33,9 @@
   --engrid__content-footer_padding: var(--3xl);
   --engrid__content-footer_background-color: var(--color_earth);
   --engrid__content-footer_color: var(--color_white);
+
+  --click-to-expand__copy-area_height: 126px;
+  --click-to-expand__cta-image_height: 26px;
   // TYPOGRAPHY DEFAULT
   --default_font-family: "Helvetica Neue", var(--native-fonts__sans-serif);
   --default_color: var(--color_black);
@@ -82,7 +85,7 @@
   // --input_color: #000000;
   --input_font-size: 22px;
   // --input_font-weight: initial;
-  // --input_line-height: initial;
+  --input_line-height: 27px;
   --input_background-color: var(--color_white);
   --input_border-width: 2px;
   --input_border-color: #5C5D5F;
@@ -90,6 +93,7 @@
   --input_placeholder-color: #B7AFB2;
   --input_box-shadow: unset;
   --input_padding: 16.5px 20px;
+
 
   --radio_font-size: 20px;
 
@@ -112,7 +116,7 @@
   --button_border-width: 2px;
   --button_font-size: 25px;
   --button_background-color: var(--color_white);
-  --button_font-weight: 700;
+  --button_font-weight: 500;
   // --button_line-height: initial;
   // --button_background-color: initial;;
   --button_border-radius: 8px;
@@ -127,6 +131,7 @@
   --donation-amount__button_background-color_checked: var(--button_background-color_checked);
   --donation-amount__button_color_checked: var(--button_color_checked);
   --donation-amount__button_text-transform: capitalize;
+  --donation-amount__button_font-weight: 700;
   --recurring-frequency__button_border-radius: 100px;
   --recurring-frequency__button_background-color: transparent;
   --recurring-frequency__button_background-color_checked: transparent;
@@ -136,6 +141,7 @@
   --recurring-frequency__button_border-color: transparent;
   --recurring-frequency__button_border-width: 0px;
   --recurring-frequency__button_font-size: 28px;
+  --recurring-frequency__button_font-weight: 700;
   --recurring-payment__button_line-height: 28px;
   --submit__button_font-size: 36px;
   --submit__button_border-width: 0px;
@@ -193,6 +199,42 @@
     font-weight: var(--label_font-weight);
     color: var(--label_color);
     margin-bottom: var(--sm);
+  }
+
+  @at-root body#{&}:not(#en__pagebuilder) .click-to-expand:not(.expanded) {
+    isolation: isolate;
+    position: relative;
+    z-index: 1;
+
+    .click-to-expand-text-wrapper {
+      max-height: var(--click-to-expand__copy-area_height);
+      z-index: 2;
+      mask-image: linear-gradient(to bottom, #000 50%, #fff0 calc(100% - 26px));
+    }
+
+    .click-to-expand-cta {
+      z-index: 3;
+      background-image: none;
+      width: unset;
+
+      &::after {
+        z-index: 5;
+        position: absolute;
+        top: 0;
+        left: 0;
+        content: "Learn More";
+        display: inline-block;
+        font-family: var(--p_font-family);
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 24px;
+        text-transform: capitalize;
+        border-bottom: 2px solid var(--color_evergreen);
+        background: var(--engrid__body_background-color);
+        height: 100%;
+      }
+    }
   }
 
   .enWidget.enWidget--progressBar {
@@ -295,6 +337,7 @@
   }
 
   .radio-to-buttons_recurrfreq .en__field--recurrfreq .en__field__element--radio {
+    --fields_spacing-inline: 4px;
     border: 2px solid var(--color_evergreen);
     border-radius: 100px;
     margin-left: 0px;
@@ -409,6 +452,8 @@
   }
 
   .radio-to-buttons_donationAmt {
+    --fields_spacing-inline: 4px;
+
     .en__field__item .en__field__label {
       min-height: 65px;
     }
@@ -589,6 +634,26 @@
     margin-bottom: 8px;
   }
 
+  .gift-summary {
+    --p_font-size: --default_font-size;
+    --p_line-height: var(--default_line-height);
+    text-align: center;
+
+    .floating-hearts-p {
+      margin-top: 24px;
+      margin-bottom: 15px;
+    }
+
+    p {
+      margin-top: 15px;
+      margin-bottom: 32px;
+    }
+  }
+
+  .remember-me {
+    margin-top: -16px;
+  }
+
   .link-list ul {
     padding: 0;
     margin: 0;
@@ -633,7 +698,7 @@
     .live-variable-currency,
     .live-variable-amount {
       font-size: var(--submit__button_font-size);
-      font-weight: 700;
+      font-weight: 500;
       line-height: 45px;
     }
 
@@ -791,6 +856,7 @@
 
 
     .radio-to-buttons_recurrfreq .en__field--recurrfreq .en__field__element--radio {
+
       input[value="MONTHLY"]+label::after {
         content: "";
         width: 22px;
@@ -808,12 +874,21 @@
       }
     }
 
+    .radio-to-buttons_donationAmt .en__field--donationAmt .en__field__element--radio {
+      --fields_spacing-inline: 6px;
+    }
+
     &[data-engrid-page-background="image"][data-engrid-layout="rightright1col"] .page-backgroundImage:before,
     &[data-engrid-page-background="image"][data-engrid-layout="rightright1col"] figure.media-with-attribution {
       background-position: center;
       left: 0;
       right: $one_col_body-column_max-width;
       width: calc(100% - $one_col_body-column_max-width);
+    }
+
+    .arrow-right {
+      font-size: 18px;
+      max-width: 300px;
     }
 
 
