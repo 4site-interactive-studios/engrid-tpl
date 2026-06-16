@@ -1,7 +1,7 @@
 import { ENGrid } from "@4site/engrid-scripts";
 
 export default class Confetti {
-  private readonly pieceCount = 200;
+  private readonly pieceCount = Math.round((window.innerWidth / 100) * 10);
   private readonly launchDelay = 1000;
   private readonly cleanupDelay = 3000;
   private readonly colors = ['#f7931e', '#5DD8D8', '#39B54A', '#CEE4C5', '#362229'];

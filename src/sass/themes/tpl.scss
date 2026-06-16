@@ -20,6 +20,7 @@
   --md: 16px;
   --lg: 24px;
   --xl: 32px;
+  --2xl: 48px;
   --3xl: 64px;
 
   --engrid__body_background-color: var(--color_snow);
@@ -33,6 +34,8 @@
   --engrid__content-footer_padding: var(--3xl);
   --engrid__content-footer_background-color: var(--color_earth);
   --engrid__content-footer_color: var(--color_white);
+
+  --fields_spacing-block: 12px;
 
   --click-to-expand__copy-area_height: 126px;
   --click-to-expand__cta-image_height: 26px;
@@ -99,8 +102,8 @@
 
   --radio_font-size: 20px;
 
-  --checkbox_width: 24px;
-  --checkbox_height: 24px;
+  --checkbox_width: 26px;
+  --checkbox_height: 26px;
   --checkbox_border-radius: 4px;
 
   // TYPOGRAPHY INPUT:FOCUS
@@ -134,6 +137,7 @@
   --donation-amount__button_color_checked: var(--button_color_checked);
   --donation-amount__button_text-transform: capitalize;
   --donation-amount__button_font-weight: 700;
+  --donation-amount__button_font-size: 24px;
   --recurring-frequency__button_border-radius: 100px;
   --recurring-frequency__button_background-color: transparent;
   --recurring-frequency__button_background-color_checked: transparent;
@@ -185,6 +189,15 @@
     font-size: var(--a_font-size);
     line-height: var(--a_line-height);
     text-decoration: underline;
+  }
+
+  hr {
+    margin-block-start: var(--lg);
+    margin-block-end: var(--lg);
+  }
+
+  input[type=checkbox]+label {
+    align-items: flex-start;
   }
 
   .body-title h1 {
@@ -544,6 +557,21 @@
       }
     }
 
+    .en__field--donationAmt .en__field__item:not(.en__field__item--other) .en__field__label::after {
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 1;
+      line-clamp: 1;
+      text-overflow: ellipsis;
+      font-family: "Helvetica Neue";
+      font-size: 24px;
+      font-style: italic;
+      font-weight: 400;
+      line-height: 16px;
+      letter-spacing: 0.24px;
+      text-transform: lowercase;
+      opacity: 1;
+    }
+
   }
 
   .give-by-select-wrapper {
@@ -656,6 +684,10 @@
     margin-top: -16px;
   }
 
+  .rememberme-wrapper {
+    padding-bottom: 0;
+  }
+
   .link-list ul {
     padding: 0;
     margin: 0;
@@ -732,6 +764,7 @@
     }
 
     .footer-main-copy {
+      --p_font-family: var(--default_font-family);
       margin-top: var(--xl);
 
       img {
@@ -815,7 +848,7 @@
     z-index: 9999;
     overflow: hidden;
 
-    > div {
+    >div {
       position: absolute;
       top: var(--start-y);
       left: var(--x);
@@ -846,6 +879,24 @@
     }
   }
 
+  .tippy-box {
+    max-width: 267px !important;
+    background-color: white;
+    color: black;
+    box-shadow: 0 8px 16px 0 rgba(35, 50, 89, 0.14);
+
+    .tippy-content {
+      padding: var(--md);
+      font-family: var(--p_font-family);
+      font-size: 15px;
+      line-height: 21px;
+    }
+
+    .tippy-arrow {
+      color: white;
+    }
+  }
+
 }
 
 /* Add your custom theme styles here */
@@ -859,6 +910,17 @@
     --engrid__content-footer_padding: 40px 22px;
     --h1_font-size: 32px;
     --h1_line-height: 36px;
+
+    --default_font-size: 18px;
+    --default_line-height: 27px;
+    --input_font-size: 18px;
+    --input_line-height: 27px;
+    --label_font-size: 22px;
+    --label_line-height: 32px;
+    --radio_font-size: 15px;
+    --radio_line-height: 27px;
+
+    --fields_spacing-block: 8px;
 
     --recurring-frequency__button_font-size: 24px;
     --recurring-frequency__button_line-height: 16px;
@@ -930,6 +992,22 @@
     .arrow-right {
       font-size: 18px;
       max-width: 300px;
+    }
+
+    .content-footer {
+      p {
+        margin-block-start: var(--md);
+        margin-block-end: var(--md);
+      }
+
+      .tpl-footer-logo {
+        margin-block-start: var(--2xl);
+        margin-block-end: var(--2xl);
+      }
+
+      .footer-links {
+        margin-bottom: var(--md);
+      }
     }
 
 

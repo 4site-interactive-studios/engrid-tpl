@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Monday, June 15, 2026 @ 16:41:40 ET
+ *  Date: Tuesday, June 16, 2026 @ 13:58:56 ET
  *  By: nick
  *  ENGrid styles: v0.25.6
  *  ENGrid scripts: v0.25.6
@@ -27052,7 +27052,7 @@ class SuggestedAmount {
 
 class Confetti {
   constructor() {
-    _defineProperty(this, "pieceCount", 200);
+    _defineProperty(this, "pieceCount", Math.round(window.innerWidth / 100 * 10));
     _defineProperty(this, "launchDelay", 1000);
     _defineProperty(this, "cleanupDelay", 3000);
     _defineProperty(this, "colors", ['#f7931e', '#5DD8D8', '#39B54A', '#CEE4C5', '#362229']);
