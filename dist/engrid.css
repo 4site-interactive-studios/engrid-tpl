@@ -19,7 +19,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Wednesday, June 17, 2026 @ 13:21:56 ET
+ *  Date: Monday, June 22, 2026 @ 16:44:23 ET
  *  By: nick
  *  ENGrid styles: v0.25.6
  *  ENGrid scripts: v0.25.6
@@ -8081,7 +8081,8 @@ body[data-engrid-debug]:before{
   --button_background-color:var(--color_white);
   --button_font-weight:500;
   --button_border-radius:8px;
-  --button_background-color_hover:#cce1d7;
+  --button_background-color_hover:var(--color_evergreen);
+  --button_color_hover:var(--color_white);
   --button_border-color_hover:var(--color_evergreen);
   --button_background-color_checked:var(--color_evergreen);
   --button_border-color_checked:var(--color_evergreen);
@@ -8251,7 +8252,7 @@ body[data-engrid-theme=tpl]:not(#en__pagebuilder) .click-to-expand:not(.expanded
 [data-engrid-theme=tpl] .enWidget.enWidget--progressBar .enWidget__fill,[data-engrid-theme=tpl] .enWidget.enWidget--progressBar .enWidget__progress{
   border-radius:100px;
 }
-[data-engrid-theme=tpl] .form-heading h2{
+[data-engrid-theme=tpl] .form-heading h2,[data-engrid-theme=tpl] h3.engrid--embedded-ecard-heading{
   font-size:36px;
   font-style:normal;
   font-weight:500;
@@ -8809,6 +8810,116 @@ body[data-engrid-theme=tpl]:not(#en__pagebuilder) .click-to-expand:not(.expanded
     display:none;
   }
 }
+[data-engrid-theme=tpl][data-engrid-embedded-ecard=true] .en__ecarditems__showprev{
+  display:none;
+}
+
+[data-engrid-theme=tpl][data-engrid-page-type=e-card] .ecard-warning{
+  background-color:#f44336;
+  border-radius:5px;
+  color:#fff;
+  padding:10px;
+}
+[data-engrid-theme=tpl][data-engrid-page-type=e-card] .ecard-warning>:first-child{
+  margin-top:0;
+}
+[data-engrid-theme=tpl][data-engrid-page-type=e-card] .ecard-warning>:last-child{
+  margin-bottom:0;
+}
+[data-engrid-theme=tpl][data-engrid-page-type=e-card] .en__ecarditems h2{
+  font-size:36px;
+  font-style:normal;
+  font-weight:500;
+  line-height:45px;
+  margin-bottom:var(--md);
+  margin-top:var(--lg);
+}
+[data-engrid-theme=tpl][data-engrid-page-type=e-card] .en__ecardrecipients__detail input:not(.en__field__input--vgs){
+  margin-bottom:var(--fields_spacing-block);
+  margin-top:var(--spacing-2, 8px);
+  padding:var(--input_padding);
+}
+[data-engrid-theme=tpl][data-engrid-page-type=e-card] .en__ecardrecipients__detail input.invalid{
+  border:2px solid var(--error__color);
+  padding:calc(var(--input_padding_vertical) - 1px) calc(var(--input_padding_horizontal) - 1px);
+}
+[data-engrid-theme=tpl][data-engrid-page-type=e-card] .en__ecardrecipients__list{
+  margin-bottom:20px;
+}
+[data-engrid-theme=tpl][data-engrid-page-type=e-card] .en__ecardrecipients__name{
+  margin-bottom:10px;
+  width:100% !important;
+}
+[data-engrid-theme=tpl][data-engrid-page-type=e-card] .en__ecardrecipients__name input{
+  width:100%;
+}
+[data-engrid-theme=tpl][data-engrid-page-type=e-card] .en__ecardrecipients__email{
+  width:100% !important;
+}
+[data-engrid-theme=tpl][data-engrid-page-type=e-card] .en__ecardrecipients__email input{
+  width:100%;
+}
+[data-engrid-theme=tpl][data-engrid-page-type=e-card] .en__ecardrecipients__detail{
+  align-items:center;
+  justify-content:flex-start;
+  position:relative;
+}
+[data-engrid-theme=tpl][data-engrid-page-type=e-card] button.en__ecarditems__button.en__ecarditems__addrecipient{
+  height:auto;
+  margin:10px 0 0 !important;
+  padding:12px !important;
+  position:static;
+  width:auto;
+}
+[data-engrid-theme=tpl][data-engrid-page-type=e-card] button.en__ecarditems__button.en__ecarditems__addrecipient:after{
+  content:" Add Recipient";
+}
+[data-engrid-theme=tpl][data-engrid-page-type=e-card] .en__ecardrecipients__list{
+  background-color:var(--engrid__body-main_background-color);
+}
+[data-engrid-theme=tpl][data-engrid-page-type=e-card] .en__ecardrecipients__list:has(>.en__ecardrecipients__recipient):before{
+  content:"Recipients:";
+}
+[data-engrid-theme=tpl][data-engrid-page-type=e-card] .en__ecardrecipients__recipient{
+  align-items:center;
+  background-color:var(--engrid__body-main_background-color);
+  padding:10px 0;
+}
+[data-engrid-theme=tpl][data-engrid-page-type=e-card] .en__ecardrecipients__recipient input.ecardrecipient__email,[data-engrid-theme=tpl][data-engrid-page-type=e-card] .en__ecardrecipients__recipient input.ecardrecipient__name{
+  background-color:var(--engrid__body-main_background-color);
+}
+@media screen and (min-width:600px){
+  [data-engrid-theme=tpl][data-engrid-page-type=e-card] .en__ecardrecipients__recipient input.ecardrecipient__email,[data-engrid-theme=tpl][data-engrid-page-type=e-card] .en__ecardrecipients__recipient input.ecardrecipient__name{
+    width:47.5% !important;
+  }
+}
+[data-engrid-theme=tpl][data-engrid-page-type=e-card] .ecardrecipient__remove button{
+  background:var(--error__color);
+  color:#fff;
+  margin:0;
+}
+[data-engrid-theme=tpl][data-engrid-page-type=e-card] .ecardrecipient__remove button:hover{
+  color:#fff;
+}
+[data-engrid-theme=tpl][data-engrid-page-type=e-card] .en__ecarditems__prevclose{
+  --button_color_hover:var(--color_earth);
+}
+@media screen and (max-width:600px){
+  [data-engrid-theme=tpl][data-engrid-page-type=e-card] .en__ecardrecipients__recipient{
+    align-items:flex-start;
+    flex-direction:column;
+    position:relative;
+  }
+  [data-engrid-theme=tpl][data-engrid-page-type=e-card] .en__ecardrecipients__recipient input{
+    width:calc(100% - 50px) !important;
+  }
+  [data-engrid-theme=tpl][data-engrid-page-type=e-card] .en__ecardrecipients__recipient .ecardrecipient__remove{
+    position:absolute;
+    right:15px;
+    top:calc(50% - 15px);
+  }
+}
+
 @keyframes confetti-fall{
   0%{
     transform:translateY(0) rotate(var(--rotation-start)) scale(var(--scale));

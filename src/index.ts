@@ -1,4 +1,4 @@
-import { Options, App, DonationAmount, DonationFrequency, RememberMe } from "@4site/engrid-scripts"; // Uses ENGrid via NPM
+import { Options, App, DonationAmount, DonationFrequency, RememberMe, Ecard } from "@4site/engrid-scripts"; // Uses ENGrid via NPM
 // import { Options, App } from "../../engrid-scripts/packages/common"; // Uses ENGrid via Visual Studio Workspace
 
 import "./sass/main.scss";
@@ -57,6 +57,7 @@ const options: Options = {
     new DonationLightboxForm(DonationAmount, DonationFrequency, App);
     new SuggestedAmount();
     new Confetti();
+    new Ecard();
     customScript(App);
   },
   onResize: () => console.log("Starter Theme Window Resized"),
