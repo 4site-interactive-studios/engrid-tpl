@@ -19,7 +19,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Monday, June 22, 2026 @ 16:44:23 ET
+ *  Date: Wednesday, June 24, 2026 @ 11:23:48 ET
  *  By: nick
  *  ENGrid styles: v0.25.6
  *  ENGrid scripts: v0.25.6
@@ -8813,26 +8813,8 @@ body[data-engrid-theme=tpl]:not(#en__pagebuilder) .click-to-expand:not(.expanded
 [data-engrid-theme=tpl][data-engrid-embedded-ecard=true] .en__ecarditems__showprev{
   display:none;
 }
-
-[data-engrid-theme=tpl][data-engrid-page-type=e-card] .ecard-warning{
-  background-color:#f44336;
-  border-radius:5px;
-  color:#fff;
-  padding:10px;
-}
-[data-engrid-theme=tpl][data-engrid-page-type=e-card] .ecard-warning>:first-child{
-  margin-top:0;
-}
-[data-engrid-theme=tpl][data-engrid-page-type=e-card] .ecard-warning>:last-child{
-  margin-bottom:0;
-}
-[data-engrid-theme=tpl][data-engrid-page-type=e-card] .en__ecarditems h2{
-  font-size:36px;
-  font-style:normal;
-  font-weight:500;
-  line-height:45px;
-  margin-bottom:var(--md);
-  margin-top:var(--lg);
+[data-engrid-theme=tpl][data-engrid-page-type=e-card] .en__ecardmessage__default{
+  border:2px solid var(--input_border-color);
 }
 [data-engrid-theme=tpl][data-engrid-page-type=e-card] .en__ecardrecipients__detail input:not(.en__field__input--vgs){
   margin-bottom:var(--fields_spacing-block);
@@ -8842,6 +8824,17 @@ body[data-engrid-theme=tpl]:not(#en__pagebuilder) .click-to-expand:not(.expanded
 [data-engrid-theme=tpl][data-engrid-page-type=e-card] .en__ecardrecipients__detail input.invalid{
   border:2px solid var(--error__color);
   padding:calc(var(--input_padding_vertical) - 1px) calc(var(--input_padding_horizontal) - 1px);
+}
+[data-engrid-theme=tpl][data-engrid-page-type=e-card] .en__ecarditems__button{
+  font-size:var(--button_font-size);
+  font-weight:var(--button_font-weight);
+  padding:var(--button_padding);
+}
+[data-engrid-theme=tpl][data-engrid-page-type=e-card] .en__ecardmessage h2,[data-engrid-theme=tpl][data-engrid-page-type=e-card] .en__ecardrecipients__futureDelivery h2{
+  font-family:var(--label_font-family);
+  font-size:var(--label_font-size);
+  font-weight:700;
+  line-height:var(--label_line-height);
 }
 [data-engrid-theme=tpl][data-engrid-page-type=e-card] .en__ecardrecipients__list{
   margin-bottom:20px;
@@ -8887,6 +8880,8 @@ body[data-engrid-theme=tpl]:not(#en__pagebuilder) .click-to-expand:not(.expanded
 }
 [data-engrid-theme=tpl][data-engrid-page-type=e-card] .en__ecardrecipients__recipient input.ecardrecipient__email,[data-engrid-theme=tpl][data-engrid-page-type=e-card] .en__ecardrecipients__recipient input.ecardrecipient__name{
   background-color:var(--engrid__body-main_background-color);
+  font-family:var(--default_font-family);
+  font-size:var(--input_font-size);
 }
 @media screen and (min-width:600px){
   [data-engrid-theme=tpl][data-engrid-page-type=e-card] .en__ecardrecipients__recipient input.ecardrecipient__email,[data-engrid-theme=tpl][data-engrid-page-type=e-card] .en__ecardrecipients__recipient input.ecardrecipient__name{

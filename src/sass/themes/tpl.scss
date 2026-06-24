@@ -1078,144 +1078,141 @@
       display: none;
     }
   }
-}
 
-[data-engrid-theme="tpl"][data-engrid-page-type="e-card"] {
+  &[data-engrid-page-type="e-card"] {
 
-  .ecard-warning {
-    background-color: #f44336;
-    padding: 10px;
-    border-radius: 5px;
-    color: white;
-
-    >*:first-child {
-      margin-top: 0;
+    .en__ecardmessage__default {
+      border: 2px solid var(--input_border-color);
     }
 
-    >*:last-child {
-      margin-bottom: 0;
-    }
-  }
-
-  .en__ecarditems h2 {
-    font-size: 36px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 45px;
-    margin-top: var(--lg);
-    margin-bottom: var(--md);
-  }
-
-
-  .en__ecardrecipients__detail {
-    input:not(.en__field__input--vgs) {
-      margin-top: var(--spacing-2, 8px);
-      margin-bottom: var(--fields_spacing-block);
-      padding: var(--input_padding);
-    }
-
-    input.invalid {
-      border: 2px solid var(--error__color);
-      padding: calc(var(--input_padding_vertical) - 1px) calc(var(--input_padding_horizontal) - 1px);
-    }
-
-  }
-
-  .en__ecardrecipients__list {
-    margin-bottom: 20px;
-  }
-
-  .en__ecardrecipients__name {
-    width: 100% !important;
-    margin-bottom: 10px;
-
-    input {
-      width: 100%;
-    }
-  }
-
-  .en__ecardrecipients__email {
-    width: 100% !important;
-
-    input {
-      width: 100%;
-    }
-  }
-
-  .en__ecardrecipients__detail {
-    position: relative;
-    justify-content: flex-start;
-    align-items: center;
-  }
-
-  button.en__ecarditems__button.en__ecarditems__addrecipient {
-    position: static;
-    margin: 10px 0 0 !important;
-    width: auto;
-    height: auto;
-    padding: 12px !important;
-
-    &::after {
-      content: " Add Recipient";
-    }
-  }
-
-  .en__ecardrecipients__list {
-    background-color: var(--engrid__body-main_background-color);
-  }
-
-  .en__ecardrecipients__list:has(> .en__ecardrecipients__recipient):before {
-    content: "Recipients:";
-  }
-
-  .en__ecardrecipients__recipient {
-    align-items: center;
-    padding: 10px 0px;
-    background-color: var(--engrid__body-main_background-color);
-
-    input.ecardrecipient__name,
-    input.ecardrecipient__email {
-      background-color: var(--engrid__body-main_background-color);
-
-      @media screen and (min-width: 600px) {
-        width: 47.5% !important;
+    .en__ecardrecipients__detail {
+      input:not(.en__field__input--vgs) {
+        margin-top: var(--spacing-2, 8px);
+        margin-bottom: var(--fields_spacing-block);
+        padding: var(--input_padding);
       }
+
+      input.invalid {
+        border: 2px solid var(--error__color);
+        padding: calc(var(--input_padding_vertical) - 1px) calc(var(--input_padding_horizontal) - 1px);
+      }
+
     }
-  }
 
-  .ecardrecipient__remove button {
-    margin: 0;
-
-    background: var(--error__color);
-    color: white;
-
-    &:hover {
-      color: white;
+    .en__ecarditems__button {
+      font-size: var(--button_font-size);
+      font-weight: var(--button_font-weight);
+      padding: var(--button_padding);
     }
-  }
 
-  .en__ecarditems__prevclose {
-    --button_color_hover: var(--color_earth);
-  }
+    .en__ecardrecipients__futureDelivery h2,
+    .en__ecardmessage h2 {
+      // Display like a label
+      font-size: var(--label_font-size);
+      font-weight: 700;
+      line-height: var(--label_line-height);
+      font-family: var(--label_font-family);
+    }
 
-  @media screen and (max-width: 600px) {
-    .en__ecardrecipients__recipient {
-      position: relative;
-      flex-direction: column;
-      align-items: flex-start;
+    .en__ecardrecipients__list {
+      margin-bottom: 20px;
+    }
+
+    .en__ecardrecipients__name {
+      width: 100% !important;
+      margin-bottom: 10px;
 
       input {
-        width: calc(100% - 50px) !important;
+        width: 100%;
       }
+    }
 
-      .ecardrecipient__remove {
-        position: absolute;
-        right: 15px;
-        top: calc(50% - 15px);
+    .en__ecardrecipients__email {
+      width: 100% !important;
+
+      input {
+        width: 100%;
+      }
+    }
+
+    .en__ecardrecipients__detail {
+      position: relative;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    button.en__ecarditems__button.en__ecarditems__addrecipient {
+      position: static;
+      margin: 10px 0 0 !important;
+      width: auto;
+      height: auto;
+      padding: 12px !important;
+
+      &::after {
+        content: " Add Recipient";
+      }
+    }
+
+    .en__ecardrecipients__list {
+      background-color: var(--engrid__body-main_background-color);
+    }
+
+    .en__ecardrecipients__list:has(> .en__ecardrecipients__recipient):before {
+      content: "Recipients:";
+    }
+
+    .en__ecardrecipients__recipient {
+      align-items: center;
+      padding: 10px 0px;
+      background-color: var(--engrid__body-main_background-color);
+
+      input.ecardrecipient__name,
+      input.ecardrecipient__email {
+        font-family: var(--default_font-family);
+        font-size: var(--input_font-size);
+        background-color: var(--engrid__body-main_background-color);
+
+        @media screen and (min-width: 600px) {
+          width: 47.5% !important;
+        }
+      }
+    }
+
+    .ecardrecipient__remove button {
+      margin: 0;
+
+      background: var(--error__color);
+      color: white;
+
+      &:hover {
+        color: white;
+      }
+    }
+
+    .en__ecarditems__prevclose {
+      --button_color_hover: var(--color_earth);
+    }
+
+    @media screen and (max-width: 600px) {
+      .en__ecardrecipients__recipient {
+        position: relative;
+        flex-direction: column;
+        align-items: flex-start;
+
+        input {
+          width: calc(100% - 50px) !important;
+        }
+
+        .ecardrecipient__remove {
+          position: absolute;
+          right: 15px;
+          top: calc(50% - 15px);
+        }
       }
     }
   }
 }
+
 
 @keyframes confetti-fall {
   from {
