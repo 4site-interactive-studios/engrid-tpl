@@ -19,10 +19,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Wednesday, June 24, 2026 @ 11:23:48 ET
+ *  Date: Wednesday, July 1, 2026 @ 15:54:00 ET
  *  By: nick
- *  ENGrid styles: v0.25.6
- *  ENGrid scripts: v0.25.6
+ *  ENGrid styles: v0.25.11
+ *  ENGrid scripts: v0.25.11
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -995,7 +995,7 @@ template{
 }
 
 .en__ecardmessage__default{
-  border:1px solid #bfbfbf;
+  border:1px solid var(--textarea_border-color, #bfbfbf);
   min-height:15.625rem;
   padding:.625rem;
 }
@@ -1024,7 +1024,7 @@ template{
 
 .en__ecardrecipients__list{
   background:var(--color_white);
-  border:1px solid #bfbfbf;
+  border:1px solid var(--textarea_border-color, #bfbfbf);
   margin:1.25rem 0 0;
   min-height:15.625rem;
   padding:.625rem;
@@ -2583,6 +2583,15 @@ body[data-engrid-live-currency=active] .en__field--donationAmt .en__field__item:
   display:none !important;
 }
 
+.engrid__sr-only{
+  clip:rect(0 0 0 0);
+  height:1px;
+  overflow:hidden;
+  position:absolute;
+  white-space:nowrap;
+  width:1px;
+}
+
 @supports (-webkit-appearance:-apple-pay-button){
   .apple-pay-button{
     -apple-pay-button-type:donate;
@@ -3932,6 +3941,11 @@ button.en__ecarditems__addrecipient{
   width:calc((100% - var(--fields_spacing-inline)*var(--ecard_thumnail-row_count)*2)/var(--ecard_thumnail-row_count));
 }
 
+.en__ecarditems__thumb:focus,.en__ecarditems__thumb:focus-visible{
+  outline:3px solid var(--focus_outline_color, #086ce7);
+  outline-offset:var(--focus_outline_offset, 2px);
+}
+
 .en__ecarditems__thumb img{
   border:var(--ecard_thumnail-border-width) solid var(--color_primary);
   filter:brightness(75%);
@@ -3975,6 +3989,17 @@ button.en__ecarditems__prevclose{
 }
 .en__ecarditems__showprev :hover{
   color:#fff;
+}
+.en__ecardrecipients__futureDelivery input[type=date]{
+  appearance:none;
+  box-sizing:border-box;
+  max-width:100%;
+  min-width:0;
+  width:100%;
+}
+
+.en__ecardrecipients__futureDelivery input[type=date]::-webkit-date-and-time-value{
+  text-align:left;
 }
 
 @media screen and (max-width:700px){
@@ -5121,6 +5146,11 @@ div[id^=nb-field-].nb-success input{
   padding:0;
   width:var(--radio_width);
 }
+[data-engrid-theme] .en__pg__select:has(input:focus){
+  border-radius:30px;
+  outline:3px solid var(--focus_outline_color, #086ce7);
+  outline-offset:var(--focus_outline_offset, 2px);
+}
 [data-engrid-theme] .en__pg__display{
   grid-area:en__pg__display;
   padding:0;
@@ -5438,6 +5468,10 @@ body:not(#en__pagebuilder):not([data-engrid-debug]) [class*=showifamount].animat
 }
 [data-engrid-theme][data-engrid-page-type=supporterhub] .en__hubPledge__validationFail .en__field__element{
   border:none;
+}
+[data-engrid-theme][data-engrid-page-type=supporterhub] .en__component--hubgadget:focus{
+  outline:3px solid var(--focus_outline_color, #086ce7);
+  outline-offset:var(--focus_outline_offset, 2px);
 }
 @media screen and (max-width:768px){
   [data-engrid-theme] .en__hubPledge__buttons{
@@ -8035,7 +8069,7 @@ body[data-engrid-debug]:before{
   --engrid__content-footer_background-color:var(--color_earth);
   --engrid__content-footer_color:var(--color_white);
   --fields_spacing-block:12px;
-  --click-to-expand__copy-area_height:126px;
+  --click-to-expand__copy-area_height:140px;
   --click-to-expand__cta-image_height:26px;
   --default_font-family:"Helvetica Neue", var(--native-fonts__sans-serif);
   --default_color:var(--color_black);
@@ -8098,8 +8132,10 @@ body[data-engrid-debug]:before{
   --recurring-frequency__button_background-color_checked:#0000;
   --recurring-frequency__button_color_checked:var(--color_white);
   --recurring-frequency__button_background-color_hover:#0000;
+  --recurring-frequency__button_color_hover:var(--color_earth);
   --recurring-frequency__button_border-color_hover:#0000;
   --recurring-frequency__button_border-color:#0000;
+  --recurring-frequency__button_border-color_checked:#0000;
   --recurring-frequency__button_border-width:0px;
   --recurring-frequency__button_font-size:28px;
   --recurring-frequency__button_font-weight:700;
@@ -8115,6 +8151,9 @@ body[data-engrid-debug]:before{
   --donation-amount__button_count:3;
   --give-by-select__button_count:1;
   --arrow-bg-url:url(https://bd6ca9cefa6fb6e0adf1-c2f9aa1adb9f60a775f60074e4c86031.ssl.cf5.rackcdn.com/20002/arrow-reveal.svg?v=1781202765000);
+}
+[data-engrid-theme=tpl] *{
+  -webkit-font-smoothing:antialiased;
 }
 [data-engrid-theme=tpl] .body-headerOutside p{
   margin:0;
@@ -8143,6 +8182,9 @@ body[data-engrid-debug]:before{
 [data-engrid-theme=tpl] input[type=checkbox]+label{
   align-items:flex-start;
 }
+[data-engrid-theme=tpl] input::placeholder{
+  font-weight:400;
+}
 [data-engrid-theme=tpl] .en__component--formblock .en__field.en__field--checkbox.en__field--question .en__field__element{
   margin-bottom:12px;
 }
@@ -8168,7 +8210,7 @@ body[data-engrid-theme=tpl]:not(#en__pagebuilder) .click-to-expand:not(.expanded
   z-index:1;
 }
 body[data-engrid-theme=tpl]:not(#en__pagebuilder) .click-to-expand:not(.expanded) .click-to-expand-text-wrapper{
-  mask-image:linear-gradient(180deg, #000 50%, #fff0 calc(100% - 26px));
+  mask-image:linear-gradient(180deg, #000, #fff0 calc(100% - 20px));
   max-height:var(--click-to-expand__copy-area_height);
   z-index:2;
 }
@@ -8288,19 +8330,19 @@ body[data-engrid-theme=tpl]:not(#en__pagebuilder) .click-to-expand:not(.expanded
 [data-engrid-theme=tpl] .radio-to-buttons_recurrfreq .en__field--recurrfreq .en__field__element--radio:before{
   background-color:var(--color_evergreen);
   border-radius:100px;
-  bottom:0;
+  bottom:-.5px;
   content:"";
-  left:0;
-  outline:2px solid var(--color_evergreen);
+  left:-.5px;
   position:absolute;
-  top:0;
+  right:-.5px;
+  top:-.5px;
   transform:translateX(0);
   transition:transform .3s ease;
   width:317px;
-  z-index:0;
+  z-index:1;
 }
 [data-engrid-theme=tpl] .radio-to-buttons_recurrfreq .en__field--recurrfreq .en__field__element--radio:has(input[value=MONTHLY]:checked):before{
-  transform:translateX(100.5%);
+  transform:translateX(101%);
 }
 [data-engrid-theme=tpl] .radio-to-buttons_recurrfreq .en__field--recurrfreq .en__field__element--radio input[value=MONTHLY]+label:after{
   background:url(https://bd6ca9cefa6fb6e0adf1-c2f9aa1adb9f60a775f60074e4c86031.ssl.cf5.rackcdn.com/20002/hearts-drifting.svg?v=1781123606000) 50%/contain no-repeat;
@@ -8319,8 +8361,16 @@ body[data-engrid-theme=tpl]:not(#en__pagebuilder) .click-to-expand:not(.expanded
 [data-engrid-theme=tpl] .radio-to-buttons_recurrfreq .en__field--recurrfreq .en__field__element--radio .en__field__item{
   padding:4px 8px;
 }
+[data-engrid-theme=tpl] .radio-to-buttons_recurrfreq .en__field--recurrfreq .en__field__element--radio .en__field__input:active,[data-engrid-theme=tpl] .radio-to-buttons_recurrfreq .en__field--recurrfreq .en__field__element--radio .en__field__input:focus,[data-engrid-theme=tpl] .radio-to-buttons_recurrfreq .en__field--recurrfreq .en__field__element--radio .en__field__input:focus-visible{
+  outline:none;
+}
+[data-engrid-theme=tpl] .radio-to-buttons_recurrfreq .en__field--recurrfreq .en__field__element--radio .en__field__input:active+.en__field__label,[data-engrid-theme=tpl] .radio-to-buttons_recurrfreq .en__field--recurrfreq .en__field__element--radio .en__field__input:focus+.en__field__label,[data-engrid-theme=tpl] .radio-to-buttons_recurrfreq .en__field--recurrfreq .en__field__element--radio .en__field__input:focus-visible+.en__field__label{
+  outline:2px solid #fff;
+  outline-offset:-1px;
+}
 [data-engrid-theme=tpl] .radio-to-buttons_recurrfreq .en__field--recurrfreq .en__field__element--radio .en__field__item,[data-engrid-theme=tpl] .radio-to-buttons_recurrfreq .en__field--recurrfreq .en__field__element--radio .en__field__label--item{
   position:relative;
+  transition:color .3s ease;
   z-index:1;
 }
 [data-engrid-theme=tpl] .radio-to-buttons_recurrfreq .en__field--recurrfreq .en__field__element--radio input{
@@ -8464,12 +8514,32 @@ body[data-engrid-theme=tpl]:not(#en__pagebuilder) .click-to-expand:not(.expanded
   text-overflow:ellipsis;
   text-transform:lowercase;
 }
+[data-engrid-theme=tpl] .give-by-select-wrapper{
+  --button_border-color:var(--color_earth);
+  --button_border-color_hover:var(--color_earth);
+  --button_border-color_checked:var(--color_earth);
+  --button_color:var(--color_earth);
+  --button_color_hover:var(--color_earth);
+  --button_color_checked:var(--color_white);
+  --button_background-color:var(--color_white);
+  --button_background-color_hover:var(--color_moss);
+  --button_background-color_checked:var(--color_evergreen);
+  --button_padding:12px 20px;
+}
+[data-engrid-theme=tpl] .give-by-select-wrapper .en__field .en__field__element .en__field--giveBySelect{
+  padding-bottom:6px;
+}
 [data-engrid-theme=tpl] .give-by-select-wrapper .en__field__label{
   display:flex;
   gap:25px;
 }
+[data-engrid-theme=tpl] .give-by-select-wrapper .ach{
+  --button_font-weight:700;
+  --button_font-size:32px;
+  --button_line-height:32px;
+}
 [data-engrid-theme=tpl] .give-by-select-wrapper .ach .en__field__label{
-  gap:8px;
+  gap:11px;
 }
 [data-engrid-theme=tpl] .give-by-select-wrapper .paypal{
   background:url(https://bd6ca9cefa6fb6e0adf1-c2f9aa1adb9f60a775f60074e4c86031.ssl.cf5.rackcdn.com/20002/paypal.svg?v=1781207227000) 50%/contain no-repeat;
@@ -8584,6 +8654,7 @@ body[data-engrid-theme=tpl]:not(#en__pagebuilder) .click-to-expand:not(.expanded
   transition:background-color .3s ease,color .3s ease;
 }
 [data-engrid-theme=tpl] .en__submit button{
+  line-height:35px;
   margin-top:var(--md);
 }
 [data-engrid-theme=tpl] .en__submit .live-variable-amount,[data-engrid-theme=tpl] .en__submit .live-variable-currency{
@@ -8719,6 +8790,18 @@ body[data-engrid-theme=tpl]:not(#en__pagebuilder) .click-to-expand:not(.expanded
 [data-engrid-theme=tpl] .tippy-box .tippy-arrow{
   color:#fff;
 }
+@media (max-width:359.99px){
+  [data-engrid-theme=tpl][data-engrid-layout] .enWidget.enWidget--progressBar .enWidget__copy--above{
+    font-size:14px !important;
+    line-height:21px !important;
+  }
+}
+@media (max-width:432.99px){
+  [data-engrid-theme=tpl][data-engrid-layout] .enWidget.enWidget--progressBar .enWidget__copy--above{
+    font-size:16px;
+    line-height:24px;
+  }
+}
 @media (max-width:767.99px){
   [data-engrid-theme=tpl][data-engrid-layout]{
     --engrid__body-headerOutside_padding:24px 22px var(--lg) 22px;
@@ -8761,6 +8844,9 @@ body[data-engrid-theme=tpl]:not(#en__pagebuilder) .click-to-expand:not(.expanded
   }
   [data-engrid-theme=tpl][data-engrid-layout]:not(#en__pagebuilder)[data-engrid-layout=leftleft1col] .body-header{
     display:none;
+  }
+  [data-engrid-theme=tpl][data-engrid-layout] .content-footerSpacer{
+    grid-column:bc;
   }
   [data-engrid-theme=tpl][data-engrid-layout] .radio-to-buttons_recurrfreq .en__field--recurrfreq .en__field__element--radio:before{
     width:50%;
@@ -8815,6 +8901,22 @@ body[data-engrid-theme=tpl]:not(#en__pagebuilder) .click-to-expand:not(.expanded
 }
 [data-engrid-theme=tpl][data-engrid-page-type=e-card] .en__ecardmessage__default{
   border:2px solid var(--input_border-color);
+  height:8.5rem;
+  margin-bottom:20px;
+  min-height:8.5rem;
+}
+[data-engrid-theme=tpl][data-engrid-page-type=e-card] .thumb--active{
+  border:6px solid var(--color_evergreen);
+  border-radius:10px;
+}
+[data-engrid-theme=tpl][data-engrid-page-type=e-card] .en__ecarditems__thumb img{
+  border:none;
+  border-radius:8px;
+  margin:6px;
+  width:calc(100% - 12px);
+}
+[data-engrid-theme=tpl][data-engrid-page-type=e-card] .en__ecarditems__thumb img:hover,[data-engrid-theme=tpl][data-engrid-page-type=e-card] .en__ecarditems__thumb:hover img{
+  box-shadow:none;
 }
 [data-engrid-theme=tpl][data-engrid-page-type=e-card] .en__ecardrecipients__detail input:not(.en__field__input--vgs){
   margin-bottom:var(--fields_spacing-block);
@@ -8830,11 +8932,12 @@ body[data-engrid-theme=tpl]:not(#en__pagebuilder) .click-to-expand:not(.expanded
   font-weight:var(--button_font-weight);
   padding:var(--button_padding);
 }
-[data-engrid-theme=tpl][data-engrid-page-type=e-card] .en__ecardmessage h2,[data-engrid-theme=tpl][data-engrid-page-type=e-card] .en__ecardrecipients__futureDelivery h2{
+[data-engrid-theme=tpl][data-engrid-page-type=e-card] .en__ecarditems h2,[data-engrid-theme=tpl][data-engrid-page-type=e-card] .en__ecardmessage h2,[data-engrid-theme=tpl][data-engrid-page-type=e-card] .en__ecardrecipients__futureDelivery h2{
   font-family:var(--label_font-family);
   font-size:var(--label_font-size);
   font-weight:700;
   line-height:var(--label_line-height);
+  margin-bottom:8px;
 }
 [data-engrid-theme=tpl][data-engrid-page-type=e-card] .en__ecardrecipients__list{
   margin-bottom:20px;

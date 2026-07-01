@@ -41,7 +41,7 @@
 
   --fields_spacing-block: 12px;
 
-  --click-to-expand__copy-area_height: 126px;
+  --click-to-expand__copy-area_height: 140px;
   --click-to-expand__cta-image_height: 26px;
   // TYPOGRAPHY DEFAULT
   --default_font-family: "Helvetica Neue", var(--native-fonts__sans-serif);
@@ -148,8 +148,10 @@
   --recurring-frequency__button_background-color_checked: transparent;
   --recurring-frequency__button_color_checked: var(--color_white);
   --recurring-frequency__button_background-color_hover: transparent;
+  --recurring-frequency__button_color_hover: var(--color_earth);
   --recurring-frequency__button_border-color_hover: transparent;
   --recurring-frequency__button_border-color: transparent;
+  --recurring-frequency__button_border-color_checked: transparent;
   --recurring-frequency__button_border-width: 0px;
   --recurring-frequency__button_font-size: 28px;
   --recurring-frequency__button_font-weight: 700;
@@ -169,6 +171,10 @@
   --give-by-select__button_count: 1;
 
   --arrow-bg-url: url("https://bd6ca9cefa6fb6e0adf1-c2f9aa1adb9f60a775f60074e4c86031.ssl.cf5.rackcdn.com/20002/arrow-reveal.svg?v=1781202765000");
+
+  * {
+    -webkit-font-smoothing: antialiased;
+  }
 
   .body-headerOutside {
     p {
@@ -205,6 +211,10 @@
     align-items: flex-start;
   }
 
+  input::placeholder {
+    font-weight: 400;
+  }
+
   .en__component--formblock .en__field.en__field--checkbox.en__field--question .en__field__element {
     margin-bottom: 12px;
   }
@@ -237,7 +247,7 @@
     .click-to-expand-text-wrapper {
       max-height: var(--click-to-expand__copy-area_height);
       z-index: 2;
-      mask-image: linear-gradient(to bottom, #000 50%, #fff0 calc(100% - 26px));
+      mask-image: linear-gradient(180deg, #000 0%, #fff0 calc(100% - 20px))
     }
 
     .click-to-expand-cta {
@@ -379,20 +389,20 @@
     &::before {
       border-radius: 100px;
       background-color: var(--color_evergreen);
-      outline: 2px solid var(--color_evergreen);
-      bottom: 0;
-      left: 0;
-      top: 0;
+      bottom: -.5px;
+      left: -.5px;
+      top: -.5px;
+      right: -.5px;
       content: "";
       position: absolute;
       transform: translateX(0);
       transition: transform .3s ease;
       width: 317px;
-      z-index: 0;
+      z-index: 1;
     }
 
     &:has(input[value="MONTHLY"]:checked)::before {
-      transform: translateX(100.5%);
+      transform: translateX(101%);
     }
 
     input[value="MONTHLY"]+label::after {
@@ -416,8 +426,22 @@
       padding: 4px 8px;
     }
 
+    .en__field__input:active,
+    .en__field__input:focus,
+    .en__field__input:focus-visible {
+      outline: none;
+    }
+
+    .en__field__input:active+.en__field__label,
+    .en__field__input:focus+.en__field__label,
+    .en__field__input:focus-visible+.en__field__label {
+      outline-offset: -1px;
+      outline: 2px solid white;
+    }
+
     .en__field__item,
     .en__field__label--item {
+      transition: color .3s ease;
       position: relative;
       z-index: 1;
     }
@@ -589,14 +613,33 @@
   }
 
   .give-by-select-wrapper {
+    --button_border-color: var(--color_earth);
+    --button_border-color_hover: var(--color_earth);
+    --button_border-color_checked: var(--color_earth);
+    --button_color: var(--color_earth);
+    --button_color_hover: var(--color_earth);
+    --button_color_checked: var(--color_white);
+    --button_background-color: var(--color_white);
+    --button_background-color_hover: var(--color_moss);
+    --button_background-color_checked: var(--color_evergreen);
+    --button_padding: 12px 20px;
+
+    .en__field .en__field__element .en__field--giveBySelect {
+      padding-bottom: 6px;
+    }
+
     .en__field__label {
       display: flex;
       gap: 25px;
     }
 
     .ach {
+      --button_font-weight: 700;
+      --button_font-size: 32px;
+      --button_line-height: 32px;
+
       .en__field__label {
-        gap: 8px;
+        gap: 11px;
       }
     }
 
@@ -741,6 +784,7 @@
 
     button {
       margin-top: var(--md);
+      line-height: 35px;
     }
 
     .live-variable-currency,
@@ -915,6 +959,20 @@
 
 /* Add your custom theme styles here */
 [data-engrid-theme="tpl"] {
+  @mixin tiny {
+    .enWidget.enWidget--progressBar .enWidget__copy--above {
+      font-size: 14px !important;
+      line-height: 21px !important;
+    }
+  }
+
+  @mixin small {
+    .enWidget.enWidget--progressBar .enWidget__copy--above {
+      font-size: 16px;
+      line-height: 24px;
+    }
+  }
+
   @mixin mobile {
     --engrid__body-headerOutside_padding: 24px 22px var(--lg) 22px;
     --engrid__body-title_padding: 20px 22px 0 22px;
@@ -966,6 +1024,10 @@
       .body-header {
         display: none;
       }
+    }
+
+    .content-footerSpacer {
+      grid-column: bc;
     }
 
     .radio-to-buttons_recurrfreq .en__field--recurrfreq .en__field__element--radio::before {
@@ -1051,6 +1113,14 @@
 
   // Example Breakpoints Stylings (See engrid-scripts > _engrid-breakpoints.scss for more breakpoints)
   &[data-engrid-layout] {
+    @media (max-width: 359.99px) {
+      @include tiny;
+    }
+
+    @media (max-width: 432.99px) {
+      @include small;
+    }
+
     @media (max-width: 767.99px) {
       @include mobile;
     }
@@ -1083,6 +1153,31 @@
 
     .en__ecardmessage__default {
       border: 2px solid var(--input_border-color);
+      margin-bottom: 20px;
+      height: 8.5rem;
+      min-height: 8.5rem;
+    }
+
+    .thumb--active {
+      border: 6px solid var(--color_evergreen);
+      border-radius: 10px;
+    }
+
+    .en__ecarditems__thumb {
+      img {
+        width: calc(100% - 12px);
+        border: none;
+        border-radius: 8px;
+        margin: 6px;
+
+        &:hover {
+          box-shadow: none;
+        }
+      }
+
+      &:hover img {
+        box-shadow: none;
+      }
     }
 
     .en__ecardrecipients__detail {
@@ -1105,6 +1200,7 @@
       padding: var(--button_padding);
     }
 
+    .en__ecarditems h2,
     .en__ecardrecipients__futureDelivery h2,
     .en__ecardmessage h2 {
       // Display like a label
@@ -1112,6 +1208,7 @@
       font-weight: 700;
       line-height: var(--label_line-height);
       font-family: var(--label_font-family);
+      margin-bottom: 8px;
     }
 
     .en__ecardrecipients__list {
