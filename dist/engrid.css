@@ -19,7 +19,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Wednesday, July 1, 2026 @ 15:54:00 ET
+ *  Date: Wednesday, July 1, 2026 @ 17:19:18 ET
  *  By: nick
  *  ENGrid styles: v0.25.11
  *  ENGrid scripts: v0.25.11
@@ -8161,6 +8161,9 @@ body[data-engrid-debug]:before{
 [data-engrid-theme=tpl] .body-headerOutside .main_logo{
   height:60px;
 }
+[data-engrid-theme=tpl] .content-footerSpacer{
+  grid-column:bc;
+}
 [data-engrid-theme=tpl] h1{
   margin:0;
 }
@@ -8184,6 +8187,21 @@ body[data-engrid-debug]:before{
 }
 [data-engrid-theme=tpl] input::placeholder{
   font-weight:400;
+}
+[data-engrid-theme=tpl] .link-button{
+  background:none;
+  border:none;
+  color:var(--color_earth);
+  font-size:var(--a_font-size);
+  font-weight:400;
+  line-height:var(--a_line-height);
+}
+[data-engrid-theme=tpl] .link-button:hover{
+  background:none;
+  border:none;
+  color:var(--color_earth);
+  -webkit-text-decoration:underline;
+  text-decoration:underline;
 }
 [data-engrid-theme=tpl] .en__component--formblock .en__field.en__field--checkbox.en__field--question .en__field__element{
   margin-bottom:12px;
@@ -8844,9 +8862,6 @@ body[data-engrid-theme=tpl]:not(#en__pagebuilder) .click-to-expand:not(.expanded
   }
   [data-engrid-theme=tpl][data-engrid-layout]:not(#en__pagebuilder)[data-engrid-layout=leftleft1col] .body-header{
     display:none;
-  }
-  [data-engrid-theme=tpl][data-engrid-layout] .content-footerSpacer{
-    grid-column:bc;
   }
   [data-engrid-theme=tpl][data-engrid-layout] .radio-to-buttons_recurrfreq .en__field--recurrfreq .en__field__element--radio:before{
     width:50%;

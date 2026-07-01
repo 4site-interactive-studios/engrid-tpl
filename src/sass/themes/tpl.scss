@@ -186,6 +186,10 @@
     }
   }
 
+  .content-footerSpacer {
+    grid-column: bc;
+  }
+
   h1 {
     margin: 0 0;
   }
@@ -213,6 +217,23 @@
 
   input::placeholder {
     font-weight: 400;
+  }
+
+  .link-button {
+    // Make buttons look like links
+    background: none;
+    border: none;
+    color: var(--color_earth);
+    font-size: var(--a_font-size);
+    line-height: var(--a_line-height);
+    font-weight: 400;
+
+    &:hover {
+      color: var(--color_earth);
+      background: none;
+      border: none;
+      text-decoration: underline;
+    }
   }
 
   .en__component--formblock .en__field.en__field--checkbox.en__field--question .en__field__element {
@@ -1026,9 +1047,6 @@
       }
     }
 
-    .content-footerSpacer {
-      grid-column: bc;
-    }
 
     .radio-to-buttons_recurrfreq .en__field--recurrfreq .en__field__element--radio::before {
       width: 50%;

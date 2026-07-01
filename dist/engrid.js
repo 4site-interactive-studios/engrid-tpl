@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Wednesday, July 1, 2026 @ 15:54:00 ET
+ *  Date: Wednesday, July 1, 2026 @ 17:19:18 ET
  *  By: nick
  *  ENGrid styles: v0.25.11
  *  ENGrid scripts: v0.25.11
@@ -27675,6 +27675,103 @@ class SuggestedAmount {
     return engrid_ENGrid.getPageType() === "DONATION" && engrid_ENGrid.isThankYouPage() === false && document.querySelector(".en__field--donationAmt") !== null;
   }
 }
+;// ./src/scripts/subscription-management.ts
+
+
+class SubscriptionManagement {
+  constructor() {
+    _defineProperty(this, "logger", new logger_EngridLogger("TPL SubscriptionManagement", "green", "white", "✉️"));
+    _defineProperty(this, "_form", EnForm.getInstance());
+    _defineProperty(this, "fewerEmailsButton", void 0);
+    _defineProperty(this, "restoreEmailsButton", void 0);
+    _defineProperty(this, "unsubAllButton", void 0);
+    _defineProperty(this, "optInBlock", void 0);
+    _defineProperty(this, "fewerEmailsOptIn", void 0);
+    _defineProperty(this, "submittedViaButton", false);
+    this.fewerEmailsButton = document.querySelector("#fewer-emails");
+    this.restoreEmailsButton = document.querySelector("#restore-emails");
+    this.unsubAllButton = document.querySelector("#unsub-all");
+    this.optInBlock = document.querySelector(".opt-in-block");
+    this.fewerEmailsOptIn = document.querySelector(".fewer-emails-opt-in input");
+    if (this.shouldRun()) {
+      this.logger.log("SubscriptionManagement initialized");
+      this.addEventListeners();
+    }
+  }
+  shouldRun() {
+    return engrid_ENGrid.getPageType() === "UNSUBSCRIBE";
+  }
+  addEventListeners() {
+    this.fewerEmailsButton?.addEventListener("click", event => {
+      event.preventDefault();
+      this.logger.log("Fewer emails selected");
+      this.uncheckAllOptIns();
+      if (this.fewerEmailsOptIn) {
+        this.fewerEmailsOptIn.checked = true;
+        this.fewerEmailsOptIn.value = "Y";
+      }
+      this.submittedViaButton = true;
+      this._form.submitForm();
+    });
+    this.restoreEmailsButton?.addEventListener("click", event => {
+      event.preventDefault();
+      this.logger.log("Restore emails selected");
+      if (this.fewerEmailsOptIn) {
+        this.fewerEmailsOptIn.checked = false;
+        this.fewerEmailsOptIn.value = "N";
+      }
+      this.checkFirstOptIn();
+      this.submittedViaButton = true;
+      this._form.submitForm();
+    });
+    this.unsubAllButton?.addEventListener("click", event => {
+      event.preventDefault();
+      this.logger.log("Unsubscribe all selected");
+      this.uncheckAllOptIns();
+      if (this.fewerEmailsOptIn) {
+        this.fewerEmailsOptIn.checked = false;
+        this.fewerEmailsOptIn.value = "N";
+      }
+      this.submittedViaButton = true;
+      this._form.submitForm();
+    });
+    if (this.fewerEmailsOptIn) {
+      this._form.onSubmit.subscribe(() => {
+        if (this.isFirstOptInChecked() && !this.submittedViaButton) {
+          this.logger.log("First opt-in is checked/Y on submit; unchecking fewer-emails opt-in");
+          if (this.fewerEmailsOptIn) {
+            this.fewerEmailsOptIn.checked = false;
+            this.fewerEmailsOptIn.value = "N";
+          }
+        }
+      });
+    }
+  }
+  isFirstOptInChecked() {
+    if (!this.optInBlock) return false;
+    const firstOptIn = this.optInBlock.querySelector("input");
+    if (!firstOptIn) return false;
+    return firstOptIn.checked || firstOptIn.value === "Y";
+  }
+  uncheckAllOptIns() {
+    if (!this.optInBlock) return;
+    const optInInputs = this.optInBlock.querySelectorAll("input");
+    optInInputs.forEach(input => {
+      if (input.value === "Y") {
+        input.checked = false;
+        input.value = "N";
+      }
+    });
+  }
+  checkFirstOptIn() {
+    if (!this.optInBlock) return;
+    const firstOptIn = this.optInBlock.querySelector("input");
+    if (firstOptIn) {
+      firstOptIn.checked = true;
+      firstOptIn.value = "Y";
+    }
+  }
+}
 ;// ./src/scripts/confetti.ts
 
 
@@ -27736,6 +27833,7 @@ class Confetti {
 
 
 
+
 const options = {
   applePay: false,
   CapitalizeFields: true,
@@ -27774,6 +27872,7 @@ const options = {
     window.DonationLightboxForm = DonationLightboxForm;
     new DonationLightboxForm(DonationAmount, DonationFrequency, App);
     new SuggestedAmount();
+    new SubscriptionManagement();
     new Confetti();
     new Ecard();
     customScript(App);
