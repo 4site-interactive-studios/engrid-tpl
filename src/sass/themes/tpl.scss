@@ -30,7 +30,7 @@
   --engrid__body-headerOutside_background-color: var(--color_snow);
   --engrid__body-headerOutside_padding: 63px 64px 10px 64px;
   --engrid__body-title_padding: var(--lg) 64px 0 64px;
-  --engrid__body-top_padding: 7px 64px var(--xl) 64px;
+  --engrid__body-top_padding: 7px 64px var(--md) 64px;
   --engrid__body-bottom_padding: var(--lg) 64px var(--lg) 64px;
   --engrid__body-footer_padding: var(--md) 64px var(--md) 64px;
   --engrid__content-footer_margin: 0;
@@ -74,7 +74,7 @@
 
   // TYPOGRAPHY A
   // --a_font-family: var(--default_font-family);
-  --a_font-size: var(--default_font-size);
+  --a_font-size: inherit;
   --a_color: var(--color_evergreen);
   --a_line-height: var(--default_line-height);
   // --a_text-decoration: underline;
@@ -120,21 +120,21 @@
 
   // TYPOGRAPHY BUTTON
   // --button_font-family: var(--default_font-family);
-  --button_color: var(--color_earth);
+  --button_color: var(--color_white);
   --button_border-color: var(--color_evergreen);
   --button_border-width: 2px;
   --button_font-size: 25px;
-  --button_background-color: var(--color_white);
+  --button_background-color: var(--color_evergreen);
   --button_font-weight: 500;
   // --button_line-height: initial;
   // --button_background-color: initial;;
-  --button_border-radius: 8px;
+  --button_border-radius: 80px;
 
-  --button_background-color_hover: var(--color_evergreen);
+  --button_background-color_hover: var(--color_sun);
   --button_color_hover: var(--color_white);
-  --button_border-color_hover: var(--color_evergreen);
-  --button_background-color_checked: var(--color_evergreen);
-  --button_border-color_checked: var(--color_evergreen);
+  --button_border-color_hover: var(--color_sun);
+  --button_background-color_checked: var(--color_sun);
+  --button_border-color_checked: var(--color_sun);
   --button_color_checked: var(--color_white);
 
   --donation-amount__button_border-radius: 100px;
@@ -161,7 +161,7 @@
   --submit__button_background-color: var(--color_evergreen);
   --submit__button_color: var(--color_white);
   --submit__button_background-color_hover: var(--color_sun);
-  --submit__button_color_hover: var(--color_evergreen);
+  --submit__button_color_hover: var(--color_white);
 
   // DONATION PAGE
   --give-monthly-donation-amount-appended-label: "/mo";
@@ -171,6 +171,36 @@
   --give-by-select__button_count: 1;
 
   --arrow-bg-url: url("https://bd6ca9cefa6fb6e0adf1-c2f9aa1adb9f60a775f60074e4c86031.ssl.cf5.rackcdn.com/20002/arrow-reveal.svg?v=1781202765000");
+
+  // VGS
+  --en-vgs-height: 70px;
+  --en-vgs-borderWidth: var(--input_border-width);
+  --en-vgs-borderStyle: solid;
+  --en-vgs-borderColor: var(--input_border-color);
+  --en-vgs-borderRadius: var(--input_border-radius);
+  --en-vgs-backgroundColor: var(--input_background-color);
+
+
+  &#en__pagebuilder {
+
+    .page-alert,
+    .content-header,
+    .body-bannerOverlay,
+    .body-footer,
+    .body-footerOutside,
+    .content-footerSpacer,
+    .content-preFooter,
+    .page-backgroundImage,
+    .page-backgroundImageOverlay {
+      display: none;
+
+      &:has(.en__component) {
+        display: block;
+        background-color: #ff00001a;
+        outline: 1px solid #ff0000;
+      }
+    }
+  }
 
   * {
     -webkit-font-smoothing: antialiased;
@@ -370,7 +400,7 @@
     font-style: normal;
     font-weight: 500;
     line-height: 45px;
-    margin-top: var(--lg);
+    margin-top: var(--md);
     margin-bottom: var(--md);
   }
 
@@ -958,6 +988,10 @@
     }
   }
 
+  #clear-autofill-data {
+    font-size: 80%;
+  }
+
   .tippy-box {
     max-width: 267px !important;
     background-color: white;
@@ -981,6 +1015,8 @@
 /* Add your custom theme styles here */
 [data-engrid-theme="tpl"] {
   @mixin tiny {
+    --recurring-frequency__button_font-size: 16px;
+
     .enWidget.enWidget--progressBar .enWidget__copy--above {
       font-size: 14px !important;
       line-height: 21px !important;
@@ -988,6 +1024,8 @@
   }
 
   @mixin small {
+    --recurring-frequency__button_font-size: 20px;
+
     .enWidget.enWidget--progressBar .enWidget__copy--above {
       font-size: 16px;
       line-height: 24px;
@@ -1122,7 +1160,15 @@
   }
 
   @mixin desktop {
+
     // STYLES
+    &[data-engrid-page-background="image"][data-engrid-layout="leftleft1col"] .page-backgroundImage:before,
+    &[data-engrid-page-background="image"][data-engrid-layout="leftleft1col"] figure.media-with-attribution {
+      background-position: 50%;
+      left: 768px;
+      right: 0;
+      width: calc(100% - 768px);
+    }
   }
 
   @mixin simplified-header {
@@ -1131,16 +1177,16 @@
 
   // Example Breakpoints Stylings (See engrid-scripts > _engrid-breakpoints.scss for more breakpoints)
   &[data-engrid-layout] {
-    @media (max-width: 359.99px) {
-      @include tiny;
+    @media (max-width: 767.99px) {
+      @include mobile;
     }
 
     @media (max-width: 432.99px) {
       @include small;
     }
 
-    @media (max-width: 767.99px) {
-      @include mobile;
+    @media (max-width: 359.99px) {
+      @include tiny;
     }
 
     @media (min-width: 768px) {

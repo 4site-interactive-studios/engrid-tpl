@@ -1,5 +1,11 @@
 import { ENGrid } from "@4site/engrid-scripts";
 
+declare global {
+  interface Window {
+    EngridConfetti?: boolean;
+  }
+}
+
 export default class Confetti {
   private readonly pieceCount = Math.round((window.innerWidth / 100) * 10);
   private readonly launchDelay = 1000;
@@ -13,7 +19,7 @@ export default class Confetti {
   }
 
   private shouldRun() {
-    return ENGrid.getPageType() === "DONATION" && ENGrid.isThankYouPage() === true;
+    return ENGrid.getPageType() === "DONATION" && ENGrid.isThankYouPage() === true && window.EngridConfetti !== false && !document.body.hasAttribute("data-engrid-no-confetti");
   }
 
   private launch() {

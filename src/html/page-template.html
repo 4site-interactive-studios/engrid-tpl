@@ -54,7 +54,17 @@
     <meta name="twitter:description"
         content="TPL creates parks and protects public land so that everyone will have access to the benefits and joys of the outdoors.">
     <meta property="og:type" content="website">
+    <style>
+        @media (min-width: 880px) {
 
+            /* Hide the body banner image on desktop */
+            [data-engrid-layout="leftleft1col"]:not(#en__pagebuilder) .body-banner,
+            [data-engrid-layout="centercenter1col"]:not(#en__pagebuilder) .body-banner,
+            [data-engrid-layout="rightright1col"]:not(#en__pagebuilder) .body-banner {
+                /*display: none !important;*/
+            }
+        }
+    </style>
     <!-- Immeditately get color on the page and hide the contents until main.css is rendered by the browser -->
     <style>
         body {
@@ -80,7 +90,6 @@
     <link rel="preconnect" href="//e-activist.com">
     <link rel="preconnect" href="//www.googletagmanager.com">
     <link rel="preconnect" href="//www.google-analytics.com">
-    <link rel="preconnect" href="//fonts.gstatic.com">
     <link rel="preload"
         href="https://bd6ca9cefa6fb6e0adf1-c2f9aa1adb9f60a775f60074e4c86031.ssl.cf5.rackcdn.com/20002/engrid.min.css"
         as="style">
@@ -91,14 +100,17 @@
         href="https://bd6ca9cefa6fb6e0adf1-c2f9aa1adb9f60a775f60074e4c86031.ssl.cf5.rackcdn.com/20002/TPLlogo.png"
         as="image">
     <link rel="preload" href="https://use.typekit.net/tja5vky.css" as="style">
-    <link rel="preload" href="https://fonts.gstatic.com/s/ptsans/v18/jizaRExUiTo99u79D0KExcOPIDU.woff2" as="font"
-        type="font/woff2" crossorigin> <!-- Content Normal -->
-    <link rel="preload" href="https://fonts.gstatic.com/s/ptsans/v18/jizfRExUiTo99u79B_mh0O6tLR8a8zI.woff2" as="font"
-        type="font/woff2" crossorigin> <!-- Content Strong -->
+    <link rel="preload"
+        href="https://bd6ca9cefa6fb6e0adf1-c2f9aa1adb9f60a775f60074e4c86031.ssl.cf5.rackcdn.com/20002/PTSans-Normal.woff2?v=1783614541000"
+        as="font" type="font/woff2" crossorigin> <!-- Content Normal -->
+    <link rel="preload"
+        href="https://bd6ca9cefa6fb6e0adf1-c2f9aa1adb9f60a775f60074e4c86031.ssl.cf5.rackcdn.com/20002/PTSans-Strong.woff2?v=1783614542000"
+        as="font" type="font/woff2" crossorigin> <!-- Content Strong -->
 </head>
 
 <body data-engrid-layout="leftleft1col" data-engrid-theme="tpl" data-engrid-add-input-placeholders
-    data-replace-banner-with-background="if-banner-empty-or-background-video">
+    data-replace-banner-with-background="if-banner-empty-or-background-video"
+    data-conditonally-hide-show-digital-wallet-elements>
     <noscript>With Javascript disabled this page may not function as expected.</noscript>
 
     <!-- Quickly check to see if the page is in an iFrame and if so set the corresponding Custom Attribute so it can also set the background-color. Must be after <body> otherwise there will be a flash of color -->

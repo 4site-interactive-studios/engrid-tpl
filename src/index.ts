@@ -1,5 +1,5 @@
-import { Options, App, DonationAmount, DonationFrequency, RememberMe, Ecard } from "@4site/engrid-scripts"; // Uses ENGrid via NPM
-// import { Options, App } from "../../engrid-scripts/packages/common"; // Uses ENGrid via Visual Studio Workspace
+// import { Options, App, DonationAmount, DonationFrequency, RememberMe, Ecard } from "@4site/engrid-scripts"; // Uses ENGrid via NPM
+import { Options, App, DonationAmount, DonationFrequency, RememberMe, Ecard } from "../../engrid/packages/scripts";// Uses ENGrid via Visual Studio Workspace
 
 import "./sass/main.scss";
 import { customScript } from "./scripts/main";
@@ -10,6 +10,7 @@ import Confetti from "./scripts/confetti";
 
 const options: Options = {
   applePay: false,
+  UseBodyBannerImageAsBackground: true,
   CapitalizeFields: true,
   ClickToExpand: true,
   CurrencySymbol: "$",
@@ -38,7 +39,7 @@ const options: Options = {
     fieldOptInSelectorTarget: ".remember-me, div.en__field--postcode, div.en__field--telephone, div.en__field--email, div.en__field--lastName",
     fieldOptInSelectorTargetLocation: "after",
     fieldClearSelectorTarget:
-      "div.en__field--firstName div, div.en__field--email div",
+      "div.en__field--title div, div.en__field--firstName div, div.en__field--email div",
     fieldClearSelectorTargetLocation: "after",
     fieldNames: [
       "supporter.firstName",
@@ -51,6 +52,30 @@ const options: Options = {
       "supporter.postcode",
       "supporter.emailAddress",
     ],
+  },
+  VGS: {
+    "transaction.ccnumber": {
+      css: {
+        "@font-face": {
+          "font-family": "PT Sans",
+          "font-style": "normal",
+          "font-weight": "400",
+          "font-display": "swap",
+          src: 'local("PT Sans"), local("PT Sans-Regular"), url("https://bd6ca9cefa6fb6e0adf1-c2f9aa1adb9f60a775f60074e4c86031.ssl.cf5.rackcdn.com/20002/PTSans-Normal.woff2?v=1783614541000") format("woff2");',
+        },
+      },
+    },
+    "transaction.ccvv": {
+      css: {
+        "@font-face": {
+          "font-family": "PT Sans",
+          "font-style": "normal",
+          "font-weight": "400",
+          "font-display": "swap",
+          src: 'local("PT Sans"), local("PT Sans-Regular"), url("https://bd6ca9cefa6fb6e0adf1-c2f9aa1adb9f60a775f60074e4c86031.ssl.cf5.rackcdn.com/20002/PTSans-Normal.woff2?v=1783614541000") format("woff2");',
+        },
+      },
+    },
   },
   Debug: App.getUrlParameter("debug") == "true" ? true : false,
   onLoad: () => {
