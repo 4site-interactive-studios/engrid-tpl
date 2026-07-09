@@ -19,7 +19,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Thursday, July 9, 2026 @ 16:44:03 ET
+ *  Date: Thursday, July 9, 2026 @ 17:19:01 ET
  *  By: nick
  *  ENGrid styles: v0.25.11
  *  ENGrid scripts: v0.25.11
@@ -8348,6 +8348,15 @@ body[data-engrid-theme=tpl]:not(#en__pagebuilder) .click-to-expand:not(.expanded
   background-size:26px;
   padding:var(--input_padding);
 }
+[data-engrid-theme=tpl] select.en__field__input{
+  max-width:100%;
+  width:100%;
+}
+[data-engrid-theme=tpl] select.en__field__input,[data-engrid-theme=tpl] select.en__field__input option{
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
 [data-engrid-theme=tpl] .radio-to-buttons_recurrfreq .en__field--recurrfreq .en__field__element--radio{
   --fields_spacing-inline:4px;
   background-color:var(--color_white);
@@ -8849,6 +8858,9 @@ body[data-engrid-theme=tpl]:not(#en__pagebuilder) .click-to-expand:not(.expanded
     --recurring-frequency__button_line-height:16px;
     --recurring-frequency__button_count:2;
     --donation-amount__button_count:2;
+  }
+  [data-engrid-theme=tpl][data-engrid-layout][data-engrid-layout=centercenter1col]:not(#en__pagebuilder) .body-banner,[data-engrid-theme=tpl][data-engrid-layout][data-engrid-layout=leftleft1col]:not(#en__pagebuilder) .body-banner,[data-engrid-theme=tpl][data-engrid-layout][data-engrid-layout=rightright1col]:not(#en__pagebuilder) .body-banner{
+    display:none !important;
   }
   [data-engrid-theme=tpl][data-engrid-layout] .body-headerOutside p{
     text-align:center;

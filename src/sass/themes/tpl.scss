@@ -426,6 +426,20 @@
     background-size: 26px;
   }
 
+  select.en__field__input {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  select.en__field__input option {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
   .radio-to-buttons_recurrfreq .en__field--recurrfreq .en__field__element--radio {
     --fields_spacing-inline: 4px;
     border: 2px solid var(--color_evergreen);
@@ -1058,6 +1072,14 @@
     --recurring-frequency__button_line-height: 16px;
     --recurring-frequency__button_count: 2;
     --donation-amount__button_count: 2;
+
+
+    /* Hide the body banner image on desktop */
+    &[data-engrid-layout="leftleft1col"]:not(#en__pagebuilder) .body-banner,
+    &[data-engrid-layout="centercenter1col"]:not(#en__pagebuilder) .body-banner,
+    &[data-engrid-layout="rightright1col"]:not(#en__pagebuilder) .body-banner {
+      display: none !important;
+    }
 
     // STYLES
     .body-headerOutside p {
