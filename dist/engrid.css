@@ -19,7 +19,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Thursday, July 9, 2026 @ 17:19:01 ET
+ *  Date: Monday, July 13, 2026 @ 13:33:09 ET
  *  By: nick
  *  ENGrid styles: v0.25.11
  *  ENGrid scripts: v0.25.11
@@ -2569,6 +2569,15 @@ input[disabled],input[readonly],select[disabled],textarea[disabled],textarea[rea
 }
 body[data-engrid-live-currency=active] .en__field--donationAmt .en__field__item:not([data-engrid-currency-symbol-updated=true]) label{
   color:#0000 !important;
+}
+body[data-highlight-required-fields] .en__mandatory:not(.en__field--giveBySelect)>label,body[data-highlight-required-fields][data-engrid-payment-type=AX] .en__field--vgs>label:after,body[data-highlight-required-fields][data-engrid-payment-type=DI] .en__field--vgs>label:after,body[data-highlight-required-fields][data-engrid-payment-type=MC] .en__field--vgs>label:after,body[data-highlight-required-fields][data-engrid-payment-type=VI] .en__field--vgs>label:after,body[data-highlight-required-fields][data-engrid-payment-type=card] .en__field--vgs>label:after{
+  justify-content:flex-start;
+}
+
+body[data-highlight-required-fields] .en__mandatory:not(.en__field--giveBySelect)>label:after,body[data-highlight-required-fields][data-engrid-payment-type=AX] .en__field--vgs>label:after,body[data-highlight-required-fields][data-engrid-payment-type=DI] .en__field--vgs>label:after,body[data-highlight-required-fields][data-engrid-payment-type=MC] .en__field--vgs>label:after,body[data-highlight-required-fields][data-engrid-payment-type=VI] .en__field--vgs>label:after{
+  color:var(--error__color);
+  content:"*";
+  margin-right:auto;
 }
 .en__field__error__alert{
   color:var(--error__color);
@@ -6311,7 +6320,7 @@ body[data-engrid-embedded]:not(#en__pagebuilder) .hideif-iframe{
   [data-engrid-layout=centercenter1col]:not(#en__pagebuilder) .page-backgroundImage{
     grid-row:page-start /  content-footerSpacer-end;
   }
-  [data-engrid-layout=centercenter1col][data-engrid-embedded] [class*=page-backgroundImage],[data-engrid-layout=centercenter1col][data-engrid-use-body-banner-background]:not(#en__pagebuilder) .body-banner{
+  [data-engrid-layout=centercenter1col][data-engrid-embedded] [class*=page-backgroundImage]{
     display:none !important;
   }
 }
@@ -6491,7 +6500,7 @@ body[data-engrid-embedded]:not(#en__pagebuilder) .hideif-iframe{
   [data-engrid-layout=centerleft1col]:not(#en__pagebuilder) .page-backgroundImage{
     grid-row:page-start /  content-footerSpacer-end;
   }
-  [data-engrid-layout=centerleft1col][data-engrid-embedded] [class*=page-backgroundImage],[data-engrid-layout=centerleft1col][data-engrid-use-body-banner-background]:not(#en__pagebuilder) .body-banner{
+  [data-engrid-layout=centerleft1col][data-engrid-embedded] [class*=page-backgroundImage]{
     display:none !important;
   }
 }
@@ -6569,7 +6578,7 @@ body[data-engrid-embedded]:not(#en__pagebuilder) .hideif-iframe{
   [data-engrid-layout=centerright1col]:not(#en__pagebuilder) .page-backgroundImage{
     grid-row:page-start /  content-footerSpacer-end;
   }
-  [data-engrid-layout=centerright1col][data-engrid-embedded] [class*=page-backgroundImage],[data-engrid-layout=centerright1col][data-engrid-use-body-banner-background]:not(#en__pagebuilder) .body-banner{
+  [data-engrid-layout=centerright1col][data-engrid-embedded] [class*=page-backgroundImage]{
     display:none !important;
   }
 }
@@ -6622,7 +6631,7 @@ body[data-engrid-embedded]:not(#en__pagebuilder) .hideif-iframe{
   [data-engrid-layout=leftleft1col]:not(#en__pagebuilder) .page-backgroundImage{
     grid-row:page-start /  content-footerSpacer-end;
   }
-  [data-engrid-layout=leftleft1col][data-engrid-embedded] [class*=page-backgroundImage],[data-engrid-layout=leftleft1col][data-engrid-use-body-banner-background]:not(#en__pagebuilder) .body-banner{
+  [data-engrid-layout=leftleft1col][data-engrid-embedded] [class*=page-backgroundImage]{
     display:none !important;
   }
 }
@@ -6700,7 +6709,7 @@ body[data-engrid-embedded]:not(#en__pagebuilder) .hideif-iframe{
   [data-engrid-layout=rightright1col]:not(#en__pagebuilder) .page-backgroundImage{
     grid-row:page-start /  content-footerSpacer-end;
   }
-  [data-engrid-layout=rightright1col][data-engrid-embedded] [class*=page-backgroundImage],[data-engrid-layout=rightright1col][data-engrid-use-body-banner-background]:not(#en__pagebuilder) .body-banner{
+  [data-engrid-layout=rightright1col][data-engrid-embedded] [class*=page-backgroundImage]{
     display:none !important;
   }
 }
@@ -8122,11 +8131,19 @@ body[data-engrid-debug]:before{
   --button_border-color_checked:var(--color_sun);
   --button_color_checked:var(--color_white);
   --donation-amount__button_border-radius:100px;
-  --donation-amount__button_background-color_checked:var(--button_background-color_checked);
-  --donation-amount__button_color_checked:var(--button_color_checked);
+  --donation-amount__button_background-color:var(--color_white);
+  --donation-amount__button_color:var(--color_earth);
+  --donation-amount__button_border-color:var(--color_evergreen);
+  --donation-amount__button_background-color_hover:#cadcd2;
+  --donation-amount__button_color_hover:var(--color_earth);
+  --donation-amount__button_border-color_hover:var(--color_evergreen);
+  --donation-amount__button_background-color_checked:var(--color_evergreen);
+  --donation-amount__button_border-color_checked:var(--color_evergreen);
+  --donation-amount__button_color_checked:var(--color_white);
   --donation-amount__button_text-transform:capitalize;
   --donation-amount__button_font-weight:700;
   --donation-amount__button_font-size:24px;
+  --recurring-frequency__button_color:var(--color_earth);
   --recurring-frequency__button_border-radius:100px;
   --recurring-frequency__button_background-color:#0000;
   --recurring-frequency__button_background-color_checked:#0000;
@@ -8851,7 +8868,7 @@ body[data-engrid-theme=tpl]:not(#en__pagebuilder) .click-to-expand:not(.expanded
     --input_line-height:27px;
     --label_font-size:22px;
     --label_line-height:32px;
-    --radio_font-size:15px;
+    --radio_font-size:18px;
     --radio_line-height:27px;
     --fields_spacing-block:8px;
     --recurring-frequency__button_font-size:24px;

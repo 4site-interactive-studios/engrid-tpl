@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Thursday, July 9, 2026 @ 17:19:01 ET
+ *  Date: Monday, July 13, 2026 @ 13:33:09 ET
  *  By: nick
  *  ENGrid styles: v0.25.11
  *  ENGrid scripts: v0.25.11
@@ -18320,8 +18320,7 @@ const OptionsDefaults = {
   StickyNSG: false,
   StickyPrepopulation: false,
   PreferredPaymentMethod: false,
-  PageLayouts: ["leftleft1col", "centerleft1col", "centercenter1col", "centercenter2col", "centerright1col", "rightright1col", "none"],
-  UseBodyBannerImageAsBackground: false
+  PageLayouts: ["leftleft1col", "centerleft1col", "centercenter1col", "centercenter2col", "centerright1col", "rightright1col", "none"]
 };
 ;// ../engrid/packages/scripts/dist/interfaces/upsell-options.js
 const UpsellOptionsDefaults = {
@@ -20003,8 +20002,6 @@ class App extends engrid_ENGrid {
     new CustomCurrency();
     // Auto Country Select
     new AutoCountrySelect();
-    // Page Background
-    new PageBackground(this.options.UseBodyBannerImageAsBackground);
     // Add Image Attribution
     if (this.options.MediaAttribution) new MediaAttribution();
     // Apple Pay
@@ -20042,6 +20039,8 @@ class App extends engrid_ENGrid {
     new A11y();
     new AddNameToMessage();
     new ExpandRegionName();
+    // Page Background
+    new PageBackground();
     // Url Params to Form Fields
     new UrlToForm();
     // Required if Visible Fields
@@ -24594,16 +24593,12 @@ class setRecurrFreq {
 ;// ../engrid/packages/scripts/dist/page-background.js
 
 class PageBackground {
-  constructor(useBodyBannerImage = false) {
+  constructor() {
     // @TODO: Change page-backgroundImage to page-background
     this.pageBackground = document.querySelector(".page-backgroundImage");
-    this.bodyBannerImage = null;
     this.mutationObserver = null;
     this.logger = new logger_EngridLogger("PageBackground", "lightblue", "darkblue", "🖼️");
-    if (useBodyBannerImage) {
-      this.bodyBannerImage = document.querySelector(".body-banner img");
-    }
-    if (!this.pageBackground && !this.bodyBannerImage) {
+    if (!this.pageBackground) {
       this.logger.log("A background image set in the page was not found, any default image set in the theme on --engrid__page-backgroundImage_url will be used");
       return;
     }
@@ -24616,34 +24611,20 @@ class PageBackground {
    * Initialize background image by finding and setting CSS custom property
    */
   initializeBackgroundImage() {
-    var _a;
-    if (!this.pageBackground && !this.bodyBannerImage) return;
-    let backgroundImg = (_a = this.pageBackground) === null || _a === void 0 ? void 0 : _a.querySelector("img");
-    // If page background has an image, continue with that as the image source, otherwise check for body banner image
-    if (!backgroundImg && this.bodyBannerImage) {
-      this.logger.log("No image found in page background, using body banner image as background image instead");
-      backgroundImg = this.bodyBannerImage;
-      // Clone the body banner image to the page background section to ensure it is present in the DOM for processing
-      if (this.pageBackground) {
-        const clonedImage = backgroundImg.cloneNode(true);
-        this.pageBackground.appendChild(clonedImage);
-        backgroundImg = clonedImage;
-        // Remove the no-page-background data attribute if it exists, since we now have a background image
-        document.body.removeAttribute("data-engrid-no-page-backgroundImage");
-        engrid_ENGrid.setBodyData("use-body-banner-background", "");
-      }
-    } else if (!backgroundImg) {
-      this.logger.log("No image found in page background and no body banner image found, any default image set in the theme on --engrid__page-backgroundImage_url will be used");
+    if (!this.pageBackground) return;
+    const pageBackgroundImg = this.pageBackground.querySelector("img");
+    if (!pageBackgroundImg) {
+      this.logger.log("A background image set in the page was not found, any default image set in the theme on --engrid__page-backgroundImage_url will be used");
       return;
     }
-    const dataSrc = backgroundImg.getAttribute("data-src");
-    const src = backgroundImg.src;
+    const dataSrc = pageBackgroundImg.getAttribute("data-src");
+    const src = pageBackgroundImg.src;
     if (dataSrc) {
       this.setBackgroundImageUrl(dataSrc, "data-src");
     } else if (src) {
       this.setBackgroundImageUrl(src, "src");
     } else {
-      this.logger.log("A background image set in the page was found but without a data-src or src value, no action taken", backgroundImg);
+      this.logger.log("A background image set in the page was found but without a data-src or src value, no action taken", pageBackgroundImg);
     }
   }
   /**
@@ -48755,57 +48736,82 @@ const version_AppVersion = "0.25.11";
 
 const customScript = function (App) {
   console.log("ENGrid client scripts are executing");
-  // Add your client scripts here
-  function updateLabel(field) {
-    const fieldEl = field.querySelector(".en__field__input");
-    let isFieldRequired = fieldEl.required || fieldEl.getAttribute("aria-required") === "true" || field.classList.contains("en__mandatory") || fieldEl.closest(".en__component--formblock.i-required");
-    const enField = fieldEl.closest(".en__field");
-    const enForm = enField?.parentElement;
-    if (enForm) {
-      // Check if field is required based on its parent's iX-required class
-      const index = [...enForm.children].indexOf(enField);
-      if (enForm.classList.contains(`i${index + 1}-required`)) {
-        isFieldRequired = true;
-      }
+  // // Add your client scripts here
+  // function updateLabel(field) {
+  //   const fieldEl = field.querySelector(".en__field__input");
 
-      // Update the label to reflect the required status
-      const labelEl = enField.querySelector(".en__component--formblock:not(.give-by-select) .en__field__label");
-      if (labelEl) {
-        const label = labelEl.textContent.trim();
-        if (isFieldRequired && !(label.endsWith("*") || labelEl.querySelector("span.asterisk"))) {
-          // Insert a span with the asterisk to allow for styling. No innerHTML
-          // manipulation to avoid potential XSS issues.
-          const asterisk = document.createElement("span");
-          asterisk.classList.add("asterisk");
-          asterisk.textContent = "*";
-          labelEl.appendChild(asterisk);
-        } else if (!isFieldRequired && (label.endsWith("*") || labelEl.querySelector("span.asterisk"))) {
-          const asterisk = labelEl.querySelector("span.asterisk");
-          if (asterisk) {
-            labelEl.removeChild(asterisk);
-          } else {
-            // Fallback in case the asterisk is not wrapped in a span
-            labelEl.textContent = label.replace(/\*$/, "").trim();
-          }
-        }
-      }
-    }
-  }
+  //   let isFieldRequired =
+  //     fieldEl.required ||
+  //     fieldEl.getAttribute("aria-required") === "true" ||
+  //     field.classList.contains("en__mandatory") ||
+  //     fieldEl.closest(".en__component--formblock.i-required");
 
-  // Update the label of each field based on its required status
-  const fields = document.querySelectorAll(".en__field");
-  fields.forEach(field => {
-    const skipFields = ["en__field--donationAmt", "en__field--recurrfreq"];
-    if ([...field.classList].some(className => skipFields.includes(className))) {
-      return;
-    }
-    updateLabel(field);
-    const observer = new MutationObserver(() => updateLabel(field));
-    observer.observe(field, {
-      childList: true,
-      subtree: true
-    });
-  });
+  //   const enField = fieldEl.closest(".en__field");
+  //   const enForm = enField?.parentElement;
+
+  //   if (enForm) {
+  //     // Check if field is required based on its parent's iX-required class
+  //     const index = [...enForm.children].indexOf(enField);
+  //     if (enForm.classList.contains(`i${index + 1}-required`)) {
+  //       isFieldRequired = true;
+  //     }
+
+  //     // Update the label to reflect the required status
+  //     const labelEl = enField.querySelector(
+  //       ".en__component--formblock:not(.give-by-select) .en__field__label"
+  //     );
+  //     if (labelEl) {
+  //       const label = labelEl.textContent.trim();
+  //       if (
+  //         isFieldRequired &&
+  //         !(
+  //           label.endsWith("*") ||
+  //           labelEl.querySelector("span.engrid__required__asterisk")
+  //         )
+  //       ) {
+  //         // Insert a span with the asterisk to allow for styling. No innerHTML
+  //         // manipulation to avoid potential XSS issues.
+  //         const asterisk = document.createElement("span");
+  //         asterisk.classList.add("engrid__required__asterisk");
+  //         asterisk.textContent = "*";
+  //         labelEl.appendChild(asterisk);
+  //       } else if (
+  //         !isFieldRequired &&
+  //         (label.endsWith("*") ||
+  //           labelEl.querySelector("span.engrid__required__asterisk"))
+  //       ) {
+  //         const asterisk = labelEl.querySelector(
+  //           "span.engrid__required__asterisk"
+  //         );
+  //         if (asterisk) {
+  //           labelEl.removeChild(asterisk);
+  //         } else {
+  //           // Fallback in case the asterisk is not wrapped in a span
+  //           labelEl.textContent = label.replace(/\*$/, "").trim();
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
+
+  // // Update the label of each field based on its required status
+  // const fields = document.querySelectorAll(".en__field");
+  // fields.forEach((field) => {
+  //   const skipFields = ["en__field--donationAmt", "en__field--recurrfreq"];
+  //   if (
+  //     [...field.classList].some((className) => skipFields.includes(className))
+  //   ) {
+  //     return;
+  //   }
+
+  //   updateLabel(field);
+  //   const observer = new MutationObserver(() => updateLabel(field));
+  //   observer.observe(field, {
+  //     childList: true,
+  //     subtree: true,
+  //   });
+  // });
+
   if (dist_engrid_ENGrid.getPageType() === "DONATION" && !dist_engrid_ENGrid.isThankYouPage()) {
     const setupDonationAmountOther = () => {
       console.log("Setting up donation amount other field");
@@ -50292,7 +50298,6 @@ class Confetti {
 
 const options = {
   applePay: false,
-  UseBodyBannerImageAsBackground: true,
   CapitalizeFields: true,
   ClickToExpand: true,
   CurrencySymbol: "$",

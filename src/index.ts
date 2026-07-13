@@ -10,7 +10,6 @@ import Confetti from "./scripts/confetti";
 
 const options: Options = {
   applePay: false,
-  UseBodyBannerImageAsBackground: true,
   CapitalizeFields: true,
   ClickToExpand: true,
   CurrencySymbol: "$",
