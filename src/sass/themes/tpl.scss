@@ -138,11 +138,19 @@
   --button_color_checked: var(--color_white);
 
   --donation-amount__button_border-radius: 100px;
-  --donation-amount__button_background-color_checked: var(--button_background-color_checked);
-  --donation-amount__button_color_checked: var(--button_color_checked);
+  --donation-amount__button_background-color: var(--color_white);
+  --donation-amount__button_color: var(--color_earth);
+  --donation-amount__button_border-color: var(--color_evergreen);
+  --donation-amount__button_background-color_hover: #CADCD2;
+  --donation-amount__button_color_hover: var(--color_earth);
+  --donation-amount__button_border-color_hover: var(--color_evergreen);
+  --donation-amount__button_background-color_checked: var(--color_evergreen);
+  --donation-amount__button_border-color_checked: var(--color_evergreen);
+  --donation-amount__button_color_checked: var(--color_white);
   --donation-amount__button_text-transform: capitalize;
   --donation-amount__button_font-weight: 700;
   --donation-amount__button_font-size: 24px;
+  --recurring-frequency__button_color: var(--color_earth);
   --recurring-frequency__button_border-radius: 100px;
   --recurring-frequency__button_background-color: transparent;
   --recurring-frequency__button_background-color_checked: transparent;
@@ -1063,7 +1071,7 @@
     --input_line-height: 27px;
     --label_font-size: 22px;
     --label_line-height: 32px;
-    --radio_font-size: 15px;
+    --radio_font-size: 18px;
     --radio_line-height: 27px;
 
     --fields_spacing-block: 8px;
