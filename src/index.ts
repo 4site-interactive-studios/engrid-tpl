@@ -7,10 +7,10 @@ import DonationLightboxForm from "./scripts/donation-lightbox-form";
 import SuggestedAmount from "./scripts/suggested-amount";
 import SubscriptionManagement from "./scripts/subscription-management";
 import Confetti from "./scripts/confetti";
+import { sendSupporterDataToTatango } from "./scripts/tatango";
 
 const options: Options = {
   applePay: false,
-  UseBodyBannerImageAsBackground: true,
   CapitalizeFields: true,
   ClickToExpand: true,
   CurrencySymbol: "$",
@@ -21,22 +21,23 @@ const options: Options = {
   SrcDefer: true,
   ProgressBar: true,
   TidyContact: {
-    cid: '79d1b649-c5b5-4185-913b-250ca26127d3',
-    record_field: 'supporter.NOT_TAGGED_9',
-    date_field: 'supporter.NOT_TAGGED_10',
-    status_field: 'supporter.NOT_TAGGED_11',
+    cid: "79d1b649-c5b5-4185-913b-250ca26127d3",
+    record_field: "supporter.NOT_TAGGED_9",
+    date_field: "supporter.NOT_TAGGED_10",
+    status_field: "supporter.NOT_TAGGED_11",
     address_enable: true,
     phone_enable: true,
     phone_flags: true,
     phone_country_from_ip: true,
-    phone_preferred_countries: ['US', 'CA'],
-    phone_record_field: 'supporter.NOT_TAGGED_12',
-    phone_date_field: 'supporter.NOT_TAGGED_13',
-    phone_status_field: 'supporter.NOT_TAGGED_14',
+    phone_preferred_countries: ["US", "CA"],
+    phone_record_field: "supporter.NOT_TAGGED_12",
+    phone_date_field: "supporter.NOT_TAGGED_13",
+    phone_status_field: "supporter.NOT_TAGGED_14",
   },
   RememberMe: {
     checked: true,
-    fieldOptInSelectorTarget: ".remember-me, div.en__field--postcode, div.en__field--telephone, div.en__field--email, div.en__field--lastName",
+    fieldOptInSelectorTarget:
+      ".remember-me, div.en__field--postcode, div.en__field--telephone, div.en__field--email, div.en__field--lastName",
     fieldOptInSelectorTargetLocation: "after",
     fieldClearSelectorTarget:
       "div.en__field--title div, div.en__field--firstName div, div.en__field--email div",
@@ -88,5 +89,8 @@ const options: Options = {
     customScript(App);
   },
   onResize: () => console.log("Starter Theme Window Resized"),
+  onSubmit: () => {
+    sendSupporterDataToTatango();
+  },
 };
 new App(options);

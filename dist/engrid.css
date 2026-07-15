@@ -19,8 +19,8 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Monday, July 13, 2026 @ 13:39:13 ET
- *  By: nick
+ *  Date: Wednesday, July 15, 2026 @ 12:40:12 ET
+ *  By: michael
  *  ENGrid styles: v0.25.11
  *  ENGrid scripts: v0.25.11
  *
@@ -995,7 +995,7 @@ template{
 }
 
 .en__ecardmessage__default{
-  border:1px solid var(--textarea_border-color, #bfbfbf);
+  border:1px solid #bfbfbf;
   min-height:15.625rem;
   padding:.625rem;
 }
@@ -1024,7 +1024,7 @@ template{
 
 .en__ecardrecipients__list{
   background:var(--color_white);
-  border:1px solid var(--textarea_border-color, #bfbfbf);
+  border:1px solid #bfbfbf;
   margin:1.25rem 0 0;
   min-height:15.625rem;
   padding:.625rem;
@@ -2570,28 +2570,6 @@ input[disabled],input[readonly],select[disabled],textarea[disabled],textarea[rea
 body[data-engrid-live-currency=active] .en__field--donationAmt .en__field__item:not([data-engrid-currency-symbol-updated=true]) label{
   color:#0000 !important;
 }
-.en__field__error__alert{
-  color:var(--error__color);
-  font-family:var(--p_font-family);
-  font-size:max(75%, 10px);
-  font-weight:var(--p_font-weight);
-  line-height:var(--p_line-height);
-  order:3;
-}
-
-.en__field__error--hidden-by-a11y{
-  display:none !important;
-}
-
-.engrid__sr-only{
-  clip:rect(0 0 0 0);
-  height:1px;
-  overflow:hidden;
-  position:absolute;
-  white-space:nowrap;
-  width:1px;
-}
-
 @supports (-webkit-appearance:-apple-pay-button){
   .apple-pay-button{
     -apple-pay-button-type:donate;
@@ -2878,16 +2856,8 @@ a.button,a.button.active,a.button:active,a.button:focus,a.button:hover{
   --click-to-expand__cta-image_height:16px;
 }
 
-body#en__pagebuilder .click-to-expand-screenreader-tip{
-  background-color:rgba(248,168,9,.102) !important;
-}
-
 body:not(#en__pagebuilder) .click-to-expand .click-to-expand-text-wrapper>:first-child{
   margin-top:0;
-}
-
-body:not(#en__pagebuilder) .click-to-expand .click-to-expand-screenreader-tip{
-  display:none;
 }
 
 body:not(#en__pagebuilder) .click-to-expand:not(.expanded){
@@ -2901,29 +2871,21 @@ body:not(#en__pagebuilder) .click-to-expand:not(.expanded) .click-to-expand-text
 }
 body:not(#en__pagebuilder) .click-to-expand:not(.expanded) .click-to-expand-cta{
   background:var(--click-to-expand__cta-image_url);
-  background-color:initial;
   background-position:bottom;
   background-repeat:no-repeat;
   background-size:var(--click-to-expand__cta-image_width) var(--click-to-expand__cta-image_height);
-  border:none;
   bottom:0;
-  cursor:pointer;
   height:var(--click-to-expand__cta-image_height);
   left:0;
   margin-left:auto;
   margin-right:auto;
-  padding:0;
   position:absolute;
   right:0;
   width:var(--click-to-expand__cta-image_width);
 }
-body:not(#en__pagebuilder) .click-to-expand:not(.expanded) .click-to-expand-cta:focus-visible{
-  outline:2px solid currentColor;
-  outline-offset:2px;
-}
 
-body:not(#en__pagebuilder) .click-to-expand.expanded .click-to-expand-cta{
-  display:none;
+body:not(#en__pagebuilder) .click-to-expand.expanded .click-to-expand-text-wrapper{
+  outline:none;
 }
 
 [data-engrid-theme]{
@@ -3941,11 +3903,6 @@ button.en__ecarditems__addrecipient{
   width:calc((100% - var(--fields_spacing-inline)*var(--ecard_thumnail-row_count)*2)/var(--ecard_thumnail-row_count));
 }
 
-.en__ecarditems__thumb:focus,.en__ecarditems__thumb:focus-visible{
-  outline:3px solid var(--focus_outline_color, #086ce7);
-  outline-offset:var(--focus_outline_offset, 2px);
-}
-
 .en__ecarditems__thumb img{
   border:var(--ecard_thumnail-border-width) solid var(--color_primary);
   filter:brightness(75%);
@@ -3989,17 +3946,6 @@ button.en__ecarditems__prevclose{
 }
 .en__ecarditems__showprev :hover{
   color:#fff;
-}
-.en__ecardrecipients__futureDelivery input[type=date]{
-  appearance:none;
-  box-sizing:border-box;
-  max-width:100%;
-  min-width:0;
-  width:100%;
-}
-
-.en__ecardrecipients__futureDelivery input[type=date]::-webkit-date-and-time-value{
-  text-align:left;
 }
 
 @media screen and (max-width:700px){
@@ -4349,68 +4295,6 @@ button.en__eventOccurrence__select>label{
   justify-self:end;
 }
 
-.en__overlay--waitlist .en__overlay__popup{
-  top:15vh;
-  width:100%;
-}
-.en__overlay--waitlist .en__overlay__header{
-  background:var(--engrid__page_background-color);
-  border-bottom:unset;
-  border-radius:unset;
-}
-.en__overlay--waitlist .en__overlay__content{
-  background:var(--engrid__page_background-color);
-  padding:10px 20px;
-}
-.en__overlay--waitlist .en__overlay__content .en__button--confirm{
-  --button_background-color:var(--submit__button_background-color);
-  --button_border-color:var(--submit__button_border-color);
-  --button_color:var(--submit__button_color);
-  --button_background-color_hover:var(--submit__button_background-color_hover);
-  --button_border-color_hover:var(--submit__button_border-color_hover);
-  --button_color_hover:var(--submit__button_color_hover);
-  margin:auto;
-  min-width:100px;
-  padding:var(--button_padding);
-}
-.en__overlay--waitlist .en__waitlistCopy{
-  font-size:var(--h2_font-size);
-  font-weight:var(--h2_font-weight);
-  line-height:var(--h2_line-height);
-  margin-left:auto;
-  margin-right:auto;
-  max-width:400px;
-}
-.en__overlay--waitlist .en__waitlistForm{
-  margin-left:auto;
-  margin-right:auto;
-  max-width:475px;
-}
-.en__overlay--waitlist .en__field{
-  display:grid;
-  gap:8px;
-}
-.en__overlay--waitlist .en__overlay__actions{
-  display:flex;
-  flex-direction:row-reverse;
-  justify-content:space-between;
-  margin:16px auto;
-  max-width:450px;
-}
-.en__overlay--waitlist .en__overlay__actions .en__button{
-  min-width:120px;
-  padding:var(--button_padding);
-  text-transform:uppercase;
-}
-.en__overlay--waitlist .en__overlay__actions .en__button--submit{
-  --button_background-color:var(--submit__button_background-color);
-  --button_border-color:var(--submit__button_border-color);
-  --button_color:var(--submit__button_color);
-  --button_background-color_hover:var(--submit__button_background-color_hover);
-  --button_border-color_hover:var(--submit__button_border-color_hover);
-  --button_color_hover:var(--submit__button_color_hover);
-}
-
 @media screen and (max-width:600px){
   .en__ticket{
     display:flex;
@@ -4455,9 +4339,6 @@ button.en__eventOccurrence__select>label{
   .en__ticket__plus{
     margin-right:2rem;
   }
-}
-#engrid:has(.en__overlay--open) .content-footer,#engrid:has(.en__overlay--open) .content-footerSpacer,#engrid:has(.en__overlay--open) .content-header,#engrid:has(.en__overlay--open) .content-preFooter{
-  z-index:unset;
 }
 [data-engrid-errors=fancy] .en__field__error{
   background-color:var(--error__color);
@@ -5146,11 +5027,6 @@ div[id^=nb-field-].nb-success input{
   padding:0;
   width:var(--radio_width);
 }
-[data-engrid-theme] .en__pg__select:has(input:focus){
-  border-radius:30px;
-  outline:3px solid var(--focus_outline_color, #086ce7);
-  outline-offset:var(--focus_outline_offset, 2px);
-}
 [data-engrid-theme] .en__pg__display{
   grid-area:en__pg__display;
   padding:0;
@@ -5468,10 +5344,6 @@ body:not(#en__pagebuilder):not([data-engrid-debug]) [class*=showifamount].animat
 }
 [data-engrid-theme][data-engrid-page-type=supporterhub] .en__hubPledge__validationFail .en__field__element{
   border:none;
-}
-[data-engrid-theme][data-engrid-page-type=supporterhub] .en__component--hubgadget:focus{
-  outline:3px solid var(--focus_outline_color, #086ce7);
-  outline-offset:var(--focus_outline_offset, 2px);
 }
 @media screen and (max-width:768px){
   [data-engrid-theme] .en__hubPledge__buttons{
@@ -6311,7 +6183,7 @@ body[data-engrid-embedded]:not(#en__pagebuilder) .hideif-iframe{
   [data-engrid-layout=centercenter1col]:not(#en__pagebuilder) .page-backgroundImage{
     grid-row:page-start /  content-footerSpacer-end;
   }
-  [data-engrid-layout=centercenter1col][data-engrid-embedded] [class*=page-backgroundImage],[data-engrid-layout=centercenter1col][data-engrid-use-body-banner-background]:not(#en__pagebuilder) .body-banner{
+  [data-engrid-layout=centercenter1col][data-engrid-embedded] [class*=page-backgroundImage]{
     display:none !important;
   }
 }
@@ -6491,7 +6363,7 @@ body[data-engrid-embedded]:not(#en__pagebuilder) .hideif-iframe{
   [data-engrid-layout=centerleft1col]:not(#en__pagebuilder) .page-backgroundImage{
     grid-row:page-start /  content-footerSpacer-end;
   }
-  [data-engrid-layout=centerleft1col][data-engrid-embedded] [class*=page-backgroundImage],[data-engrid-layout=centerleft1col][data-engrid-use-body-banner-background]:not(#en__pagebuilder) .body-banner{
+  [data-engrid-layout=centerleft1col][data-engrid-embedded] [class*=page-backgroundImage]{
     display:none !important;
   }
 }
@@ -6569,7 +6441,7 @@ body[data-engrid-embedded]:not(#en__pagebuilder) .hideif-iframe{
   [data-engrid-layout=centerright1col]:not(#en__pagebuilder) .page-backgroundImage{
     grid-row:page-start /  content-footerSpacer-end;
   }
-  [data-engrid-layout=centerright1col][data-engrid-embedded] [class*=page-backgroundImage],[data-engrid-layout=centerright1col][data-engrid-use-body-banner-background]:not(#en__pagebuilder) .body-banner{
+  [data-engrid-layout=centerright1col][data-engrid-embedded] [class*=page-backgroundImage]{
     display:none !important;
   }
 }
@@ -6622,7 +6494,7 @@ body[data-engrid-embedded]:not(#en__pagebuilder) .hideif-iframe{
   [data-engrid-layout=leftleft1col]:not(#en__pagebuilder) .page-backgroundImage{
     grid-row:page-start /  content-footerSpacer-end;
   }
-  [data-engrid-layout=leftleft1col][data-engrid-embedded] [class*=page-backgroundImage],[data-engrid-layout=leftleft1col][data-engrid-use-body-banner-background]:not(#en__pagebuilder) .body-banner{
+  [data-engrid-layout=leftleft1col][data-engrid-embedded] [class*=page-backgroundImage]{
     display:none !important;
   }
 }
@@ -6700,7 +6572,7 @@ body[data-engrid-embedded]:not(#en__pagebuilder) .hideif-iframe{
   [data-engrid-layout=rightright1col]:not(#en__pagebuilder) .page-backgroundImage{
     grid-row:page-start /  content-footerSpacer-end;
   }
-  [data-engrid-layout=rightright1col][data-engrid-embedded] [class*=page-backgroundImage],[data-engrid-layout=rightright1col][data-engrid-use-body-banner-background]:not(#en__pagebuilder) .body-banner{
+  [data-engrid-layout=rightright1col][data-engrid-embedded] [class*=page-backgroundImage]{
     display:none !important;
   }
 }
