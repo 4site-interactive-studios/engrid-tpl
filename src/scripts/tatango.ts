@@ -1,30 +1,36 @@
 import { ENGrid } from "@4site/engrid-scripts";
 
 export function sendSupporterDataToTatango(): void {
-  const country = ENGrid.getFieldValue("supporter.country");
+  // Only send data if the supporter has opted in to receive text messages
+  if (ENGrid.getFieldValue("supporter.questions.7902") !== "Y") return;
+
+  const country = ENGrid.getFieldValue("tc.phone.country");
   const phoneNumber = formatPhoneNumber(
     ENGrid.getFieldValue("supporter.phoneNumber2")
   );
 
-  if (country !== "US" || !phoneNumber) {
+  if (country !== "us" || !phoneNumber) {
     // Only send data for US supporters and valid phone numbers
     return;
   }
 
-  fetch("https://localhost:7071/api/submit", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "x-api-key": "1O4AqxKOIq7w37uyRBeOkalWiFxVzXOO61iqmwzX",
-    },
-    body: JSON.stringify({
-      phone_number: phoneNumber,
-      first_name: ENGrid.getFieldValue("supporter.firstName"),
-      last_name: ENGrid.getFieldValue("supporter.lastName"),
-      email: ENGrid.getFieldValue("supporter.emailAddress"),
-      zip_code: ENGrid.getFieldValue("supporter.postcode"),
-    }),
-  }).then((r) => {});
+  fetch(
+    "https://tatango-api.azurewebsites.net/api/submit?code=X4CkahsXuaLQOy3GFnnBcmLVMeZMVF7G1vjT8sB2cY7uAzFuBskMWA==",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        phone_number: phoneNumber,
+        first_name: ENGrid.getFieldValue("supporter.firstName"),
+        last_name: ENGrid.getFieldValue("supporter.lastName"),
+        email: ENGrid.getFieldValue("supporter.emailAddress"),
+        zip_code: ENGrid.getFieldValue("supporter.postcode"),
+        en_page_id: ENGrid.getPageID(),
+      }),
+    }
+  ).then((r) => {});
 }
 
 export function formatPhoneNumber(phone: string): string | null {

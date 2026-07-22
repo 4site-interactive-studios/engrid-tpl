@@ -89,7 +89,7 @@ const options: Options = {
     customScript(App);
   },
   onResize: () => console.log("Starter Theme Window Resized"),
-  onSubmit: () => {
+  onIntentSubmit: () => {
     sendSupporterDataToTatango();
   },
 };

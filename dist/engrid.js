@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Wednesday, July 15, 2026 @ 12:40:12 ET
+ *  Date: Wednesday, July 22, 2026 @ 08:29:17 ET
  *  By: michael
  *  ENGrid styles: v0.25.11
  *  ENGrid scripts: v0.25.11
@@ -19067,7 +19067,7 @@ class engrid_ENGrid {
     return null;
   }
   static isThankYouPage() {
-    return this.getPageNumber() === this.getPageCount();
+    return this.getPageNumber() === this.getPageCount() && this.getPageCount() > 1;
   }
   // Return the current page ID
   static getPageID() {
@@ -26063,16 +26063,6 @@ class DataLayer {
     let eventsData = window.sessionStorage.getItem(this.endOfGiftProcessStorageKey);
     return !eventsData ? [] : JSON.parse(eventsData);
   }
-  pushVariable(variableName, variableValue = "") {
-    this.dataLayer.push({
-      [variableName.toUpperCase()]: variableValue
-    });
-  }
-  pushEvent(eventName, eventProperties = {}) {
-    this.dataLayer.push(Object.assign({
-      event: eventName
-    }, eventProperties));
-  }
 }
 ;// ../engrid/packages/scripts/dist/data-replace.js
 // This script is used to replace merge tags in the EN Blocks of the page.
@@ -31041,7 +31031,6 @@ class CheckboxLabel {
 ;// ../engrid/packages/scripts/dist/optin-ladder.js
 /* unused harmony import specifier */ var optin_ladder_EngridLogger;
 /* unused harmony import specifier */ var optin_ladder_EnForm;
-/* unused harmony import specifier */ var optin_ladder_DataLayer;
 /* unused harmony import specifier */ var optin_ladder_ENGrid;
 /**
  * Docs: https://engrid.4sitestudios.com/component/optin-ladder
@@ -31056,16 +31045,12 @@ class OptInLadder {
   constructor() {
     this.logger = new optin_ladder_EngridLogger("OptInLadder", "lightgreen", "darkgreen", "✔");
     this._form = optin_ladder_EnForm.getInstance();
-    this._dataLayer = optin_ladder_DataLayer.getInstance();
     if (!this.inIframe()) {
       this.runAsParent();
+    } else if (optin_ladder_ENGrid.getPageNumber() === 1) {
+      this.runAsChildRegular();
     } else {
-      this.listenForParentInfo();
-      if (optin_ladder_ENGrid.getPageNumber() === 1) {
-        this.runAsChildRegular();
-      } else {
-        this.runAsChildThankYou();
-      }
+      this.runAsChildThankYou();
     }
   }
   runAsParent() {
@@ -31109,17 +31094,6 @@ class OptInLadder {
         return;
       }
       placement.appendChild(iframe);
-      iframe.addEventListener("load", () => {
-        var _a;
-        if (iframe.contentWindow) {
-          iframe.contentWindow.postMessage({
-            type: "engrid-optin-ladder-parent-info",
-            pageID: optin_ladder_ENGrid.getPageID(),
-            pageName: ((_a = window === null || window === void 0 ? void 0 : window.pageJson) === null || _a === void 0 ? void 0 : _a.pageName) || "",
-            pageType: optin_ladder_ENGrid.getPageType()
-          }, "*");
-        }
-      });
     } else {
       // Grab all the checkboxes with the name starting with "supporter.questions"
       const checkboxes = document.querySelectorAll('input[name^="supporter.questions"]');
@@ -31138,7 +31112,6 @@ class OptInLadder {
     }
   }
   runAsChildRegular() {
-    var _a;
     if (!this.isEmbeddedThankYouPage()) {
       this.logger.log("Not Embedded on a Thank You Page");
       return;
@@ -31162,7 +31135,6 @@ class OptInLadder {
     let totalSteps = optInHeaders.length;
     let currentHeader = null;
     let currentFormBlock = null;
-    let submissionCount = Number(sessionStorage.getItem("engrid.optin-ladder-submission-count")) || 0;
     for (let i = 0; i < optInHeaders.length; i++) {
       const header = optInHeaders[i];
       // Get the optin number from the .optin-ladder-XXXX class
@@ -31223,23 +31195,8 @@ class OptInLadder {
     });
     // Save the current step to sessionStorage
     this.saveStepToSessionStorage(currentStep, totalSteps);
-    if (!this.isFollowupStep()) {
-      this._dataLayer.pushVariable("ENGRID_OPTIN_LADDER_FIRST_STEP_ID", ((_a = currentHeader === null || currentHeader === void 0 ? void 0 : currentHeader.className.match(/optin-ladder-(\d+)/)) === null || _a === void 0 ? void 0 : _a[1]) || "");
-      this._dataLayer.pushVariable("ENGRID_OPTIN_LADDER_FIRST_STEP_NAME", (currentHeader === null || currentHeader === void 0 ? void 0 : currentHeader.innerText.trim()) || "");
-    }
     // On form submit, save the checkbox values to sessionStorage
     this._form.onSubmit.subscribe(() => {
-      var _a, _b;
-      submissionCount++;
-      this._dataLayer.pushEvent("ENGRID_OPTIN_LADDER_SUBMIT", {
-        opt_in_label: (_a = currentHeader === null || currentHeader === void 0 ? void 0 : currentHeader.innerText.trim()) !== null && _a !== void 0 ? _a : "Unknown",
-        opt_in_id: ((_b = currentHeader === null || currentHeader === void 0 ? void 0 : currentHeader.className.match(/optin-ladder-(\d+)/)) === null || _b === void 0 ? void 0 : _b[1]) || "",
-        opt_in_step: currentStep,
-        opt_in_total_steps: totalSteps,
-        submission_count: submissionCount
-      });
-      this._dataLayer.pushVariable("ENGRID_OPTIN_LADDER_SUBMISSION_COUNT", submissionCount);
-      sessionStorage.setItem("engrid.optin-ladder-submission-count", submissionCount.toString());
       this.saveOptInsToSessionStorage("child");
       // Save the current step to sessionStorage
       currentStep++;
@@ -31288,16 +31245,6 @@ class OptInLadder {
       return true;
     }
   }
-  listenForParentInfo() {
-    window.addEventListener("message", event => {
-      var _a, _b, _c;
-      if (event.data && event.data.type === "engrid-optin-ladder-parent-info") {
-        this._dataLayer.pushVariable("ENGRID_OPTIN_LADDER_PARENT_ID", ((_a = event.data) === null || _a === void 0 ? void 0 : _a.pageID) || "");
-        this._dataLayer.pushVariable("ENGRID_OPTIN_LADDER_PARENT_NAME", ((_b = event.data) === null || _b === void 0 ? void 0 : _b.pageName) || "");
-        this._dataLayer.pushVariable("ENGRID_OPTIN_LADDER_PARENT_TYPE", ((_c = event.data) === null || _c === void 0 ? void 0 : _c.pageType) || "");
-      }
-    });
-  }
   saveStepToSessionStorage(step, totalSteps) {
     sessionStorage.setItem("engrid.optin-ladder", JSON.stringify({
       step,
@@ -31337,12 +31284,7 @@ class OptInLadder {
     const url = new URL(window.location.href);
     const path = url.pathname.split("/");
     path[path.length - 1] = String(page);
-    url.pathname = path.join("/");
-    if (chain) {
-      url.searchParams.set("chain", "true");
-    }
-    url.searchParams.set("engrid_optin_ladder_followup", "true");
-    return url.toString();
+    return url.origin + path.join("/") + (chain ? "?chain" : "");
   }
   getFirstPageUrl() {
     return this.getPageUrl(1, true);
@@ -31364,13 +31306,6 @@ class OptInLadder {
     sessionStorage.removeItem("engrid.optin-ladder");
     sessionStorage.removeItem("engrid.optin-ladder-stop");
     sessionStorage.removeItem("engrid.optin-ladder-persist-stop");
-    sessionStorage.removeItem("engrid.optin-ladder-submission-count");
-  }
-  isFollowupStep() {
-    const searchParams = new URLSearchParams(window.location.search);
-    const fromUrl = searchParams.get("engrid_optin_ladder_followup") === "true";
-    const fromStorage = Number(sessionStorage.getItem("engrid.optin-ladder-submission-count")) > 0;
-    return fromUrl || fromStorage;
   }
 }
 ;// ../engrid/packages/scripts/dist/post-donation-embed.js
@@ -46616,7 +46551,7 @@ class checkbox_label_CheckboxLabel {
 ;// ./node_modules/@4site/engrid-scripts/dist/optin-ladder.js
 /* unused harmony import specifier */ var dist_optin_ladder_EngridLogger;
 /* unused harmony import specifier */ var dist_optin_ladder_EnForm;
-/* unused harmony import specifier */ var dist_optin_ladder_DataLayer;
+/* unused harmony import specifier */ var optin_ladder_DataLayer;
 /* unused harmony import specifier */ var dist_optin_ladder_ENGrid;
 /**
  * Docs: https://engrid.4sitestudios.com/component/optin-ladder
@@ -46631,7 +46566,7 @@ class optin_ladder_OptInLadder {
     constructor() {
         this.logger = new dist_optin_ladder_EngridLogger("OptInLadder", "lightgreen", "darkgreen", "✔");
         this._form = dist_optin_ladder_EnForm.getInstance();
-        this._dataLayer = dist_optin_ladder_DataLayer.getInstance();
+        this._dataLayer = optin_ladder_DataLayer.getInstance();
         if (!this.inIframe()) {
             this.runAsParent();
         }
@@ -49451,24 +49386,26 @@ class Confetti {
 ;// ./src/scripts/tatango.ts
 
 function sendSupporterDataToTatango() {
-  const country = dist_engrid_ENGrid.getFieldValue("supporter.country");
+  // Only send data if the supporter has opted in to receive text messages
+  if (dist_engrid_ENGrid.getFieldValue("supporter.questions.7902") !== "Y") return;
+  const country = dist_engrid_ENGrid.getFieldValue("tc.phone.country");
   const phoneNumber = formatPhoneNumber(dist_engrid_ENGrid.getFieldValue("supporter.phoneNumber2"));
-  if (country !== "US" || !phoneNumber) {
+  if (country !== "us" || !phoneNumber) {
     // Only send data for US supporters and valid phone numbers
     return;
   }
-  fetch("https://localhost:7071/api/submit", {
+  fetch("https://tatango-api.azurewebsites.net/api/submit?code=X4CkahsXuaLQOy3GFnnBcmLVMeZMVF7G1vjT8sB2cY7uAzFuBskMWA==", {
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
-      "x-api-key": "1O4AqxKOIq7w37uyRBeOkalWiFxVzXOO61iqmwzX"
+      "Content-Type": "application/json"
     },
     body: JSON.stringify({
       phone_number: phoneNumber,
       first_name: dist_engrid_ENGrid.getFieldValue("supporter.firstName"),
       last_name: dist_engrid_ENGrid.getFieldValue("supporter.lastName"),
       email: dist_engrid_ENGrid.getFieldValue("supporter.emailAddress"),
-      zip_code: dist_engrid_ENGrid.getFieldValue("supporter.postcode")
+      zip_code: dist_engrid_ENGrid.getFieldValue("supporter.postcode"),
+      en_page_id: dist_engrid_ENGrid.getPageID()
     })
   }).then(r => {});
 }
@@ -49561,7 +49498,7 @@ const options = {
     customScript(App);
   },
   onResize: () => console.log("Starter Theme Window Resized"),
-  onSubmit: () => {
+  onIntentSubmit: () => {
     sendSupporterDataToTatango();
   }
 };
