@@ -77,6 +77,7 @@
   --a_font-size: inherit;
   --a_color: var(--color_evergreen);
   --a_line-height: var(--default_line-height);
+  --a_font-weight: 700;
   // --a_text-decoration: underline;
 
   // TYPOGRAPHY A:FOCUS
@@ -240,6 +241,7 @@
   a {
     color: var(--a_color);
     font-size: var(--a_font-size);
+    font-weight: var(--a_font-weight);
     line-height: var(--a_line-height);
     text-decoration: underline;
   }
@@ -816,6 +818,17 @@
 
   .rememberme-wrapper {
     padding-bottom: 0;
+  }
+
+  .other-give-body-footer {
+    text-align: center;
+    --p_font-size: 22px;
+    --p_line-height: 27px;
+
+    p {
+      margin-top: 12px;
+      margin-bottom: 12px;
+    }
   }
 
   .link-list ul {
