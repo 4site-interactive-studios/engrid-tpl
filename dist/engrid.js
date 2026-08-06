@@ -17,8 +17,8 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Tuesday, July 28, 2026 @ 11:21:47 ET
- *  By: nick
+ *  Date: Thursday, August 6, 2026 @ 12:10:46 ET
+ *  By: michael
  *  ENGrid styles: v0.27.0
  *  ENGrid scripts: v0.27.0
  *
@@ -28318,9 +28318,46 @@ class Confetti {
     return Math.floor(this.randomNumber(min, max + 1));
   }
 }
+;// ./src/scripts/tatango.ts
+
+function sendSupporterDataToTatango() {
+  // Only send data if the supporter has opted in to receive text messages
+  if (engrid_ENGrid.getFieldValue("supporter.questions.7902") !== "Y") return;
+  const country = engrid_ENGrid.getFieldValue("tc.phone.country");
+  const phoneNumber = formatPhoneNumber(engrid_ENGrid.getFieldValue("supporter.phoneNumber2"));
+  if (country !== "us" || !phoneNumber) {
+    // Only send data for US supporters and valid phone numbers
+    return;
+  }
+  fetch("https://tatango-api.azurewebsites.net/api/submit?code=X4CkahsXuaLQOy3GFnnBcmLVMeZMVF7G1vjT8sB2cY7uAzFuBskMWA==", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      phone_number: phoneNumber,
+      first_name: engrid_ENGrid.getFieldValue("supporter.firstName"),
+      last_name: engrid_ENGrid.getFieldValue("supporter.lastName"),
+      email: engrid_ENGrid.getFieldValue("supporter.emailAddress"),
+      zip_code: engrid_ENGrid.getFieldValue("supporter.postcode"),
+      en_page_id: engrid_ENGrid.getPageID()
+    })
+  }).then(r => {});
+}
+function formatPhoneNumber(phone) {
+  // Remove all non-digit characters from the phone number and get the last 10 digits
+  // Matches the format expected by Tatango:
+  // 10 digits, no country code, no spaces or special characters
+  const cleaned = phone.replace(/\D/g, "").slice(-10);
+  if (cleaned.length !== 10) {
+    return null;
+  }
+  return cleaned;
+}
 ;// ./src/index.ts
  // Uses ENGrid via NPM
 // import { Options, App, DonationAmount, DonationFrequency, RememberMe, Ecard } from "../../engrid/packages/scripts";// Uses ENGrid via Visual Studio Workspace
+
 
 
 
@@ -28341,18 +28378,18 @@ const options = {
   SrcDefer: true,
   ProgressBar: true,
   TidyContact: {
-    cid: '79d1b649-c5b5-4185-913b-250ca26127d3',
-    record_field: 'supporter.NOT_TAGGED_9',
-    date_field: 'supporter.NOT_TAGGED_10',
-    status_field: 'supporter.NOT_TAGGED_11',
+    cid: "79d1b649-c5b5-4185-913b-250ca26127d3",
+    record_field: "supporter.NOT_TAGGED_9",
+    date_field: "supporter.NOT_TAGGED_10",
+    status_field: "supporter.NOT_TAGGED_11",
     address_enable: true,
     phone_enable: true,
     phone_flags: true,
     phone_country_from_ip: true,
-    phone_preferred_countries: ['US', 'CA'],
-    phone_record_field: 'supporter.NOT_TAGGED_12',
-    phone_date_field: 'supporter.NOT_TAGGED_13',
-    phone_status_field: 'supporter.NOT_TAGGED_14'
+    phone_preferred_countries: ["US", "CA"],
+    phone_record_field: "supporter.NOT_TAGGED_12",
+    phone_date_field: "supporter.NOT_TAGGED_13",
+    phone_status_field: "supporter.NOT_TAGGED_14"
   },
   RememberMe: {
     checked: true,
@@ -28396,7 +28433,10 @@ const options = {
     new Ecard();
     customScript(App);
   },
-  onResize: () => console.log("Starter Theme Window Resized")
+  onResize: () => console.log("Starter Theme Window Resized"),
+  onIntentSubmit: () => {
+    sendSupporterDataToTatango();
+  }
 };
 new App(options);
 })();
