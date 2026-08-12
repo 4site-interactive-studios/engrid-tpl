@@ -29,7 +29,7 @@
   --engrid__body_padding: 0 64px;
   --engrid__body-headerOutside_background-color: var(--color_snow);
   --engrid__body-headerOutside_padding: 63px 64px 10px 64px;
-  --engrid__body-title_padding: var(--lg) 64px 0 64px;
+  --engrid__body-title_padding: var(--lg) 64px var(--md) 64px;
   --engrid__body-top_padding: 7px 64px var(--md) 64px;
   --engrid__body-bottom_padding: var(--lg) 64px var(--lg) 64px;
   --engrid__body-footer_padding: var(--md) 64px var(--md) 64px;
@@ -130,6 +130,7 @@
   // --button_line-height: initial;
   // --button_background-color: initial;;
   --button_border-radius: 80px;
+  --button_text-transform: uppercase;
 
   --button_background-color_hover: var(--color_sun);
   --button_color_hover: var(--color_white);
@@ -164,6 +165,7 @@
   --recurring-frequency__button_border-width: 0px;
   --recurring-frequency__button_font-size: 28px;
   --recurring-frequency__button_font-weight: 700;
+  --recurring-frequency__button_text-transform: capitalize;
   --recurring-payment__button_line-height: 28px;
   --submit__button_font-size: 36px;
   --submit__button_border-width: 0px;
@@ -249,6 +251,23 @@
   hr {
     margin-block-start: var(--lg);
     margin-block-end: var(--lg);
+  }
+
+  .uppercase {
+    --button_text-transform: uppercase;
+    text-transform: uppercase;
+  }
+  .capitalize {
+    --button_text-transform: capitalize;
+    text-transform: capitalize;
+  }
+  .lowercase {
+    --button_text-transform: lowercase;
+    text-transform: lowercase;
+  }
+  .text-transform-none {
+    --button_text-transform: none;
+    text-transform: none;
   }
 
   input[type=checkbox]+label {
@@ -983,6 +1002,10 @@
 
   .en__submit button:hover {
     background-color: var(--color_sun);
+  }
+
+  .en__component--eventtickets {
+    padding: var(--md) 0;
   }
 
   .confetti-container {

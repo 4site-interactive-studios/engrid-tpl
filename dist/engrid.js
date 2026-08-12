@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Tuesday, July 28, 2026 @ 11:21:47 ET
+ *  Date: Wednesday, August 12, 2026 @ 14:39:29 ET
  *  By: nick
  *  ENGrid styles: v0.27.0
  *  ENGrid scripts: v0.27.0
@@ -28353,6 +28353,10 @@ const options = {
     phone_record_field: 'supporter.NOT_TAGGED_12',
     phone_date_field: 'supporter.NOT_TAGGED_13',
     phone_status_field: 'supporter.NOT_TAGGED_14'
+  },
+  Placeholders: {
+    "input#en__field_supporter_postcode": "ZIP",
+    "input#en__field_supporter_emailAddress": "Email"
   },
   RememberMe: {
     checked: true,

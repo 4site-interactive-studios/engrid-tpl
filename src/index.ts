@@ -34,6 +34,10 @@ const options: Options = {
     phone_date_field: 'supporter.NOT_TAGGED_13',
     phone_status_field: 'supporter.NOT_TAGGED_14',
   },
+  Placeholders: {
+    "input#en__field_supporter_postcode": "ZIP",
+    "input#en__field_supporter_emailAddress": "Email",
+  },
   RememberMe: {
     checked: true,
     fieldOptInSelectorTarget: ".remember-me, div.en__field--postcode, div.en__field--telephone, div.en__field--email, div.en__field--lastName",
