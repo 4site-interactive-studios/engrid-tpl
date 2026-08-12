@@ -1,5 +1,5 @@
 & {
-  --fields_spacing-inline: .25rem;
+  --fields_spacing-inline: 0.25rem;
 
   --button_font-size: 16px;
   --give-monthly-donation-amount-appended-label: "/mo";
@@ -104,8 +104,7 @@
 
   &#en__pagebuilder,
   &:not(#en__pagebuilder):not([data-engrid-embedded]) {
-    #engrid>.en__component--row {
-
+    #engrid > .en__component--row {
       //   width: 430px;
       //   padding-left: 40px;
       //   padding-right: 40px;
@@ -359,7 +358,7 @@
       display: none;
     }
 
-    form.en__component>.en__component {
+    form.en__component > .en__component {
       position: relative;
 
       .section-navigation {
@@ -461,7 +460,7 @@
         }
       }
 
-      >.en__component {
+      > .en__component {
         min-width: auto;
       }
     }
@@ -475,7 +474,7 @@
       --checkbox_font-size: 14px;
       --checkbox_line-height: 18.2px;
 
-      >label {
+      > label {
         display: none !important;
       }
     }
@@ -547,7 +546,6 @@
     // }
 
     &[data-engrid-embedded] {
-
       // Hide Chat iFrame when embedded
       #launcher {
         display: none;
@@ -563,23 +561,29 @@
         // overscroll-behavior-x: contain;
         // scroll-behavior: smooth;
 
-        &>.en__component {
+        & > .en__component {
           height: 100vh;
           width: 350px;
           padding: 45px 40px;
           // scroll-snap-align: start;
 
-          &>.en__component {
+          & > .en__component {
             height: 100%;
           }
         }
 
-        .en__component--row>.en__component--column .en__component:first-of-type>*:first-child {
+        .en__component--row
+          > .en__component--column
+          .en__component:first-of-type
+          > *:first-child {
           margin-top: 0;
           padding-top: 0;
         }
 
-        .en__component--row>.en__component--column .en__component:last-of-type>*:last-child {
+        .en__component--row
+          > .en__component--column
+          .en__component:last-of-type
+          > *:last-child {
           margin-bottom: 0;
           padding-bottom: 0;
         }
@@ -593,7 +597,6 @@
     }
 
     .has-error {
-
       label,
       .en__field__input--other,
       .en__field__input {
@@ -603,7 +606,6 @@
     }
 
     &[data-thank-you] {
-
       // form.en__component > .en__component {
       //   padding: 0;
       // }
@@ -632,7 +634,7 @@
       }
 
       form.en__component {
-        &>.en__component {
+        & > .en__component {
           padding: 100px 30px;
           margin: auto;
         }
@@ -798,7 +800,6 @@
     }
 
     &[data-engrid-payment-type="paypaltouch"] {
-
       .i1-hideif-paypaltouch .en__field:nth-of-type(1),
       .i2-hideif-paypaltouch .en__field:nth-of-type(2),
       .i3-hideif-paypaltouch .en__field:nth-of-type(3),
@@ -830,7 +831,9 @@
       }
     }
 
-    &[data-conditonally-hide-show-digital-wallet-elements] #en__digitalWallet .en__digitalWallet__container {
+    &[data-conditonally-hide-show-digital-wallet-elements]
+      #en__digitalWallet
+      .en__digitalWallet__container {
       margin-top: 0 !important;
     }
 
@@ -997,7 +1000,7 @@
         }
       }
 
-      form.en__component>.en__component {
+      form.en__component > .en__component {
         padding: 35px 40px;
       }
 
