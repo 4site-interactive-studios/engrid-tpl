@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Wednesday, August 12, 2026 @ 14:43:40 ET
+ *  Date: Monday, August 17, 2026 @ 17:38:14 ET
  *  By: nick
  *  ENGrid styles: v0.27.2
  *  ENGrid scripts: v0.27.2
@@ -15268,7 +15268,7 @@ class InputPlaceholders {
   <figure class="media-with-attribution"><img src="https://via.placeholder.com/300x300" data-src="https://via.placeholder.com/300x300" data-attribution-source="Jane Doe 1"><figattribution class="attribution-bottomright">Jane Doe 1</figattribution></figure>
 */
 
-const tippy = (__webpack_require__(9244)/* ["default"] */ .Ay);
+const media_attribution_tippy = (__webpack_require__(9244)/* ["default"] */ .Ay);
 class MediaAttribution {
     constructor() {
         // Find all images with attribution but not with the "data-attribution-hide-overlay" attribute
@@ -15303,7 +15303,7 @@ class MediaAttribution {
                         ? mediaWithAttributionElement.dataset.attributionSourceTooltip
                         : false;
                     if (attributionSourceTooltip) {
-                        tippy(mediaWithAttributionElement.nextSibling, {
+                        media_attribution_tippy(mediaWithAttributionElement.nextSibling, {
                             content: attributionSourceTooltip,
                             arrow: true,
                             arrowType: "default",
@@ -26961,6 +26961,36 @@ const customScript = function (App) {
       }
     }
   });
+
+  // Add tippy tooltip to Phone input on
+  if (engrid_ENGrid.getPageType() === "EMAILTOTARGET" && !engrid_ENGrid.isThankYouPage()) {
+    const phoneInput = document.querySelector('.en__mandatory input[name="supporter.phoneNumber2"]');
+    const phoneLabel = document.querySelector('.en__mandatory label[for="en__field_supporter_phoneNumber2"]');
+    if (phoneInput && phoneLabel) {
+      App.loadJS("https://unpkg.com/@popperjs/core@2", () => {
+        App.loadJS("https://unpkg.com/tippy.js@6", () => {
+          console.log("Welcome");
+          let link = document.createElement("a");
+          link.href = "#";
+          link.id = "phone-tooltip";
+          link.className = "label-tooltip";
+          link.tabIndex = "-1";
+          link.innerText = "Why is this required?";
+          link.addEventListener("click", e => e.preventDefault());
+          phoneLabel.insertAdjacentElement("afterend", link);
+          let wrapper = document.createElement("span");
+          wrapper.className = "label-wrapper";
+          phoneLabel.parentNode.insertBefore(wrapper, phoneLabel);
+          wrapper.appendChild(phoneLabel);
+          wrapper.appendChild(link);
+          tippy("#phone-tooltip", {
+            theme: "light",
+            content: "Members of Congress require a phone number for contact. You may use a home, work, or mobile number."
+          });
+        });
+      });
+    }
+  }
   App.setBodyData("client-js-loading", "finished");
 };
 // EXTERNAL MODULE: ./node_modules/smoothscroll-polyfill/dist/smoothscroll.js
@@ -28433,20 +28463,20 @@ const options = {
   SkipToMainContentLink: true,
   SrcDefer: true,
   ProgressBar: true,
-  TidyContact: {
-    cid: "79d1b649-c5b5-4185-913b-250ca26127d3",
-    record_field: "supporter.NOT_TAGGED_9",
-    date_field: "supporter.NOT_TAGGED_10",
-    status_field: "supporter.NOT_TAGGED_11",
-    address_enable: true,
-    phone_enable: true,
-    phone_flags: true,
-    phone_country_from_ip: true,
-    phone_preferred_countries: ["US", "CA"],
-    phone_record_field: "supporter.NOT_TAGGED_12",
-    phone_date_field: "supporter.NOT_TAGGED_13",
-    phone_status_field: "supporter.NOT_TAGGED_14"
-  },
+  // TidyContact: {
+  //   cid: "79d1b649-c5b5-4185-913b-250ca26127d3",
+  //   record_field: "supporter.NOT_TAGGED_9",
+  //   date_field: "supporter.NOT_TAGGED_10",
+  //   status_field: "supporter.NOT_TAGGED_11",
+  //   address_enable: true,
+  //   phone_enable: true,
+  //   phone_flags: true,
+  //   phone_country_from_ip: true,
+  //   phone_preferred_countries: ["US", "CA"],
+  //   phone_record_field: "supporter.NOT_TAGGED_12",
+  //   phone_date_field: "supporter.NOT_TAGGED_13",
+  //   phone_status_field: "supporter.NOT_TAGGED_14",
+  // },
   Placeholders: {
     "input#en__field_supporter_postcode": "ZIP",
     "input#en__field_supporter_emailAddress": "Email"

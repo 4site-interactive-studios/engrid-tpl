@@ -94,5 +94,42 @@ export const customScript = function (App) {
     }
   });
 
+  // Add tippy tooltip to Phone input on
+  if (ENGrid.getPageType() === "EMAILTOTARGET" && !ENGrid.isThankYouPage()) {
+    const phoneInput = document.querySelector(
+      '.en__mandatory input[name="supporter.phoneNumber2"]'
+    );
+    const phoneLabel = document.querySelector(
+      '.en__mandatory label[for="en__field_supporter_phoneNumber2"]'
+    );
+    if (phoneInput && phoneLabel) {
+      App.loadJS("https://unpkg.com/@popperjs/core@2", () => {
+        App.loadJS("https://unpkg.com/tippy.js@6", () => {
+          console.log("Welcome");
+          let link = document.createElement("a");
+          link.href = "#";
+          link.id = "phone-tooltip";
+          link.className = "label-tooltip";
+          link.tabIndex = "-1";
+          link.innerText = "Why is this required?";
+          link.addEventListener("click", (e) => e.preventDefault());
+          phoneLabel.insertAdjacentElement("afterend", link);
+
+          let wrapper = document.createElement("span");
+          wrapper.className = "label-wrapper";
+          phoneLabel.parentNode.insertBefore(wrapper, phoneLabel);
+          wrapper.appendChild(phoneLabel);
+          wrapper.appendChild(link);
+
+          tippy("#phone-tooltip", {
+            theme: "light",
+            content:
+              "Members of Congress require a phone number for contact. You may use a home, work, or mobile number.",
+          });
+        });
+      });
+    }
+  }
+
   App.setBodyData("client-js-loading", "finished");
 };
