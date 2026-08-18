@@ -65,6 +65,7 @@ const options: Options = {
       "supporter.postcode",
       "supporter.emailAddress",
     ],
+    rememberMeLabel: "Remember me",
   },
   VGS: {
     "transaction.ccnumber": {

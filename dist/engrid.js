@@ -17,10 +17,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Monday, August 17, 2026 @ 17:41:31 ET
+ *  Date: Tuesday, August 18, 2026 @ 16:08:01 ET
  *  By: nick
  *  ENGrid styles: v0.27.3
- *  ENGrid scripts: v0.27.4
+ *  ENGrid scripts: v0.27.5
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -11542,7 +11542,15 @@ class engrid_ENGrid {
     }
     //returns 'us or 'ca' based on the client ID
     static getDataCenter() {
-        return engrid_ENGrid.getClientID() >= 10000 ? "us" : "ca";
+        if (engrid_ENGrid.getClientID() > 20000) {
+            return "us2";
+        }
+        else if (engrid_ENGrid.getClientID() > 10000) {
+            return "us";
+        }
+        else {
+            return "ca";
+        }
     }
     // Return the current page type
     static getPageType() {
@@ -18297,6 +18305,9 @@ class RememberMe {
         this.fieldClearLabel = options.fieldClearLabel
             ? options.fieldClearLabel
             : "(clear autofill)";
+        this.rememberMeLabel = options.rememberMeLabel
+            ? options.rememberMeLabel
+            : "Remember Me";
         this.fieldData = {};
         if (this.useRemote()) {
             this.createIframe(() => {
@@ -18460,11 +18471,11 @@ class RememberMe {
     insertRememberMeOptin() {
         let rememberMeOptInField = document.getElementById("remember-me-opt-in");
         if (!rememberMeOptInField) {
-            const rememberMeLabel = "Remember Me";
+            const rememberMeLabel = this.rememberMeLabel;
             const rememberMeInfo = `
-				Check “Remember me” to complete forms on this device faster. 
+				Check “${rememberMeLabel}” to complete forms on this device faster. 
 				While your financial information won’t be stored, you should only check this box from a personal device. 
-				Click “Clear autofill” to remove the information from your device at any time.
+				Click “${this.fieldClearLabel}” to remove the information from your device at any time.
 			`;
             const rememberMeOptInFieldChecked = this.rememberMeOptIn ? "checked" : "";
             const rememberMeOptInField = document.createElement("div");
@@ -26960,7 +26971,7 @@ class PreferredPaymentMethod {
 }
 
 ;// ./node_modules/@4site/engrid-scripts/dist/version.js
-const AppVersion = "0.27.4";
+const AppVersion = "0.27.5";
 
 ;// ./node_modules/@4site/engrid-scripts/dist/index.js
  // Runs first so it can change the DOM markup before any markup dependent code fires
@@ -28652,7 +28663,8 @@ const options = {
     fieldOptInSelectorTargetLocation: "after",
     fieldClearSelectorTarget: "div.en__field--title div, div.en__field--firstName div, div.en__field--email div",
     fieldClearSelectorTargetLocation: "after",
-    fieldNames: ["supporter.firstName", "supporter.lastName", "supporter.address1", "supporter.address2", "supporter.city", "supporter.country", "supporter.region", "supporter.postcode", "supporter.emailAddress"]
+    fieldNames: ["supporter.firstName", "supporter.lastName", "supporter.address1", "supporter.address2", "supporter.city", "supporter.country", "supporter.region", "supporter.postcode", "supporter.emailAddress"],
+    rememberMeLabel: "Remember me"
   },
   VGS: {
     "transaction.ccnumber": {

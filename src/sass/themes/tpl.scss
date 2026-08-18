@@ -44,7 +44,8 @@
   --click-to-expand__copy-area_height: 140px;
   --click-to-expand__cta-image_height: 26px;
   // TYPOGRAPHY DEFAULT
-  --default_font-family: "Helvetica Neue", var(--native-fonts__sans-serif);
+  --default_font-family: "helvetica-neue-lt-pro", "Helvetica Neue",
+    var(--native-fonts__sans-serif);
   --default_color: var(--color_black);
   --default_font-size: 22px;
   // --default_font-weight: initial;
@@ -172,7 +173,6 @@
   --submit__button_color: var(--color_white);
   --submit__button_background-color_hover: var(--color_sun);
   --submit__button_color_hover: var(--color_white);
-
   // DONATION PAGE
   --give-monthly-donation-amount-appended-label: "/mo";
   // --give-annual-donation-amount-appended-label: "/yr";
@@ -452,10 +452,13 @@
     justify-content: unset;
   }
 
+  .en__contactDetails__row--1,
   .en__contactDetails__row--2,
+  .en__contactDetails__row--1 .en__contactDetail,
   .en__contactDetail--organization {
-    font-size: 16px;
+    font-size: 20px;
     line-height: 28px;
+    font-weight: normal;
   }
 
   span.asterisk {
@@ -689,7 +692,7 @@
         margin-left: unset;
         opacity: 1;
         content: "Suggested";
-        font-family: "Helvetica Neue";
+        font-family: "helvetica-neue-lt-pro", "Helvetica Neue", sans-serif;
         font-size: 12px;
         font-style: normal;
         font-weight: 700;
@@ -720,7 +723,7 @@
       -webkit-line-clamp: 1;
       line-clamp: 1;
       text-overflow: ellipsis;
-      font-family: "Helvetica Neue";
+      font-family: "helvetica-neue-lt-pro", "Helvetica Neue", sans-serif;
       font-size: 24px;
       font-style: italic;
       font-weight: 400;
