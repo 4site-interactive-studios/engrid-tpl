@@ -19,7 +19,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Tuesday, August 18, 2026 @ 16:08:01 ET
+ *  Date: Thursday, August 20, 2026 @ 15:17:40 ET
  *  By: nick
  *  ENGrid styles: v0.27.3
  *  ENGrid scripts: v0.27.5
@@ -8365,10 +8365,15 @@ body[data-engrid-theme=tpl]:not(#en__pagebuilder) .click-to-expand:not(.expanded
 [data-engrid-theme=tpl] .en__component--formblock .en__field .en__field__helpText,[data-engrid-theme=tpl] .en__component--formblock .en__field .en__field__label:not(.en__field__label--item):not([for*=svquestion]),[data-engrid-theme=tpl] .en__component--svblock .en__field .en__field__helpText,[data-engrid-theme=tpl] .en__component--svblock .en__field .en__field__label:not(.en__field__label--item):not([for*=svquestion]),[data-engrid-theme=tpl] .en__registrants__registrantDetails .en__field .en__field__helpText,[data-engrid-theme=tpl] .en__registrants__registrantDetails .en__field .en__field__label:not(.en__field__label--item):not([for*=svquestion]){
   justify-content:unset;
 }
-[data-engrid-theme=tpl] .en__contactDetail--organization,[data-engrid-theme=tpl] .en__contactDetails__row--1,[data-engrid-theme=tpl] .en__contactDetails__row--1 .en__contactDetail,[data-engrid-theme=tpl] .en__contactDetails__row--2{
+[data-engrid-theme=tpl] .en__contactDetails__row--1,[data-engrid-theme=tpl] .en__contactDetails__row--1 .en__contactDetail{
   font-size:20px;
-  font-weight:400;
+  font-weight:700;
   line-height:28px;
+}
+[data-engrid-theme=tpl] .en__contactDetail--organization,[data-engrid-theme=tpl] .en__contactDetails__row--2{
+  font-size:16px;
+  font-weight:400;
+  line-height:22px;
 }
 [data-engrid-theme=tpl] span.asterisk{
   color:var(--color_semantic-required);
@@ -8615,7 +8620,7 @@ body[data-engrid-theme=tpl]:not(#en__pagebuilder) .click-to-expand:not(.expanded
 [data-engrid-theme=tpl] .give-by-select-wrapper .ach .en__field__label{
   gap:11px;
 }
-[data-engrid-theme=tpl] .give-by-select-wrapper .paypal{
+[data-engrid-theme=tpl] .give-by-select-wrapper .paypalicon{
   background:url(https://bd6ca9cefa6fb6e0adf1-c2f9aa1adb9f60a775f60074e4c86031.ssl.cf5.rackcdn.com/20002/paypal.svg?v=1781207227000) 50%/contain no-repeat;
   height:33px;
   margin-left:-15px;
@@ -8652,7 +8657,7 @@ body[data-engrid-theme=tpl]:not(#en__pagebuilder) .click-to-expand:not(.expanded
   height:33px;
   width:259px;
 }
-[data-engrid-theme=tpl] .give-by-select-wrapper input:checked+label .paypal{
+[data-engrid-theme=tpl] .give-by-select-wrapper input:checked+label .paypalicon{
   background:url(https://bd6ca9cefa6fb6e0adf1-c2f9aa1adb9f60a775f60074e4c86031.ssl.cf5.rackcdn.com/20002/paypal-active.svg?v=1781207222000) 50%/contain no-repeat;
 }
 [data-engrid-theme=tpl] .give-by-select-wrapper input:checked+label .venmo{

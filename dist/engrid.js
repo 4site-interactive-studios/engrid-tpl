@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Tuesday, August 18, 2026 @ 16:08:01 ET
+ *  Date: Thursday, August 20, 2026 @ 15:17:40 ET
  *  By: nick
  *  ENGrid styles: v0.27.3
  *  ENGrid scripts: v0.27.5
@@ -28659,7 +28659,7 @@ const options = {
   },
   RememberMe: {
     checked: true,
-    fieldOptInSelectorTarget: ".remember-me, div.en__field--postcode, div.en__field--telephone, div.en__field--email, div.en__field--lastName",
+    fieldOptInSelectorTarget: ".remember-me, .sms-disclaimer, .en__field--general-email-opt-in, div.en__field--email",
     fieldOptInSelectorTargetLocation: "after",
     fieldClearSelectorTarget: "div.en__field--title div, div.en__field--firstName div, div.en__field--email div",
     fieldClearSelectorTargetLocation: "after",

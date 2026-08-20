@@ -49,7 +49,7 @@ const options: Options = {
   RememberMe: {
     checked: true,
     fieldOptInSelectorTarget:
-      ".remember-me, div.en__field--postcode, div.en__field--telephone, div.en__field--email, div.en__field--lastName",
+      ".remember-me, .sms-disclaimer, .en__field--general-email-opt-in, div.en__field--email",
     fieldOptInSelectorTargetLocation: "after",
     fieldClearSelectorTarget:
       "div.en__field--title div, div.en__field--firstName div, div.en__field--email div",
