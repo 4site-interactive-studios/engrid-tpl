@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Wednesday, August 26, 2026 @ 10:18:36 ET
+ *  Date: Wednesday, August 26, 2026 @ 15:39:59 ET
  *  By: nick
  *  ENGrid styles: v0.27.3
  *  ENGrid scripts: v0.27.6
@@ -28714,6 +28714,14 @@ const options = {
   onResize: () => console.log("Starter Theme Window Resized"),
   onIntentSubmit: () => {
     sendSupporterDataToTatango();
+    // If the (optional) phone input is empty, clear the mobile opt-in input value as well
+    const phoneInput = document.querySelector('.en__field--phoneNumber2:not(.en__mandatory) input[name="supporter.phoneNumber2"]');
+    const mobileOptInInput = document.querySelector('input[name="supporter.questions.7902"]');
+    if (phoneInput && mobileOptInInput) {
+      if (phoneInput.value.trim() === "") {
+        mobileOptInInput.value = "";
+      }
+    }
   }
 };
 new App(options);

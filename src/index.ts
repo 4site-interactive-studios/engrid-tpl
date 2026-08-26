@@ -106,6 +106,18 @@ const options: Options = {
   onResize: () => console.log("Starter Theme Window Resized"),
   onIntentSubmit: () => {
     sendSupporterDataToTatango();
+    // If the (optional) phone input is empty, clear the mobile opt-in input value as well
+    const phoneInput = document.querySelector(
+      '.en__field--phoneNumber2:not(.en__mandatory) input[name="supporter.phoneNumber2"]'
+    ) as HTMLInputElement | null;
+    const mobileOptInInput = document.querySelector(
+      'input[name="supporter.questions.7902"]'
+    ) as HTMLInputElement | null;
+    if (phoneInput && mobileOptInInput) {
+      if (phoneInput.value.trim() === "") {
+        mobileOptInInput.value = "";
+      }
+    }
   },
 };
 new App(options);
