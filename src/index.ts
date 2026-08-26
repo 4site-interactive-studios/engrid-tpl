@@ -55,6 +55,7 @@ const options: Options = {
       "div.en__field--title div, div.en__field--firstName div, div.en__field--email div",
     fieldClearSelectorTargetLocation: "after",
     fieldNames: [
+      "supporter.title",
       "supporter.firstName",
       "supporter.lastName",
       "supporter.address1",
@@ -64,6 +65,7 @@ const options: Options = {
       "supporter.region",
       "supporter.postcode",
       "supporter.emailAddress",
+      "supporter.phoneNumber2",
     ],
     rememberMeLabel: "Remember me",
   },
