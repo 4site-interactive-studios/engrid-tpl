@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Thursday, October 1, 2026 @ 11:37:49 ET
+ *  Date: Monday, October 5, 2026 @ 09:39:37 ET
  *  By: nick
  *  ENGrid styles: v0.28.3
  *  ENGrid scripts: v0.28.5
@@ -29457,20 +29457,20 @@ const options = {
   SkipToMainContentLink: true,
   SrcDefer: true,
   ProgressBar: true,
-  // TidyContact: {
-  //   cid: "79d1b649-c5b5-4185-913b-250ca26127d3",
-  //   record_field: "supporter.NOT_TAGGED_9",
-  //   date_field: "supporter.NOT_TAGGED_10",
-  //   status_field: "supporter.NOT_TAGGED_11",
-  //   address_enable: true,
-  //   phone_enable: true,
-  //   phone_flags: true,
-  //   phone_country_from_ip: true,
-  //   phone_preferred_countries: ["US", "CA"],
-  //   phone_record_field: "supporter.NOT_TAGGED_12",
-  //   phone_date_field: "supporter.NOT_TAGGED_13",
-  //   phone_status_field: "supporter.NOT_TAGGED_14",
-  // },
+  TidyContact: {
+    cid: "79d1b649-c5b5-4185-913b-250ca26127d3",
+    record_field: "supporter.NOT_TAGGED_9",
+    date_field: "supporter.NOT_TAGGED_10",
+    status_field: "supporter.NOT_TAGGED_11",
+    address_enable: true,
+    phone_enable: true,
+    phone_flags: true,
+    phone_country_from_ip: true,
+    phone_preferred_countries: ["US", "CA"],
+    phone_record_field: "supporter.NOT_TAGGED_12",
+    phone_date_field: "supporter.NOT_TAGGED_13",
+    phone_status_field: "supporter.NOT_TAGGED_14"
+  },
   Placeholders: {
     "input#en__field_supporter_postcode": "ZIP",
     "input#en__field_supporter_emailAddress": "Email"
