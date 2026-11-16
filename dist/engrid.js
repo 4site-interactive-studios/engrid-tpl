@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Tuesday, November 3, 2026 @ 14:00:59 ET
+ *  Date: Monday, November 16, 2026 @ 09:45:40 ET
  *  By: nick
  *  ENGrid styles: v0.28.3
  *  ENGrid scripts: v0.28.7
@@ -29590,6 +29590,9 @@ const options = {
   //   phone_date_field: "supporter.NOT_TAGGED_13",
   //   phone_status_field: "supporter.NOT_TAGGED_14",
   // },
+  TidyContactEmail: {
+    clientKey: "79d1b649-c5b5-4185-913b-250ca26127d3"
+  },
   Placeholders: {
     "input#en__field_supporter_postcode": "ZIP",
     "input#en__field_supporter_emailAddress": "Email"
